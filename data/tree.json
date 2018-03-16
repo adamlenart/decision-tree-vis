@@ -1,0 +1,41 @@
+{
+    "petal width (cm)": [
+        "leaf_1",
+        {
+            "petal width (cm)": [
+                {
+                    "petal length (cm)": [
+                        {
+                            "petal width (cm)": [
+                                "leaf_2",
+                                "leaf_3"
+                            ]
+                        },
+                        {
+                            "petal width (cm)": [
+                                "leaf_4",
+                                {
+                                    "petal length (cm)": [
+                                        "leaf_5",
+                                        "leaf_6"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "petal length (cm)": [
+                        {
+                            "sepal length (cm)": [
+                                "leaf_7",
+                                "leaf_8"
+                            ]
+                        },
+                        "leaf_9"
+                    ]
+                }
+            ]
+        }
+    ]
+}
