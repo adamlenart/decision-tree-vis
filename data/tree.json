@@ -1,23 +1,41 @@
 {
-    "petal width (cm)": [
-        "leaf_1",
+    "name": "petal width (cm)",
+    "children": [
         {
-            "petal width (cm)": [
+            "name": "leaf1"
+        },
+        {
+            "name": "petal width (cm)",
+            "children": [
                 {
-                    "petal length (cm)": [
+                    "name": "petal length (cm)",
+                    "children": [
                         {
-                            "petal width (cm)": [
-                                "leaf_2",
-                                "leaf_3"
+                            "name": "petal width (cm)",
+                            "children": [
+                                {
+                                    "name": "leaf2"
+                                },
+                                {
+                                    "name": "leaf3"
+                                }
                             ]
                         },
                         {
-                            "petal width (cm)": [
-                                "leaf_4",
+                            "name": "petal width (cm)",
+                            "children": [
                                 {
-                                    "petal length (cm)": [
-                                        "leaf_5",
-                                        "leaf_6"
+                                    "name": "leaf4"
+                                },
+                                {
+                                    "name": "petal length (cm)",
+                                    "children": [
+                                        {
+                                            "name": "leaf5"
+                                        },
+                                        {
+                                            "name": "leaf6"
+                                        }
                                     ]
                                 }
                             ]
@@ -25,14 +43,22 @@
                     ]
                 },
                 {
-                    "petal length (cm)": [
+                    "name": "petal length (cm)",
+                    "children": [
                         {
-                            "sepal length (cm)": [
-                                "leaf_7",
-                                "leaf_8"
+                            "name": "sepal width (cm)",
+                            "children": [
+                                {
+                                    "name": "leaf7"
+                                },
+                                {
+                                    "name": "leaf8"
+                                }
                             ]
                         },
-                        "leaf_9"
+                        {
+                            "name": "leaf9"
+                        }
                     ]
                 }
             ]
