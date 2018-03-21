@@ -1,0 +1,67 @@
+{
+    "name": "petal width (cm)",
+    "children": [
+        {
+            "name": "leaf1"
+        },
+        {
+            "name": "petal width (cm)",
+            "children": [
+                {
+                    "name": "petal length (cm)",
+                    "children": [
+                        {
+                            "name": "petal width (cm)",
+                            "children": [
+                                {
+                                    "name": "leaf2"
+                                },
+                                {
+                                    "name": "leaf3"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "petal width (cm)",
+                            "children": [
+                                {
+                                    "name": "leaf4"
+                                },
+                                {
+                                    "name": "petal length (cm)",
+                                    "children": [
+                                        {
+                                            "name": "leaf5"
+                                        },
+                                        {
+                                            "name": "leaf6"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "petal length (cm)",
+                    "children": [
+                        {
+                            "name": "sepal width (cm)",
+                            "children": [
+                                {
+                                    "name": "leaf7"
+                                },
+                                {
+                                    "name": "leaf8"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "leaf9"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
