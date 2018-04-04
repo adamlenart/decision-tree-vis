@@ -1,0 +1,10 @@
+.zoom-button {
+    fill: lightgrey;
+    opacity: 0.4
+}
+
+.zoom-button-text {
+    fill: black;
+    font-size: 20px;
+    font-weight: 700
+}
