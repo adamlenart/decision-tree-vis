@@ -1,6 +1,6 @@
 .zoom-button {
-    fill: lightgrey;
-    opacity: 0.4
+    fill: grey;
+    fill-opacity: 0.2
 }
 
 .zoom-button-text {

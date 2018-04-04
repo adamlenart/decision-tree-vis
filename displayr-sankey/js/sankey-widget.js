@@ -192,6 +192,13 @@ HTMLWidgets.widget({
         zoomButtons = baseSvg.append('g').attr('class', 'zoom-button');
         zoomOut = zoomButtons.append('g');
         zoomIn = zoomButtons.append('g');
+
+        zoomIn
+            .append('text')
+            .attr('x', 17)
+            .attr('y', 31)
+            .text('+')
+            .attr('class', 'zoom-button-text');
         zoomIn
             .append('rect')
             .attr('x', 10)
@@ -199,12 +206,14 @@ HTMLWidgets.widget({
             .attr('width', '30')
             .attr('height', '30')
             .attr('id', 'zoom_in');
-        zoomIn
+
+        zoomOut
             .append('text')
-            .attr('x', 20)
-            .attr('y', 30)
-            .text('+')
-            .attr('class', 'zoom-button-text')
+            .attr('x', 22)
+            .attr('y', 66)
+            .text('-')
+            .attr('class', 'zoom-button-text');
+
 
         zoomOut
             .append('rect')
@@ -213,12 +222,7 @@ HTMLWidgets.widget({
             .attr('width', '30')
             .attr('height', '30')
             .attr('id', 'zoom_out');
-        zoomOut
-            .append('text')
-            .attr('x', 22)
-            .attr('y', 65)
-            .text('-')
-            .attr('class', 'zoom-button-text')
+
 
         // Zoom behavior
 
