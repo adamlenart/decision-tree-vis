@@ -1,0 +1,903 @@
+{
+    "evals": [],
+    "jsHooks": [],
+    "x": {
+        "data": {
+            "label": "x.age80<55.5",
+            "samples": 280479,
+            "value": [
+                78391,
+                202088
+            ],
+            "color": "#D95F02",
+            "children": [
+                {
+                    "label": "x.imprace_2<0.5",
+                    "samples": 126650,
+                    "value": [
+                        53640,
+                        73010
+                    ],
+                    "color": "#D95F02",
+                    "children": [
+                        {
+                            "label": "x.rfsmok3_1<0.5",
+                            "samples": 115848,
+                            "value": [
+                                46188,
+                                69660
+                            ],
+                            "color": "#D95F02",
+                            "children": [
+                                {
+                                    "label": "x.age80<48.5",
+                                    "samples": 22705,
+                                    "value": [
+                                        11538,
+                                        11167
+                                    ],
+                                    "color": "#1B9E77",
+                                    "children": [
+                                        {
+                                            "label": "x.age80<21.5",
+                                            "samples": 16011,
+                                            "value": [
+                                                8824,
+                                                7187
+                                            ],
+                                            "color": "#1B9E77",
+                                            "children": [
+                                                {
+                                                    "label": "leaf1",
+                                                    "samples": 1078,
+                                                    "value": [
+                                                        398,
+                                                        680
+                                                    ],
+                                                    "color": "#D95F02"
+                                                },
+                                                {
+                                                    "label": "leaf2",
+                                                    "samples": 14933,
+                                                    "value": [
+                                                        8426,
+                                                        6507
+                                                    ],
+                                                    "color": "#1B9E77"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "label": "x.impmrtl_1<0.5",
+                                            "samples": 6694,
+                                            "value": [
+                                                2714,
+                                                3980
+                                            ],
+                                            "color": "#D95F02",
+                                            "children": [
+                                                {
+                                                    "label": "leaf3",
+                                                    "samples": 3661,
+                                                    "value": [
+                                                        1756,
+                                                        1905
+                                                    ],
+                                                    "color": "#D95F02"
+                                                },
+                                                {
+                                                    "label": "leaf4",
+                                                    "samples": 3033,
+                                                    "value": [
+                                                        958,
+                                                        2075
+                                                    ],
+                                                    "color": "#D95F02"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "label": "x.age80<21.5",
+                                    "samples": 93143,
+                                    "value": [
+                                        34650,
+                                        58493
+                                    ],
+                                    "color": "#D95F02",
+                                    "children": [
+                                        {
+                                            "label": "x.impmrtl_5<0.5",
+                                            "samples": 6226,
+                                            "value": [
+                                                1038,
+                                                5188
+                                            ],
+                                            "color": "#D95F02",
+                                            "children": [
+                                                {
+                                                    "label": "leaf5",
+                                                    "samples": 685,
+                                                    "value": [
+                                                        206,
+                                                        479
+                                                    ],
+                                                    "color": "#D95F02"
+                                                },
+                                                {
+                                                    "label": "leaf6",
+                                                    "samples": 5541,
+                                                    "value": [
+                                                        832,
+                                                        4709
+                                                    ],
+                                                    "color": "#D95F02"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "label": "x.age80<48.5",
+                                            "samples": 86917,
+                                            "value": [
+                                                33612,
+                                                53305
+                                            ],
+                                            "color": "#D95F02",
+                                            "children": [
+                                                {
+                                                    "label": "leaf7",
+                                                    "samples": 60039,
+                                                    "value": [
+                                                        25601,
+                                                        34438
+                                                    ],
+                                                    "color": "#D95F02"
+                                                },
+                                                {
+                                                    "label": "leaf8",
+                                                    "samples": 26878,
+                                                    "value": [
+                                                        8011,
+                                                        18867
+                                                    ],
+                                                    "color": "#D95F02"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "label": "x.age80<20.5",
+                            "samples": 10802,
+                            "value": [
+                                7452,
+                                3350
+                            ],
+                            "color": "#1B9E77",
+                            "children": [
+                                {
+                                    "label": "x.age80<18.5",
+                                    "samples": 517,
+                                    "value": [
+                                        181,
+                                        336
+                                    ],
+                                    "color": "#D95F02",
+                                    "children": [
+                                        {
+                                            "label": "x.impcsex_123456789<0.5",
+                                            "samples": 193,
+                                            "value": [
+                                                45,
+                                                148
+                                            ],
+                                            "color": "#D95F02",
+                                            "children": [
+                                                {
+                                                    "label": "leaf9",
+                                                    "samples": 78,
+                                                    "value": [
+                                                        10,
+                                                        68
+                                                    ],
+                                                    "color": "#D95F02"
+                                                },
+                                                {
+                                                    "label": "leaf10",
+                                                    "samples": 115,
+                                                    "value": [
+                                                        35,
+                                                        80
+                                                    ],
+                                                    "color": "#D95F02"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "label": "htin4<64.5",
+                                            "samples": 324,
+                                            "value": [
+                                                136,
+                                                188
+                                            ],
+                                            "color": "#D95F02",
+                                            "children": [
+                                                {
+                                                    "label": "leaf11",
+                                                    "samples": 109,
+                                                    "value": [
+                                                        59,
+                                                        50
+                                                    ],
+                                                    "color": "#1B9E77"
+                                                },
+                                                {
+                                                    "label": "leaf12",
+                                                    "samples": 215,
+                                                    "value": [
+                                                        77,
+                                                        138
+                                                    ],
+                                                    "color": "#D95F02"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "label": "x.age80<46.5",
+                                    "samples": 10285,
+                                    "value": [
+                                        7271,
+                                        3014
+                                    ],
+                                    "color": "#1B9E77",
+                                    "children": [
+                                        {
+                                            "label": "x.age80<23.5",
+                                            "samples": 6504,
+                                            "value": [
+                                                4936,
+                                                1568
+                                            ],
+                                            "color": "#1B9E77",
+                                            "children": [
+                                                {
+                                                    "label": "leaf13",
+                                                    "samples": 593,
+                                                    "value": [
+                                                        368,
+                                                        225
+                                                    ],
+                                                    "color": "#1B9E77"
+                                                },
+                                                {
+                                                    "label": "leaf14",
+                                                    "samples": 5911,
+                                                    "value": [
+                                                        4568,
+                                                        1343
+                                                    ],
+                                                    "color": "#1B9E77"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "label": "drocdy3.<5.0",
+                                            "samples": 3781,
+                                            "value": [
+                                                2335,
+                                                1446
+                                            ],
+                                            "color": "#1B9E77",
+                                            "children": [
+                                                {
+                                                    "label": "leaf15",
+                                                    "samples": 2454,
+                                                    "value": [
+                                                        1399,
+                                                        1055
+                                                    ],
+                                                    "color": "#1B9E77"
+                                                },
+                                                {
+                                                    "label": "leaf16",
+                                                    "samples": 1327,
+                                                    "value": [
+                                                        936,
+                                                        391
+                                                    ],
+                                                    "color": "#1B9E77"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "label": "x.age80<69.5",
+                    "samples": 153829,
+                    "value": [
+                        24751,
+                        129078
+                    ],
+                    "color": "#D95F02",
+                    "children": [
+                        {
+                            "label": "x.impmrtl_1<0.5",
+                            "samples": 88980,
+                            "value": [
+                                19261,
+                                69719
+                            ],
+                            "color": "#D95F02",
+                            "children": [
+                                {
+                                    "label": "x.imprace_2<0.5",
+                                    "samples": 35241,
+                                    "value": [
+                                        10243,
+                                        24998
+                                    ],
+                                    "color": "#D95F02",
+                                    "children": [
+                                        {
+                                            "label": "x.impmrtl_3<0.5",
+                                            "samples": 31034,
+                                            "value": [
+                                                8309,
+                                                22725
+                                            ],
+                                            "color": "#D95F02",
+                                            "children": [
+                                                {
+                                                    "label": "leaf17",
+                                                    "samples": 23068,
+                                                    "value": [
+                                                        6863,
+                                                        16205
+                                                    ],
+                                                    "color": "#D95F02"
+                                                },
+                                                {
+                                                    "label": "leaf18",
+                                                    "samples": 7966,
+                                                    "value": [
+                                                        1446,
+                                                        6520
+                                                    ],
+                                                    "color": "#D95F02"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "label": "x.age80<60.5",
+                                            "samples": 4207,
+                                            "value": [
+                                                1934,
+                                                2273
+                                            ],
+                                            "color": "#D95F02",
+                                            "children": [
+                                                {
+                                                    "label": "leaf19",
+                                                    "samples": 1695,
+                                                    "value": [
+                                                        916,
+                                                        779
+                                                    ],
+                                                    "color": "#1B9E77"
+                                                },
+                                                {
+                                                    "label": "leaf20",
+                                                    "samples": 2512,
+                                                    "value": [
+                                                        1018,
+                                                        1494
+                                                    ],
+                                                    "color": "#D95F02"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "label": "x.imprace_2<0.5",
+                                    "samples": 53739,
+                                    "value": [
+                                        9018,
+                                        44721
+                                    ],
+                                    "color": "#D95F02",
+                                    "children": [
+                                        {
+                                            "label": "x.impeduc_4<0.5",
+                                            "samples": 51305,
+                                            "value": [
+                                                8165,
+                                                43140
+                                            ],
+                                            "color": "#D95F02",
+                                            "children": [
+                                                {
+                                                    "label": "leaf21",
+                                                    "samples": 38093,
+                                                    "value": [
+                                                        6639,
+                                                        31454
+                                                    ],
+                                                    "color": "#D95F02"
+                                                },
+                                                {
+                                                    "label": "leaf22",
+                                                    "samples": 13212,
+                                                    "value": [
+                                                        1526,
+                                                        11686
+                                                    ],
+                                                    "color": "#D95F02"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "label": "x.rfmam2y_123456789<0.5",
+                                            "samples": 2434,
+                                            "value": [
+                                                853,
+                                                1581
+                                            ],
+                                            "color": "#D95F02",
+                                            "children": [
+                                                {
+                                                    "label": "leaf23",
+                                                    "samples": 1342,
+                                                    "value": [
+                                                        405,
+                                                        937
+                                                    ],
+                                                    "color": "#D95F02"
+                                                },
+                                                {
+                                                    "label": "leaf24",
+                                                    "samples": 1092,
+                                                    "value": [
+                                                        448,
+                                                        644
+                                                    ],
+                                                    "color": "#D95F02"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "label": "x.age80<75.5",
+                            "samples": 64849,
+                            "value": [
+                                5490,
+                                59359
+                            ],
+                            "color": "#D95F02",
+                            "children": [
+                                {
+                                    "label": "x.imprace_2<0.5",
+                                    "samples": 28340,
+                                    "value": [
+                                        3314,
+                                        25026
+                                    ],
+                                    "color": "#D95F02",
+                                    "children": [
+                                        {
+                                            "label": "x.impmrtl_2<0.5",
+                                            "samples": 26612,
+                                            "value": [
+                                                2884,
+                                                23728
+                                            ],
+                                            "color": "#D95F02",
+                                            "children": [
+                                                {
+                                                    "label": "leaf25",
+                                                    "samples": 22668,
+                                                    "value": [
+                                                        2183,
+                                                        20485
+                                                    ],
+                                                    "color": "#D95F02"
+                                                },
+                                                {
+                                                    "label": "leaf26",
+                                                    "samples": 3944,
+                                                    "value": [
+                                                        701,
+                                                        3243
+                                                    ],
+                                                    "color": "#D95F02"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "label": "x.rfmam2y_123456789<0.5",
+                                            "samples": 1728,
+                                            "value": [
+                                                430,
+                                                1298
+                                            ],
+                                            "color": "#D95F02",
+                                            "children": [
+                                                {
+                                                    "label": "leaf27",
+                                                    "samples": 1180,
+                                                    "value": [
+                                                        248,
+                                                        932
+                                                    ],
+                                                    "color": "#D95F02"
+                                                },
+                                                {
+                                                    "label": "leaf28",
+                                                    "samples": 548,
+                                                    "value": [
+                                                        182,
+                                                        366
+                                                    ],
+                                                    "color": "#D95F02"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "label": "x.imprace_1<0.5",
+                                    "samples": 36509,
+                                    "value": [
+                                        2176,
+                                        34333
+                                    ],
+                                    "color": "#D95F02",
+                                    "children": [
+                                        {
+                                            "label": "x.rfmam2y_123456789<0.5",
+                                            "samples": 4329,
+                                            "value": [
+                                                530,
+                                                3799
+                                            ],
+                                            "color": "#D95F02",
+                                            "children": [
+                                                {
+                                                    "label": "leaf29",
+                                                    "samples": 2968,
+                                                    "value": [
+                                                        292,
+                                                        2676
+                                                    ],
+                                                    "color": "#D95F02"
+                                                },
+                                                {
+                                                    "label": "leaf30",
+                                                    "samples": 1361,
+                                                    "value": [
+                                                        238,
+                                                        1123
+                                                    ],
+                                                    "color": "#D95F02"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "label": "x.rfmam2y_123456789<0.5",
+                                            "samples": 32180,
+                                            "value": [
+                                                1646,
+                                                30534
+                                            ],
+                                            "color": "#D95F02",
+                                            "children": [
+                                                {
+                                                    "label": "leaf31",
+                                                    "samples": 21181,
+                                                    "value": [
+                                                        800,
+                                                        20381
+                                                    ],
+                                                    "color": "#D95F02"
+                                                },
+                                                {
+                                                    "label": "leaf32",
+                                                    "samples": 10999,
+                                                    "value": [
+                                                        846,
+                                                        10153
+                                                    ],
+                                                    "color": "#D95F02"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "opts": {
+            "childrenName": "children",
+            "id": "id",
+            "maxLabelLength": 15,
+            "name": "label",
+            "nodeHeight": null,
+            "tooltip": null,
+            "treeColors": false,
+            "value": "samples"
+        }
+    },
+    "importances": [
+        {
+            "attribute": "x.imprace_1",
+            "importance": 0.0023135909566854994
+        },
+        {
+            "attribute": "x.imprace_2",
+            "importance": 0.13023458785270028
+        },
+        {
+            "attribute": "x.imprace_3",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.imprace_4",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.imprace_5",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.imprace_6",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impeduc_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impeduc_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impeduc_3",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impeduc_4",
+            "importance": 0.004045105634107012
+        },
+        {
+            "attribute": "x.impeduc_5",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impeduc_6",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impmrtl_1",
+            "importance": 0.043639939661686146
+        },
+        {
+            "attribute": "x.impmrtl_2",
+            "importance": 0.002658704445202566
+        },
+        {
+            "attribute": "x.impmrtl_3",
+            "importance": 0.009506676939867911
+        },
+        {
+            "attribute": "x.impmrtl_4",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impmrtl_5",
+            "importance": 0.0016495197198131992
+        },
+        {
+            "attribute": "x.impmrtl_6",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impcsex_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impcsex_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impcsex_123456789",
+            "importance": 0.00017208292811875448
+        },
+        {
+            "attribute": "x.asthms1_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.asthms1_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.asthms1_3",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.asthms1_9",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.incomg_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.incomg_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.incomg_3",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.incomg_4",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.incomg_5",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.incomg_9",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.rfseat3_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.rfseat3_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.rfseat3_9",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.flshot6_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.flshot6_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.flshot6_9",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.flshot6_123456789",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.pneumo2_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.pneumo2_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.pneumo2_9",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.pneumo2_123456789",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.bmi5cat_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.bmi5cat_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.bmi5cat_3",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.bmi5cat_4",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.bmi5cat_123456789",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.rfmam2y_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.rfmam2y_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.rfmam2y_9",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.rfmam2y_123456789",
+            "importance": 0.003484872266025562
+        },
+        {
+            "attribute": "x.denvst2_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.denvst2_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.denvst2_9",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.rfsmok3_1",
+            "importance": 0.04038912159127779
+        },
+        {
+            "attribute": "x.rfsmok3_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.rfsmok3_9",
+            "importance": 0.0
+        },
+        {
+            "attribute": "sleptim1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.age80",
+            "importance": 0.7597358509002037
+        },
+        {
+            "attribute": "x.impnph",
+            "importance": 0.0
+        },
+        {
+            "attribute": "htin4",
+            "importance": 0.00028952283582140076
+        },
+        {
+            "attribute": "wtkg3",
+            "importance": 0.0
+        },
+        {
+            "attribute": "drocdy3.",
+            "importance": 0.0018804242684903132
+        },
+        {
+            "attribute": "x.drnkmo4",
+            "importance": 0.0
+        }
+    ]
+}

@@ -1,0 +1,83 @@
+,
+<!DOCTYPE html>
+<!-- saved from url=(0073)https://bl.ocks.org/timelyportfolio/raw/34296462d01cc80915d1f01431723763/ -->
+<html style="width: 100%; height: 100%;">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src='js/d3.min.js'></script>
+    <script src="js/bar.js"></script>
+    <script src='js/htmlwidgets_modified.js'></script>
+    <link href="css/tooltip.css" rel="stylesheet">
+    <script src='js/d3-tip.js'></script>
+    <link href="css/graph.css" rel="stylesheet">
+    <link href="css/zoom.css" rel="stylesheet">
+    <link href="css/button.css" rel="stylesheet">
+    <script src="js/sankey-widget.js"></script>
+
+</head>
+
+
+<style>
+    .bar {
+        fill: steelblue;
+    }
+
+    .bar:hover {
+        fill: brown;
+    }
+
+</style>
+
+</head>
+
+<body style="background-color:white;">
+
+
+    <div class="tabbable">
+        <ul class="nav nav-tabs">
+            <li class="active"><a class="atab" href="#sankey_tab" data-toggle="tab">Decision Tree</a></li>
+            <li><a class="btab" href="#barplot_tab" data-toggle="tab">Feature Importance</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="sankey_tab">
+
+                <div id="htmlwidget_container" style="width:1180px;height:500px">
+                    <div id="htmlwidget" class="sankeytree" style="width:960px;height:500px;">
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="tab-pane" id="barplot_tab">
+
+
+                <svg id="barplot_container" width="800" height="600"></svg>
+                <br>
+                <strong>Sort type</strong>
+                </br>
+                <button type="button" class="sort-button" autofocus="autofocus" id="button_alphabetic">Alphabetic</button>
+                <button type="button" class="sort-button" id="button_ranking">Ranking</button>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script type="application/json" data-for="htmlwidget">
+        data/tree_brfss.json
+
+    </script>
+
+</body>
+</body>
+
+</html>
