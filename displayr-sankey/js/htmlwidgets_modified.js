@@ -661,14 +661,6 @@
                         binding.renderValue(el, data.x, initResult);
                         evalAndRun(data.jsHooks.render, initResult, [el, data.x]);
 
-
-                        function keepImportant(data) {
-                            return data.importances.filter(function (d) {
-                                return d.importance > 0;
-                            })
-
-                        };
-
                         // Draw barplot
                         draw(keepImportant(data));
                         sortFeature(keepImportant(data));

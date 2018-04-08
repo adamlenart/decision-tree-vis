@@ -1,5 +1,6 @@
 // helper function to filter out the features with 0 importances which would only clog the view
 function keepImportant(data) {
+    console.log(data);
     return data.importances.filter(function (d) {
         return d.importance > 0;
     })
@@ -15,7 +16,7 @@ function barplotInit(data) {
         margin = {
             top: 20,
             right: 50,
-            bottom: 125,
+            bottom: 175,
             left: 75
         };
     var width = svg.attr("width") - margin.left - margin.right,
@@ -73,7 +74,7 @@ function draw(data) {
         .call(barplot.xAxis)
         .selectAll("text")
         .attr("transform", " translate(-15, 10) rotate(-65)")
-        .attr("text-anchor", "start");
+        .style("text-anchor", "end");
 
     barplot.g.append("text")
         .attr("dx", "1em")
@@ -89,8 +90,8 @@ function draw(data) {
     barplot.g.append("text")
         .attr("transform", "rotate(-90)")
         .attr("dy", "0.71em")
-        .attr("y", 0 - barplot.margin.left)
-        .attr("x", 0 - (barplot.height / 2) - 20)
+        .attr("y", 0 - barplot.margin.left / 2 - 25)
+        .attr("x", 0 - (barplot.height / 2) - 30)
         .text("Importance")
         .style("font-size", "20px");
 
@@ -106,7 +107,7 @@ function draw(data) {
             return barplot.yScale(d.importance);
         })
         .attr("width", function (d) {
-            return (barplot.width / data.length);
+            return (barplot.width / data.length - 10);
         })
         .attr("height", function (d) {
             return barplot.height - barplot.yScale(d.importance);
@@ -116,26 +117,27 @@ function draw(data) {
         .on("mousemove", function (d) {
             var xPosition = d3.mouse(this)[0] - 15;
             var yPosition = d3.mouse(this)[1] - 25;
-            tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-            tooltip.select("text")
+            tooltip_bar.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+            tooltip_bar.select("text")
                 .text(d.attribute + ": " + d.importance);
+
         });
 
     ////////////////////////////////////////////
     //              tooltip                   //
     ////////////////////////////////////////////
     
-    var tooltip = barplot.svg.append("g")
-        .attr("class", "tooltip")
+    var tooltip_bar = barplot.svg.append("g")
+        .attr("class", "tooltip_bar")
         .style("display", "none");
 
-    tooltip.append("rect")
+    tooltip_bar.append("rect")
         .attr("width", 30)
         .attr("height", 20)
         .attr("fill", "white")
         .style("opacity", 0.5);
 
-    tooltip.append("text")
+    tooltip_bar.append("text")
         .attr("x", 15)
         .attr("dy", "1.2em")
         .attr("font-size", "12px")
@@ -143,11 +145,11 @@ function draw(data) {
         .attr("fill","black");
 
     function mouseover() {
-        tooltip.style("display", null);
+        tooltip_bar.style("display", null);
     }
 
     function mouseout() {
-        tooltip.style("display", "none");
+        tooltip_bar.style("display", "none");
     }
 };
 
@@ -210,7 +212,7 @@ function sortFeature(data) {
                 return i * 15;
             })
             .attr("transform", " translate(-15, 10) rotate(-65)")
-            .attr("text-anchor", "end");
+            .style("text-anchor", "end");
     })
 
 };
