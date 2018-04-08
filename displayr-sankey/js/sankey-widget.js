@@ -133,7 +133,6 @@ HTMLWidgets.widget({
         visit(treeData, function (d) {
             totalNodes++;
             maxLabelLength = opts.maxLabelLength || Math.max(d[opts.name].length, maxLabelLength);
-            console.log(d[opts.name]);
             meanLabelLength = meanLabelLength + d[opts.name].length;
 
         }, function (d) {

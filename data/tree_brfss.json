@@ -638,8 +638,267 @@
             "name": "label",
             "nodeHeight": null,
             "tooltip": null,
-            "treeColors": true,
+            "treeColors": false,
             "value": "samples"
         }
-    }
+    },
+    "importances": [
+        {
+            "attribute": "x.imprace_1",
+            "importance": 0.0023135909566854994
+        },
+        {
+            "attribute": "x.imprace_2",
+            "importance": 0.13023458785270028
+        },
+        {
+            "attribute": "x.imprace_3",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.imprace_4",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.imprace_5",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.imprace_6",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impeduc_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impeduc_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impeduc_3",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impeduc_4",
+            "importance": 0.004045105634107012
+        },
+        {
+            "attribute": "x.impeduc_5",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impeduc_6",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impmrtl_1",
+            "importance": 0.043639939661686146
+        },
+        {
+            "attribute": "x.impmrtl_2",
+            "importance": 0.002658704445202566
+        },
+        {
+            "attribute": "x.impmrtl_3",
+            "importance": 0.009506676939867911
+        },
+        {
+            "attribute": "x.impmrtl_4",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impmrtl_5",
+            "importance": 0.0016495197198131992
+        },
+        {
+            "attribute": "x.impmrtl_6",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impcsex_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impcsex_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.impcsex_123456789",
+            "importance": 0.00017208292811875448
+        },
+        {
+            "attribute": "x.asthms1_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.asthms1_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.asthms1_3",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.asthms1_9",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.incomg_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.incomg_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.incomg_3",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.incomg_4",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.incomg_5",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.incomg_9",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.rfseat3_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.rfseat3_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.rfseat3_9",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.flshot6_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.flshot6_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.flshot6_9",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.flshot6_123456789",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.pneumo2_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.pneumo2_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.pneumo2_9",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.pneumo2_123456789",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.bmi5cat_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.bmi5cat_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.bmi5cat_3",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.bmi5cat_4",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.bmi5cat_123456789",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.rfmam2y_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.rfmam2y_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.rfmam2y_9",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.rfmam2y_123456789",
+            "importance": 0.003484872266025562
+        },
+        {
+            "attribute": "x.denvst2_1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.denvst2_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.denvst2_9",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.rfsmok3_1",
+            "importance": 0.04038912159127779
+        },
+        {
+            "attribute": "x.rfsmok3_2",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.rfsmok3_9",
+            "importance": 0.0
+        },
+        {
+            "attribute": "sleptim1",
+            "importance": 0.0
+        },
+        {
+            "attribute": "x.age80",
+            "importance": 0.7597358509002037
+        },
+        {
+            "attribute": "x.impnph",
+            "importance": 0.0
+        },
+        {
+            "attribute": "htin4",
+            "importance": 0.00028952283582140076
+        },
+        {
+            "attribute": "wtkg3",
+            "importance": 0.0
+        },
+        {
+            "attribute": "drocdy3.",
+            "importance": 0.0018804242684903132
+        },
+        {
+            "attribute": "x.drnkmo4",
+            "importance": 0.0
+        }
+    ]
+
 }

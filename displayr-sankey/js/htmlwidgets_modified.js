@@ -643,12 +643,13 @@
                     }
                 }
                 var scriptData = document.querySelector("script[data-for='" + el.id + "'][type='application/json']");
-		// Rewrote the load method for a more dynamic data load instead of hard-coded JSON data in index.html
+
+                // Rewrote the load method for a more dynamic data load instead of hard-coded JSON data in index.html
+
 
                 if (scriptData) {
                     data = [];
                     d3.json(scriptData.textContent || scriptData.text, function (json) {
-                        console.log(json);
                         data = json;
                         // eval(scriptData.textContent);
                         //var data = JSON.parse(scriptData.textContent || scriptData.text);
@@ -659,6 +660,19 @@
                         }
                         binding.renderValue(el, data.x, initResult);
                         evalAndRun(data.jsHooks.render, initResult, [el, data.x]);
+
+
+                        function keepImportant(data) {
+                            return data.importances.filter(function (d) {
+                                return d.importance > 0;
+                            })
+
+                        };
+
+                        // Draw barplot
+                        draw(keepImportant(data));
+                        sortFeature(keepImportant(data));
+
                     });
                 }
             });
