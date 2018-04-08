@@ -74,6 +74,7 @@
                                         }
                                     ]
                                 },
+            
                                 {
                                     "label": "petal width (cm)<1.55",
                                     "samples": 6,
@@ -195,7 +196,7 @@
             "name": "label",
             "nodeHeight": null,
             "tooltip": null,
-            "treeColors": true,
+            "treeColors": false,
             "value": "samples"
         }
     }

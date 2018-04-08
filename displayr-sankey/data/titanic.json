@@ -1,0 +1,216 @@
+{
+  "evals": [], 
+  "jsHooks": [], 
+  "x": {
+    "data": {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "colname": "Survived", 
+                  "color": "red", 
+                  "name": "No", 
+                  "size": 4
+                }, 
+                {
+                  "colname": "Survived", 
+                  "color": "green", 
+                  "name": "Yes", 
+                  "size": 141
+                }
+              ], 
+              "colname": "Sex", 
+              "color": "pink", 
+              "name": "Female", 
+              "size": 145
+            }, 
+            {
+              "children": [
+                {
+                  "colname": "Survived", 
+                  "color": "red", 
+                  "name": "No", 
+                  "size": 118
+                }, 
+                {
+                  "colname": "Survived", 
+                  "color": "green", 
+                  "name": "Yes", 
+                  "size": 62
+                }
+              ], 
+              "colname": "Sex", 
+              "color": "cadetblue", 
+              "name": "Male", 
+              "size": 180
+            }
+          ], 
+          "colname": "Class", 
+          "color": "gray", 
+          "name": "1st", 
+          "size": 325
+        }, 
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "colname": "Survived", 
+                  "color": "red", 
+                  "name": "No", 
+                  "size": 13
+                }, 
+                {
+                  "colname": "Survived", 
+                  "color": "green", 
+                  "name": "Yes", 
+                  "size": 93
+                }
+              ], 
+              "colname": "Sex", 
+              "color": "pink", 
+              "name": "Female", 
+              "size": 106
+            }, 
+            {
+              "children": [
+                {
+                  "colname": "Survived", 
+                  "color": "red", 
+                  "name": "No", 
+                  "size": 154
+                }, 
+                {
+                  "colname": "Survived", 
+                  "color": "green", 
+                  "name": "Yes", 
+                  "size": 25
+                }
+              ], 
+              "colname": "Sex", 
+              "color": "cadetblue", 
+              "name": "Male", 
+              "size": 179
+            }
+          ], 
+          "colname": "Class", 
+          "color": "gray", 
+          "name": "2nd", 
+          "size": 285
+        }, 
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "colname": "Survived", 
+                  "color": "red", 
+                  "name": "No", 
+                  "size": 106
+                }, 
+                {
+                  "colname": "Survived", 
+                  "color": "green", 
+                  "name": "Yes", 
+                  "size": 90
+                }
+              ], 
+              "colname": "Sex", 
+              "color": "pink", 
+              "name": "Female", 
+              "size": 196
+            }, 
+            {
+              "children": [
+                {
+                  "colname": "Survived", 
+                  "color": "red", 
+                  "name": "No", 
+                  "size": 422
+                }, 
+                {
+                  "colname": "Survived", 
+                  "color": "green", 
+                  "name": "Yes", 
+                  "size": 88
+                }
+              ], 
+              "colname": "Sex", 
+              "color": "cadetblue", 
+              "name": "Male", 
+              "size": 510
+            }
+          ], 
+          "colname": "Class", 
+          "color": "gray", 
+          "name": "3rd", 
+          "size": 706
+        }, 
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "colname": "Survived", 
+                  "color": "red", 
+                  "name": "No", 
+                  "size": 3
+                }, 
+                {
+                  "colname": "Survived", 
+                  "color": "green", 
+                  "name": "Yes", 
+                  "size": 20
+                }
+              ], 
+              "colname": "Sex", 
+              "color": "pink", 
+              "name": "Female", 
+              "size": 23
+            }, 
+            {
+              "children": [
+                {
+                  "colname": "Survived", 
+                  "color": "red", 
+                  "name": "No", 
+                  "size": 670
+                }, 
+                {
+                  "colname": "Survived", 
+                  "color": "green", 
+                  "name": "Yes", 
+                  "size": 192
+                }
+              ], 
+              "colname": "Sex", 
+              "color": "cadetblue", 
+              "name": "Male", 
+              "size": 862
+            }
+          ], 
+          "colname": "Class", 
+          "color": "gray", 
+          "name": "Crew", 
+          "size": 885
+        }
+      ], 
+      "color": "#F0F", 
+      "name": "Titanic", 
+      "size": 2201
+    }, 
+    "opts": {
+      "childrenName": "children", 
+      "id": "id", 
+      "maxLabelLength": 15, 
+      "name": "name", 
+      "nodeHeight": null, 
+      "tooltip": null, 
+      "treeColors": false, 
+      "value": "size"
+    }
+  }
+}
+
