@@ -5,17 +5,19 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src='js/d3.min.js'></script>
-    <script src="js/bar.js"></script>
-    <script src='js/htmlwidgets_modified.js'></script>
-    <link href="css/tooltip.css" rel="stylesheet">
-    <script src='js/d3-tip.js'></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link href="css/graph.css" rel="stylesheet">
     <link href="css/zoom.css" rel="stylesheet">
     <link href="css/button.css" rel="stylesheet">
+    <link href="css/tooltip.css" rel="stylesheet">
+<!--    <link href="css/decisionPaths.css" rel="stylesheet">-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src='js/d3.min.js'></script>
+    <script src="js/bar.js"></script>
+    <script src="js/decision-paths.js"></script>
+    <script src='js/htmlwidgets_modified.js'></script>
+    <script src='js/d3-tip.js'></script>
     <script src="js/sankey-widget.js"></script>
 
 </head>
@@ -196,7 +198,14 @@
             </div>
 
             <div class="tab-pane" id="decision_path_tab">
-                Decision path
+                <div class="container">                                                                                      
+  <div class="table-responsive">          
+  <table class="table" id="decision-path-table">
+
+  </table>
+  </div>
+</div>
+
             </div>
 
 

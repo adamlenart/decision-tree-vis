@@ -1,6 +1,5 @@
 // helper function to filter out the features with 0 importances which would only clog the view
 function keepImportant(data) {
-    console.log(data);
     return data.importances.filter(function (d) {
         return d.importance > 0;
     })
@@ -61,8 +60,7 @@ function barplotInit(data) {
 ////////////////////////////////////////
 
 
-function draw(data) {
-    console.log(data);
+function drawBarplot(data) {
     barplot = barplotInit(data);
 
 
