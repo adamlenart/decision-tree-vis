@@ -38,14 +38,145 @@
 
     <div class="tabbable">
         <ul class="nav nav-tabs">
-            <li class="active"><a class="atab" href="#sankey_tab" data-toggle="tab">Decision Tree</a></li>
-            <li><a class="btab" href="#barplot_tab" data-toggle="tab">Feature Importance</a></li>
+            <li><a class="dtab" href="#description_tab" data-toggle="tab">Description</a></li>
+            <li class="active"><a href="#sankey_tab" data-toggle="tab">Decision Tree</a></li>
+            <li><a href="#barplot_tab" data-toggle="tab">Feature Importance</a></li>
+            <li><a href="#decision_path_tab" data-toggle="tab">Decision Path</a></li>
         </ul>
         <div class="tab-content">
+
+            <div class="tab-pane" id="description_tab">
+                <h1> Description of the Decision Tree </h1>
+                <p>The goal of this project is to create an interactive visualization of decision trees which clearly highlights important features while allowing an analyst to select different branches for morespecific information on the features leading to that result. The following tabs shows an demonstration of the visuals with an example decision tree fit on US behavioral risk factor surveillance system report. The goal of this decision tree is to predict for having been tested for AIDS using demographic and health information</p>
+                <p> Below is the features used in the decision tree: </p>
+                <ul>
+                    <li>x.imprace : Imputed race/ethnicity value.</li>
+                    <ul>
+                        <li>1-White,non-Hispanic</li>
+                        <li>2-Black,non-Hispanic</li>
+                        <li>3-Asian,non-Hispanic</li>
+                        <li>4-American Indian/Alaskan Native, non-Hispanic</li>
+                        <li>5-Hispanic</li>
+                        <li>6-Other race,non-Hispanic</li>
+                    </ul>
+
+                    <li>x.impeduc : Imputed Education Level.</li>
+                    <ul>
+                        <li>1-Never attend school or only kindergarten</li>
+                        <li>2-Elementary</li>
+                        <li>3-Some high school</li>
+                        <li>4-High school graduate</li>
+                        <li>5-College 1-3 years</li>
+                        <li>6-College graduate</li>
+                    </ul>
+
+                    <li>x.impmrtl : Imputed Marital Status.</li>
+                    <ul>
+                        <li>1-Married</li>
+                        <li>2-Divorced</li>
+                        <li>3-Widowed</li>
+                        <li>4-Separated</li>
+                        <li>5-Never married</li>
+                        <li>6-A member of an unmarried couple</li>
+                    </ul>
+
+                    <li>x.impcsex : Imputed Child Gender</li>
+                    <ul>
+                        <li>1-Male</li>
+                        <li>2-Female</li>
+                        <li>123456789-Missing</li>
+                    </ul>
+
+                    <li>x.asthms1 : Computed asthma status</li>
+                    <ul>
+                        <li>1-Current</li>
+                        <li>2-Former</li>
+                        <li>3-Never</li>
+                        <li>123456789-Don't know/ Not sure or refused/ Missing</li>
+                    </ul>
+
+                    <li>x.incomg : Income categories.</li>
+                    <ul>
+                        <li>1-Less than $15,000</li>
+                        <li>2-$15,000 to less than $25,000</li>
+                        <li>3-$25,000 to less than $35,000</li>
+                        <li>4-$35,000 to less than $50,000</li>
+                        <li>5-$50,000 or more</li>
+                        <li>123456789-Don’t know/Not sure/Missing</li>
+                    </ul>
+
+                    <li>x.rfseat3 : Always Wear Seat Belts Calculated Variable</li>
+                    <ul>
+                        <li>1-Always Wear Seat Belt</li>
+                        <li>2-Don’t Always Wear Seat Belt</li>
+                        <li>123456789-Don't know/ Not sure or refused/ Missing</li>
+                    </ul>
+
+                    <li>x.flshot6 : Adults aged 65+ who have had a flu shot within the past year</li>
+                    <ul>
+                        <li>1-Yes</li>
+                        <li>2-No</li>
+                        <li>123456789-Don't know/ Not sure or refused/ Missing</li>
+                    </ul>
+
+                    <li>x.pneumo2 : Adults aged 65+ who have ever had a pneumonia vaccination</li>
+                    <ul>
+                        <li>1-Yes</li>
+                        <li>2-No</li>
+                        <li>123456789-Don't know/ Not sure or refused/ Missing</li>
+                    </ul>
+
+                    <li>x.bmi5cat : Four-categories of Body Mass Index (BMI)</li>
+                    <ul>
+                        <li>1-Underweight</li>
+                        <li>2-Normal weight</li>
+                        <li>3-Overweight</li>
+                        <li>4-Obese</li>
+                        <li>123456789-Don’t know/Refused/Missing</li>
+                    </ul>
+
+                    <li>x.rfmam2y : Women respondents aged 40+ who have had a mammogram in the past two years</li>
+                    <ul>
+                        <li>1-Yes</li>
+                        <li>2-No</li>
+                        <li>123456789-Don't know/ Not sure or refused/ Missing</li>
+                    </ul>
+
+                    <li>x.denvst2 : Adults who have visited a dentist, dental hygenist or dental clinic within the past year</li>
+                    <ul>
+                        <li>1-Yes</li>
+                        <li>2-No</li>
+                        <li>123456789-Don't know/ Not sure or refused/ Missing</li>
+                    </ul>
+
+                    <li>x.rfsmok3 : Adults who are current smokers</li>
+                    <ul>
+                        <li>1-Yes</li>
+                        <li>2-No</li>
+                        <li>123456789-Don't know/ Not sure or refused/ Missing</li>
+                    </ul>
+
+                    <li>sleptim1 : On average, how many hours of sleep do you get in a 24-hour period?</li>
+                    <ul>
+                        <li>1-24: Number of hours</li>
+                        <li>123456789-Don't know/ Not sure or refused/ Missing</li>
+                    </ul>
+
+                    <li>x.age80 : Imputed Age value collapsed above 80</li>
+                    <li>x.impnph : Imputed number of phones used in weighting</li>
+                    <li>htin4 : Reported height in inches</li>
+                    <li>wtkg3 : Reported weight in kilograms [2 implied decimal places]</li>
+                    <li>drocdy3 : Drink-occasions-per-day</li>
+                    <li>x.drnkmo4 : Calculated total number of alcoholic beverages consumed per month</li>
+
+                </ul>
+
+            </div>
+
             <div class="tab-pane active" id="sankey_tab">
 
-                <div id="htmlwidget_container" style="width:1180px;height:500px">
-                    <div id="htmlwidget" class="sankeytree" style="width:960px;height:500px;">
+                <div id="htmlwidget_container" style="width:1440px;height:750px">
+                    <div id="htmlwidget" class="sankeytree" style="width:1440px;height:750px;">
                     </div>
                 </div>
 
@@ -63,12 +194,16 @@
 
 
             </div>
+
+            <div class="tab-pane" id="decision_path_tab">
+                Decision path
+            </div>
+
+
+
+
         </div>
     </div>
-
-
-
-
 
 
     <script type="application/json" data-for="htmlwidget">
