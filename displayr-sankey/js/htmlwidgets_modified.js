@@ -662,8 +662,11 @@
                         evalAndRun(data.jsHooks.render, initResult, [el, data.x]);
 
                         // Draw barplot
-                        draw(keepImportant(data));
+                        drawBarplot(keepImportant(data));
                         sortFeature(keepImportant(data));
+                        
+                        //Decision paths
+                        drawDecisionPathTable(data);
 
                     });
                 }
