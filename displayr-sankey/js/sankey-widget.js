@@ -194,7 +194,7 @@ HTMLWidgets.widget({
 
         zoomIn
             .append('text')
-            .attr('x', 17)
+            .attr('x', 19)
             .attr('y', 31)
             .text('+')
             .attr('class', 'zoom-button-text');
@@ -208,7 +208,7 @@ HTMLWidgets.widget({
 
         zoomOut
             .append('text')
-            .attr('x', 22)
+            .attr('x', 21)
             .attr('y', 66)
             .text('-')
             .attr('class', 'zoom-button-text');
