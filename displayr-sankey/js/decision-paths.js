@@ -43,7 +43,7 @@ function decisionPathInit(data) {
 
 function drawDecisionPathTable(data) {
     dp = decisionPathInit(data);
-    var colnames = ['root']
+    var colnames = ['rank','root']
     var nodenames = Array.apply(null, Array(dp.ncols - 2)).map(function (d,i) {
         return 'node_' + (i+1) 
     })
@@ -65,19 +65,27 @@ function drawDecisionPathTable(data) {
         .data(d3.values(data.decision_paths))
         .enter()
         .append('tr')
-
+    
+    var rowIndex = 0;
     var cells = rows.selectAll('td')
         .data(function (row) {
-            return colnames.map(function (colname,i) {
+            return colnames.map(function (colname,i) {  
+                if(colname === 'rank') {
+                    rowIndex++;
+                }
                 return {
                     column: colname,
-                    value: row[i] //data.leaf_values[row[i]]
+                    value: row[i-1],
+                    rownum: rowIndex
                 };
             });
         })
         .enter()
         .append('td')
-        .text(function (d) {
+        .text(function (d,i) {
+            if(d.column === 'rank') {
+                return d.rownum;
+            }
             if(d.column === 'terminal_node') {
                 return data.leaf_values[d.value];
             }
