@@ -10,7 +10,7 @@
     <link href="css/zoom.css" rel="stylesheet">
     <link href="css/button.css" rel="stylesheet">
     <link href="css/tooltip.css" rel="stylesheet">
-<!--    <link href="css/decisionPaths.css" rel="stylesheet">-->
+    <!--    <link href="css/decisionPaths.css" rel="stylesheet">-->
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src='js/d3.min.js'></script>
@@ -198,13 +198,24 @@
             </div>
 
             <div class="tab-pane" id="decision_path_tab">
-                <div class="container">                                                                                      
-  <div class="table-responsive">          
-  <table class="table" id="decision-path-table">
+                <div class="container">
 
-  </table>
-  </div>
-</div>
+
+                    <div class="form-group">
+                        <label for="sel1">Sort table by</label>
+                        <select class="form-control" id="sort-table" width="100px">
+   <!-- Here the class names should come from Jupyter Notebook, passed throough the JSON input-->
+    <option>AIDS-tested</option>
+    <option>AIDS-not tested</option>
+  </select>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table" id="decision-path-table">
+
+                        </table>
+                    </div>
+                </div>
 
             </div>
 
