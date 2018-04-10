@@ -45,7 +45,7 @@ function drawDecisionPathTable(data) {
     dp = decisionPathInit(data);
     var colnames = ['rank','root']
     var nodenames = Array.apply(null, Array(dp.ncols - 2)).map(function (d,i) {
-        return 'node_' + (i+1) 
+        return 'node_' + (i+1)
     })
     var colnames = colnames.concat(nodenames).concat(['terminal_node'])
 
@@ -65,11 +65,11 @@ function drawDecisionPathTable(data) {
         .data(d3.values(data.decision_paths))
         .enter()
         .append('tr')
-    
+
     var rowIndex = 0;
     var cells = rows.selectAll('td')
         .data(function (row) {
-            return colnames.map(function (colname,i) {  
+            return colnames.map(function (colname,i) {
                 if(colname === 'rank') {
                     rowIndex++;
                 }
@@ -87,7 +87,9 @@ function drawDecisionPathTable(data) {
                 return d.rownum;
             }
             if(d.column === 'terminal_node') {
-                return data.leaf_values[d.value];
+                //console.log(data.leaf_values);
+                //console.log(d.value);
+                return d.value + ': [' + data.leaf_values[d.value] + "]";
             }
             return d.value;
         });
@@ -131,7 +133,7 @@ $.getJSON('https://data.cdc.gov/api/views/w9j2-ggv5/rows.json', function(dat){
     else type='odd';
     $('#dr').append('<tr class="' + type + '"><td>' + row["8"] + '</td><td>' + row["9"] + '</td><td>' + row["10"] + '</td><td class="decimal">' + row["11"] + '</td><td class="decimal">' + row["12"] + '</td></tr>')
   }
-    
+
 })
 
 
