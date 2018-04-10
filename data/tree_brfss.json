@@ -3,7 +3,7 @@
     "jsHooks": [],
     "x": {
         "data": {
-            "label": "x.age80<55.5",
+            "label": "x.age80 \u2264 55.5",
             "samples": 280479,
             "value": [
                 78391,
@@ -12,7 +12,7 @@
             "color": "#D95F02",
             "children": [
                 {
-                    "label": "x.imprace_2<0.5",
+                    "label": "x.imprace_2 \u2264 0.5",
                     "samples": 126650,
                     "value": [
                         53640,
@@ -21,7 +21,7 @@
                     "color": "#D95F02",
                     "children": [
                         {
-                            "label": "x.rfsmok3_1<0.5",
+                            "label": "x.rfsmok3_1 \u2264 0.5",
                             "samples": 115848,
                             "value": [
                                 46188,
@@ -30,7 +30,7 @@
                             "color": "#D95F02",
                             "children": [
                                 {
-                                    "label": "x.age80<48.5",
+                                    "label": "x.age80 \u2264 48.5",
                                     "samples": 22705,
                                     "value": [
                                         11538,
@@ -39,7 +39,7 @@
                                     "color": "#1B9E77",
                                     "children": [
                                         {
-                                            "label": "x.age80<21.5",
+                                            "label": "x.age80 \u2264 21.5",
                                             "samples": 16011,
                                             "value": [
                                                 8824,
@@ -68,7 +68,7 @@
                                             ]
                                         },
                                         {
-                                            "label": "x.impmrtl_1<0.5",
+                                            "label": "x.impmrtl_1 \u2264 0.5",
                                             "samples": 6694,
                                             "value": [
                                                 2714,
@@ -99,7 +99,7 @@
                                     ]
                                 },
                                 {
-                                    "label": "x.age80<21.5",
+                                    "label": "x.age80 \u2264 21.5",
                                     "samples": 93143,
                                     "value": [
                                         34650,
@@ -108,7 +108,7 @@
                                     "color": "#D95F02",
                                     "children": [
                                         {
-                                            "label": "x.impmrtl_5<0.5",
+                                            "label": "x.impmrtl_5 \u2264 0.5",
                                             "samples": 6226,
                                             "value": [
                                                 1038,
@@ -137,7 +137,7 @@
                                             ]
                                         },
                                         {
-                                            "label": "x.age80<48.5",
+                                            "label": "x.age80 \u2264 48.5",
                                             "samples": 86917,
                                             "value": [
                                                 33612,
@@ -170,7 +170,7 @@
                             ]
                         },
                         {
-                            "label": "x.age80<20.5",
+                            "label": "x.age80 \u2264 20.5",
                             "samples": 10802,
                             "value": [
                                 7452,
@@ -179,7 +179,7 @@
                             "color": "#1B9E77",
                             "children": [
                                 {
-                                    "label": "x.age80<18.5",
+                                    "label": "x.age80 \u2264 18.5",
                                     "samples": 517,
                                     "value": [
                                         181,
@@ -188,7 +188,7 @@
                                     "color": "#D95F02",
                                     "children": [
                                         {
-                                            "label": "x.impcsex_123456789<0.5",
+                                            "label": "x.impcsex_123456789 \u2264 0.5",
                                             "samples": 193,
                                             "value": [
                                                 45,
@@ -217,7 +217,7 @@
                                             ]
                                         },
                                         {
-                                            "label": "htin4<64.5",
+                                            "label": "htin4 \u2264 64.5",
                                             "samples": 324,
                                             "value": [
                                                 136,
@@ -248,7 +248,7 @@
                                     ]
                                 },
                                 {
-                                    "label": "x.age80<46.5",
+                                    "label": "x.age80 \u2264 46.5",
                                     "samples": 10285,
                                     "value": [
                                         7271,
@@ -257,7 +257,7 @@
                                     "color": "#1B9E77",
                                     "children": [
                                         {
-                                            "label": "x.age80<23.5",
+                                            "label": "x.age80 \u2264 23.5",
                                             "samples": 6504,
                                             "value": [
                                                 4936,
@@ -286,7 +286,7 @@
                                             ]
                                         },
                                         {
-                                            "label": "drocdy3.<5.0",
+                                            "label": "drocdy3. \u2264 5.0",
                                             "samples": 3781,
                                             "value": [
                                                 2335,
@@ -321,7 +321,7 @@
                     ]
                 },
                 {
-                    "label": "x.age80<69.5",
+                    "label": "x.age80 \u2264 69.5",
                     "samples": 153829,
                     "value": [
                         24751,
@@ -330,7 +330,7 @@
                     "color": "#D95F02",
                     "children": [
                         {
-                            "label": "x.impmrtl_1<0.5",
+                            "label": "x.impmrtl_1 \u2264 0.5",
                             "samples": 88980,
                             "value": [
                                 19261,
@@ -339,7 +339,7 @@
                             "color": "#D95F02",
                             "children": [
                                 {
-                                    "label": "x.imprace_2<0.5",
+                                    "label": "x.imprace_2 \u2264 0.5",
                                     "samples": 35241,
                                     "value": [
                                         10243,
@@ -348,7 +348,7 @@
                                     "color": "#D95F02",
                                     "children": [
                                         {
-                                            "label": "x.impmrtl_3<0.5",
+                                            "label": "x.impmrtl_3 \u2264 0.5",
                                             "samples": 31034,
                                             "value": [
                                                 8309,
@@ -377,7 +377,7 @@
                                             ]
                                         },
                                         {
-                                            "label": "x.age80<60.5",
+                                            "label": "x.age80 \u2264 60.5",
                                             "samples": 4207,
                                             "value": [
                                                 1934,
@@ -408,7 +408,7 @@
                                     ]
                                 },
                                 {
-                                    "label": "x.imprace_2<0.5",
+                                    "label": "x.imprace_2 \u2264 0.5",
                                     "samples": 53739,
                                     "value": [
                                         9018,
@@ -417,7 +417,7 @@
                                     "color": "#D95F02",
                                     "children": [
                                         {
-                                            "label": "x.impeduc_4<0.5",
+                                            "label": "x.impeduc_4 \u2264 0.5",
                                             "samples": 51305,
                                             "value": [
                                                 8165,
@@ -446,7 +446,7 @@
                                             ]
                                         },
                                         {
-                                            "label": "x.rfmam2y_123456789<0.5",
+                                            "label": "x.rfmam2y_123456789 \u2264 0.5",
                                             "samples": 2434,
                                             "value": [
                                                 853,
@@ -479,7 +479,7 @@
                             ]
                         },
                         {
-                            "label": "x.age80<75.5",
+                            "label": "x.age80 \u2264 75.5",
                             "samples": 64849,
                             "value": [
                                 5490,
@@ -488,7 +488,7 @@
                             "color": "#D95F02",
                             "children": [
                                 {
-                                    "label": "x.imprace_2<0.5",
+                                    "label": "x.imprace_2 \u2264 0.5",
                                     "samples": 28340,
                                     "value": [
                                         3314,
@@ -497,7 +497,7 @@
                                     "color": "#D95F02",
                                     "children": [
                                         {
-                                            "label": "x.impmrtl_2<0.5",
+                                            "label": "x.impmrtl_2 \u2264 0.5",
                                             "samples": 26612,
                                             "value": [
                                                 2884,
@@ -526,7 +526,7 @@
                                             ]
                                         },
                                         {
-                                            "label": "x.rfmam2y_123456789<0.5",
+                                            "label": "x.rfmam2y_123456789 \u2264 0.5",
                                             "samples": 1728,
                                             "value": [
                                                 430,
@@ -557,7 +557,7 @@
                                     ]
                                 },
                                 {
-                                    "label": "x.imprace_1<0.5",
+                                    "label": "x.imprace_1 \u2264 0.5",
                                     "samples": 36509,
                                     "value": [
                                         2176,
@@ -566,7 +566,7 @@
                                     "color": "#D95F02",
                                     "children": [
                                         {
-                                            "label": "x.rfmam2y_123456789<0.5",
+                                            "label": "x.rfmam2y_123456789 \u2264 0.5",
                                             "samples": 4329,
                                             "value": [
                                                 530,
@@ -595,7 +595,7 @@
                                             ]
                                         },
                                         {
-                                            "label": "x.rfmam2y_123456789<0.5",
+                                            "label": "x.rfmam2y_123456789 \u2264 0.5",
                                             "samples": 32180,
                                             "value": [
                                                 1646,
@@ -902,259 +902,259 @@
     ],
     "decision_paths": {
         "leaf1": [
-            "x.age80<55.5",
-            "x.imprace_2<0.5",
-            "x.rfsmok3_1<0.5",
-            "x.age80<48.5",
-            "x.age80<21.5",
+            "x.age80 \u2264 55.5",
+            "x.imprace_2 \u2264 0.5",
+            "x.rfsmok3_1 \u2264 0.5",
+            "x.age80 \u2264 48.5",
+            "x.age80 \u2264 21.5",
             "leaf1"
         ],
         "leaf2": [
-            "x.age80<55.5",
-            "x.imprace_2<0.5",
-            "x.rfsmok3_1<0.5",
-            "x.age80<48.5",
-            "x.age80<21.5",
+            "x.age80 \u2264 55.5",
+            "x.imprace_2 \u2264 0.5",
+            "x.rfsmok3_1 \u2264 0.5",
+            "x.age80 \u2264 48.5",
+            "x.age80 > 21.5",
             "leaf2"
         ],
         "leaf3": [
-            "x.age80<55.5",
-            "x.imprace_2<0.5",
-            "x.rfsmok3_1<0.5",
-            "x.age80<48.5",
-            "x.impmrtl_1<0.5",
+            "x.age80 \u2264 55.5",
+            "x.imprace_2 \u2264 0.5",
+            "x.rfsmok3_1 \u2264 0.5",
+            "x.age80 > 48.5",
+            "x.impmrtl_1 \u2264 0.5",
             "leaf3"
         ],
         "leaf4": [
-            "x.age80<55.5",
-            "x.imprace_2<0.5",
-            "x.rfsmok3_1<0.5",
-            "x.age80<48.5",
-            "x.impmrtl_1<0.5",
+            "x.age80 \u2264 55.5",
+            "x.imprace_2 \u2264 0.5",
+            "x.rfsmok3_1 \u2264 0.5",
+            "x.age80 > 48.5",
+            "x.impmrtl_1 > 0.5",
             "leaf4"
         ],
         "leaf5": [
-            "x.age80<55.5",
-            "x.imprace_2<0.5",
-            "x.rfsmok3_1<0.5",
-            "x.age80<21.5",
-            "x.impmrtl_5<0.5",
+            "x.age80 \u2264 55.5",
+            "x.imprace_2 \u2264 0.5",
+            "x.rfsmok3_1 > 0.5",
+            "x.age80 \u2264 21.5",
+            "x.impmrtl_5 \u2264 0.5",
             "leaf5"
         ],
         "leaf6": [
-            "x.age80<55.5",
-            "x.imprace_2<0.5",
-            "x.rfsmok3_1<0.5",
-            "x.age80<21.5",
-            "x.impmrtl_5<0.5",
+            "x.age80 \u2264 55.5",
+            "x.imprace_2 \u2264 0.5",
+            "x.rfsmok3_1 > 0.5",
+            "x.age80 \u2264 21.5",
+            "x.impmrtl_5 > 0.5",
             "leaf6"
         ],
         "leaf7": [
-            "x.age80<55.5",
-            "x.imprace_2<0.5",
-            "x.rfsmok3_1<0.5",
-            "x.age80<21.5",
-            "x.age80<48.5",
+            "x.age80 \u2264 55.5",
+            "x.imprace_2 \u2264 0.5",
+            "x.rfsmok3_1 > 0.5",
+            "x.age80 > 21.5",
+            "x.age80 \u2264 48.5",
             "leaf7"
         ],
         "leaf8": [
-            "x.age80<55.5",
-            "x.imprace_2<0.5",
-            "x.rfsmok3_1<0.5",
-            "x.age80<21.5",
-            "x.age80<48.5",
+            "x.age80 \u2264 55.5",
+            "x.imprace_2 \u2264 0.5",
+            "x.rfsmok3_1 > 0.5",
+            "x.age80 > 21.5",
+            "x.age80 > 48.5",
             "leaf8"
         ],
         "leaf9": [
-            "x.age80<55.5",
-            "x.imprace_2<0.5",
-            "x.age80<20.5",
-            "x.age80<18.5",
-            "x.impcsex_123456789<0.5",
+            "x.age80 \u2264 55.5",
+            "x.imprace_2 > 0.5",
+            "x.age80 \u2264 20.5",
+            "x.age80 \u2264 18.5",
+            "x.impcsex_123456789 \u2264 0.5",
             "leaf9"
         ],
         "leaf10": [
-            "x.age80<55.5",
-            "x.imprace_2<0.5",
-            "x.age80<20.5",
-            "x.age80<18.5",
-            "x.impcsex_123456789<0.5",
+            "x.age80 \u2264 55.5",
+            "x.imprace_2 > 0.5",
+            "x.age80 \u2264 20.5",
+            "x.age80 \u2264 18.5",
+            "x.impcsex_123456789 > 0.5",
             "leaf10"
         ],
         "leaf11": [
-            "x.age80<55.5",
-            "x.imprace_2<0.5",
-            "x.age80<20.5",
-            "x.age80<18.5",
-            "htin4<64.5",
+            "x.age80 \u2264 55.5",
+            "x.imprace_2 > 0.5",
+            "x.age80 \u2264 20.5",
+            "x.age80 > 18.5",
+            "htin4 \u2264 64.5",
             "leaf11"
         ],
         "leaf12": [
-            "x.age80<55.5",
-            "x.imprace_2<0.5",
-            "x.age80<20.5",
-            "x.age80<18.5",
-            "htin4<64.5",
+            "x.age80 \u2264 55.5",
+            "x.imprace_2 > 0.5",
+            "x.age80 \u2264 20.5",
+            "x.age80 > 18.5",
+            "htin4 > 64.5",
             "leaf12"
         ],
         "leaf13": [
-            "x.age80<55.5",
-            "x.imprace_2<0.5",
-            "x.age80<20.5",
-            "x.age80<46.5",
-            "x.age80<23.5",
+            "x.age80 \u2264 55.5",
+            "x.imprace_2 > 0.5",
+            "x.age80 > 20.5",
+            "x.age80 \u2264 46.5",
+            "x.age80 \u2264 23.5",
             "leaf13"
         ],
         "leaf14": [
-            "x.age80<55.5",
-            "x.imprace_2<0.5",
-            "x.age80<20.5",
-            "x.age80<46.5",
-            "x.age80<23.5",
+            "x.age80 \u2264 55.5",
+            "x.imprace_2 > 0.5",
+            "x.age80 > 20.5",
+            "x.age80 \u2264 46.5",
+            "x.age80 > 23.5",
             "leaf14"
         ],
         "leaf15": [
-            "x.age80<55.5",
-            "x.imprace_2<0.5",
-            "x.age80<20.5",
-            "x.age80<46.5",
-            "drocdy3.<5.0",
+            "x.age80 \u2264 55.5",
+            "x.imprace_2 > 0.5",
+            "x.age80 > 20.5",
+            "x.age80 > 46.5",
+            "drocdy3. \u2264 5.0",
             "leaf15"
         ],
         "leaf16": [
-            "x.age80<55.5",
-            "x.imprace_2<0.5",
-            "x.age80<20.5",
-            "x.age80<46.5",
-            "drocdy3.<5.0",
+            "x.age80 \u2264 55.5",
+            "x.imprace_2 > 0.5",
+            "x.age80 > 20.5",
+            "x.age80 > 46.5",
+            "drocdy3. > 5.0",
             "leaf16"
         ],
         "leaf17": [
-            "x.age80<55.5",
-            "x.age80<69.5",
-            "x.impmrtl_1<0.5",
-            "x.imprace_2<0.5",
-            "x.impmrtl_3<0.5",
+            "x.age80 > 55.5",
+            "x.age80 \u2264 69.5",
+            "x.impmrtl_1 \u2264 0.5",
+            "x.imprace_2 \u2264 0.5",
+            "x.impmrtl_3 \u2264 0.5",
             "leaf17"
         ],
         "leaf18": [
-            "x.age80<55.5",
-            "x.age80<69.5",
-            "x.impmrtl_1<0.5",
-            "x.imprace_2<0.5",
-            "x.impmrtl_3<0.5",
+            "x.age80 > 55.5",
+            "x.age80 \u2264 69.5",
+            "x.impmrtl_1 \u2264 0.5",
+            "x.imprace_2 \u2264 0.5",
+            "x.impmrtl_3 > 0.5",
             "leaf18"
         ],
         "leaf19": [
-            "x.age80<55.5",
-            "x.age80<69.5",
-            "x.impmrtl_1<0.5",
-            "x.imprace_2<0.5",
-            "x.age80<60.5",
+            "x.age80 > 55.5",
+            "x.age80 \u2264 69.5",
+            "x.impmrtl_1 \u2264 0.5",
+            "x.imprace_2 > 0.5",
+            "x.age80 \u2264 60.5",
             "leaf19"
         ],
         "leaf20": [
-            "x.age80<55.5",
-            "x.age80<69.5",
-            "x.impmrtl_1<0.5",
-            "x.imprace_2<0.5",
-            "x.age80<60.5",
+            "x.age80 > 55.5",
+            "x.age80 \u2264 69.5",
+            "x.impmrtl_1 \u2264 0.5",
+            "x.imprace_2 > 0.5",
+            "x.age80 > 60.5",
             "leaf20"
         ],
         "leaf21": [
-            "x.age80<55.5",
-            "x.age80<69.5",
-            "x.impmrtl_1<0.5",
-            "x.imprace_2<0.5",
-            "x.impeduc_4<0.5",
+            "x.age80 > 55.5",
+            "x.age80 \u2264 69.5",
+            "x.impmrtl_1 > 0.5",
+            "x.imprace_2 \u2264 0.5",
+            "x.impeduc_4 \u2264 0.5",
             "leaf21"
         ],
         "leaf22": [
-            "x.age80<55.5",
-            "x.age80<69.5",
-            "x.impmrtl_1<0.5",
-            "x.imprace_2<0.5",
-            "x.impeduc_4<0.5",
+            "x.age80 > 55.5",
+            "x.age80 \u2264 69.5",
+            "x.impmrtl_1 > 0.5",
+            "x.imprace_2 \u2264 0.5",
+            "x.impeduc_4 > 0.5",
             "leaf22"
         ],
         "leaf23": [
-            "x.age80<55.5",
-            "x.age80<69.5",
-            "x.impmrtl_1<0.5",
-            "x.imprace_2<0.5",
-            "x.rfmam2y_123456789<0.5",
+            "x.age80 > 55.5",
+            "x.age80 \u2264 69.5",
+            "x.impmrtl_1 > 0.5",
+            "x.imprace_2 > 0.5",
+            "x.rfmam2y_123456789 \u2264 0.5",
             "leaf23"
         ],
         "leaf24": [
-            "x.age80<55.5",
-            "x.age80<69.5",
-            "x.impmrtl_1<0.5",
-            "x.imprace_2<0.5",
-            "x.rfmam2y_123456789<0.5",
+            "x.age80 > 55.5",
+            "x.age80 \u2264 69.5",
+            "x.impmrtl_1 > 0.5",
+            "x.imprace_2 > 0.5",
+            "x.rfmam2y_123456789 > 0.5",
             "leaf24"
         ],
         "leaf25": [
-            "x.age80<55.5",
-            "x.age80<69.5",
-            "x.age80<75.5",
-            "x.imprace_2<0.5",
-            "x.impmrtl_2<0.5",
+            "x.age80 > 55.5",
+            "x.age80 > 69.5",
+            "x.age80 \u2264 75.5",
+            "x.imprace_2 \u2264 0.5",
+            "x.impmrtl_2 \u2264 0.5",
             "leaf25"
         ],
         "leaf26": [
-            "x.age80<55.5",
-            "x.age80<69.5",
-            "x.age80<75.5",
-            "x.imprace_2<0.5",
-            "x.impmrtl_2<0.5",
+            "x.age80 > 55.5",
+            "x.age80 > 69.5",
+            "x.age80 \u2264 75.5",
+            "x.imprace_2 \u2264 0.5",
+            "x.impmrtl_2 > 0.5",
             "leaf26"
         ],
         "leaf27": [
-            "x.age80<55.5",
-            "x.age80<69.5",
-            "x.age80<75.5",
-            "x.imprace_2<0.5",
-            "x.rfmam2y_123456789<0.5",
+            "x.age80 > 55.5",
+            "x.age80 > 69.5",
+            "x.age80 \u2264 75.5",
+            "x.imprace_2 > 0.5",
+            "x.rfmam2y_123456789 \u2264 0.5",
             "leaf27"
         ],
         "leaf28": [
-            "x.age80<55.5",
-            "x.age80<69.5",
-            "x.age80<75.5",
-            "x.imprace_2<0.5",
-            "x.rfmam2y_123456789<0.5",
+            "x.age80 > 55.5",
+            "x.age80 > 69.5",
+            "x.age80 \u2264 75.5",
+            "x.imprace_2 > 0.5",
+            "x.rfmam2y_123456789 > 0.5",
             "leaf28"
         ],
         "leaf29": [
-            "x.age80<55.5",
-            "x.age80<69.5",
-            "x.age80<75.5",
-            "x.imprace_1<0.5",
-            "x.rfmam2y_123456789<0.5",
+            "x.age80 > 55.5",
+            "x.age80 > 69.5",
+            "x.age80 > 75.5",
+            "x.imprace_1 \u2264 0.5",
+            "x.rfmam2y_123456789 \u2264 0.5",
             "leaf29"
         ],
         "leaf30": [
-            "x.age80<55.5",
-            "x.age80<69.5",
-            "x.age80<75.5",
-            "x.imprace_1<0.5",
-            "x.rfmam2y_123456789<0.5",
+            "x.age80 > 55.5",
+            "x.age80 > 69.5",
+            "x.age80 > 75.5",
+            "x.imprace_1 \u2264 0.5",
+            "x.rfmam2y_123456789 > 0.5",
             "leaf30"
         ],
         "leaf31": [
-            "x.age80<55.5",
-            "x.age80<69.5",
-            "x.age80<75.5",
-            "x.imprace_1<0.5",
-            "x.rfmam2y_123456789<0.5",
+            "x.age80 > 55.5",
+            "x.age80 > 69.5",
+            "x.age80 > 75.5",
+            "x.imprace_1 > 0.5",
+            "x.rfmam2y_123456789 \u2264 0.5",
             "leaf31"
         ],
         "leaf32": [
-            "x.age80<55.5",
-            "x.age80<69.5",
-            "x.age80<75.5",
-            "x.imprace_1<0.5",
-            "x.rfmam2y_123456789<0.5",
+            "x.age80 > 55.5",
+            "x.age80 > 69.5",
+            "x.age80 > 75.5",
+            "x.imprace_1 > 0.5",
+            "x.rfmam2y_123456789 > 0.5",
             "leaf32"
         ]
     },

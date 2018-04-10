@@ -43,15 +43,23 @@ function decisionPathInit(data) {
 
 function drawDecisionPathTable(data) {
     dp = decisionPathInit(data);
+    
+    // create column names
     var colnames = ['rank','root']
     var nodenames = Array.apply(null, Array(dp.ncols - 2)).map(function (d,i) {
         return 'node_' + (i+1)
     })
     var colnames = colnames.concat(nodenames).concat(['terminal_node'])
 
+    // table element containers
     var table = d3.select('#decision-path-table');
     var thead = table.append('thead');
     var tbody = table.append('tbody');
+    
+    //////////////////////////////////////
+    //       Fill up the table          //
+    //////////////////////////////////////
+    
     // header row
     thead.append('tr').selectAll('th')
         .data(colnames)
@@ -82,7 +90,7 @@ function drawDecisionPathTable(data) {
         })
         .enter()
         .append('td')
-        .text(function (d,i) {
+        .text(function (d) {
             if(d.column === 'rank') {
                 return d.rownum;
             }
@@ -94,3 +102,25 @@ function drawDecisionPathTable(data) {
             return d.value;
         });
 };
+/*
+        ////////////////////////////////////
+        //              Sort              //
+        ////////////////////////////////////
+
+function sortDecisionPaths() 
+  headers
+    .on("click", function(d) {
+      if (d == "Title") {
+        clicks.title++;
+        // even number of clicks
+        if (clicks.title % 2 == 0) {
+          // sort ascending: alphabetically
+          rows.sort(function(a,b) { 
+            if (a.title.toUpperCase() < b.title.toUpperCase()) { 
+              return -1; 
+            } else if (a.title.toUpperCase() > b.title.toUpperCase()) { 
+              return 1; 
+            } else {
+              return 0;
+            }
+            */
