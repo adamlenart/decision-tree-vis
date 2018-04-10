@@ -43,11 +43,11 @@ function decisionPathInit(data) {
 
 function drawDecisionPathTable(data) {
     dp = decisionPathInit(data);
-    
+
     // create column names
-    var colnames = ['rank','root']
-    var nodenames = Array.apply(null, Array(dp.ncols - 2)).map(function (d,i) {
-        return 'node_' + (i+1)
+    var colnames = ['rank', 'root']
+    var nodenames = Array.apply(null, Array(dp.ncols - 2)).map(function (d, i) {
+        return 'node_' + (i + 1)
     })
     var colnames = colnames.concat(nodenames).concat(['terminal_node'])
 
@@ -55,11 +55,11 @@ function drawDecisionPathTable(data) {
     var table = d3.select('#decision-path-table');
     var thead = table.append('thead');
     var tbody = table.append('tbody');
-    
+
     //////////////////////////////////////
     //       Fill up the table          //
     //////////////////////////////////////
-    
+
     // header row
     thead.append('tr').selectAll('th')
         .data(colnames)
@@ -77,13 +77,13 @@ function drawDecisionPathTable(data) {
     var rowIndex = 0;
     var cells = rows.selectAll('td')
         .data(function (row) {
-            return colnames.map(function (colname,i) {
-                if(colname === 'rank') {
+            return colnames.map(function (colname, i) {
+                if (colname === 'rank') {
                     rowIndex++;
                 }
                 return {
                     column: colname,
-                    value: row[i-1],
+                    value: row[i - 1],
                     rownum: rowIndex
                 };
             });
@@ -91,36 +91,45 @@ function drawDecisionPathTable(data) {
         .enter()
         .append('td')
         .text(function (d) {
-            if(d.column === 'rank') {
+            if (d.column === 'rank') {
                 return d.rownum;
             }
-            if(d.column === 'terminal_node') {
+            if (d.column === 'terminal_node') {
                 //console.log(data.leaf_values);
                 //console.log(d.value);
                 return d.value + ': [' + data.leaf_values[d.value] + "]";
             }
             return d.value;
         });
-};
-/*
-        ////////////////////////////////////
-        //              Sort              //
-        ////////////////////////////////////
 
-function sortDecisionPaths() 
-  headers
-    .on("click", function(d) {
-      if (d == "Title") {
-        clicks.title++;
-        // even number of clicks
-        if (clicks.title % 2 == 0) {
-          // sort ascending: alphabetically
-          rows.sort(function(a,b) { 
-            if (a.title.toUpperCase() < b.title.toUpperCase()) { 
-              return -1; 
-            } else if (a.title.toUpperCase() > b.title.toUpperCase()) { 
-              return 1; 
-            } else {
-              return 0;
-            }
-            */
+    sortDecisionPaths(rows)
+};
+
+////////////////////////////////////
+//              Sort              //
+////////////////////////////////////
+
+function leafValueExtractor(row, n) {
+    if (n == 2) {
+        // cut leaf from the beginning of the string
+        return parseInt(row[5].substring(4));
+    }
+    return data.leaf_values[row[5]][n];
+};
+
+function sortDecisionPaths(rows) {
+
+    d3.select('#sort-table')
+        .on("change", function () {
+            v = d3.select('#sort-table').property('value');
+            rows.sort(function (a, b) {
+
+                var a = leafValueExtractor(a, v),
+                    b = leafValueExtractor(b, v)
+                if (v === '2') {
+                    return d3.ascending(a, b);
+                }
+                return d3.descending(a, b);
+            });
+        });
+};

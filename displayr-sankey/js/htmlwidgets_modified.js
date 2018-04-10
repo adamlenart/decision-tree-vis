@@ -667,6 +667,7 @@
                         
                         //Decision paths
                         drawDecisionPathTable(data);
+                        //sortDecisionPaths();
 
                     });
                 }
