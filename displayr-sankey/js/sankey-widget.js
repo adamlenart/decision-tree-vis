@@ -14,7 +14,8 @@ HTMLWidgets.widget({
             .attr("viewBox", "0 0 " + width + " " + height)
             .classed("svg-content-responsive", true)
             .attr("width", "100%")
-            .attr("height", "100%");
+            .attr("height", "100%")
+            .style('background-color', 'white');
 
         var instance = {};
 
