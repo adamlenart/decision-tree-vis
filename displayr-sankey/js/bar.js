@@ -15,7 +15,7 @@ function barplotInit(data) {
         margin = {
             top: 20,
             right: 50,
-            bottom: 175,
+            bottom: 125,
             left: 75
         };
     var width = svg.attr("width") - margin.left - margin.right,
@@ -35,7 +35,9 @@ function barplotInit(data) {
     var yScale = y.domain([0, d3.max(data, function (d) {
         return d.importance;
     })])
-    var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+    var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(function(d){
+      return d.substring(0,10);
+    });
     var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(10);
 
     barplot = {
@@ -62,8 +64,7 @@ function barplotInit(data) {
 
 function drawBarplot(data) {
     barplot = barplotInit(data);
-
-
+    console.log(data);
     // Define X,Y Axes
     // X
     barplot.g.append("g")
@@ -71,14 +72,22 @@ function drawBarplot(data) {
         .attr("transform", "translate(0, " + barplot.height + ")")
         .call(barplot.xAxis)
         .selectAll("text")
+        .on("mouseover", mouseover)
         .attr("transform", " translate(-15, 10) rotate(-65)")
         .style("text-anchor", "end");
+
+    // tooltip
+    d3.selectAll('.axis.axis--x>.tick')
+        .append('title')
+        .text(function(d){
+          return d;
+        });
 
     barplot.g.append("text")
         .attr("dx", "1em")
         .attr("y", barplot.height + (barplot.margin.bottom))
         .attr("x", barplot.width / 2 - barplot.margin.right)
-        .text("Attribute")
+        .text("Feature")
         .style("font-size", "20px");
 
     // Y

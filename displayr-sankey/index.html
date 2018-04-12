@@ -37,6 +37,16 @@
         margin-left: auto;
         margin-right: auto;
     }
+    .fixedTop {
+        background-color: #FFFFFF;
+        position:fixed;
+        top:0;
+        width:100%;
+        z-index:100;
+    }
+    body {
+        padding-top: 50px;
+    }
 </style>
 
 </head>
@@ -45,11 +55,12 @@
 
 
     <div class="tabbable">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs fixedTop">
             <li><a class="dtab" href="#description_tab" data-toggle="tab">Description</a></li>
             <li class="active"><a href="#sankey_tab" data-toggle="tab">Decision Tree</a></li>
             <li><a href="#barplot_tab" data-toggle="tab">Feature Importance</a></li>
             <li><a href="#decision_path_tab" data-toggle="tab">Decision Path</a></li>
+            <li><a href="#about_tab" data-toggle="tab">About</a></li>
         </ul>
         <div class="tab-content">
 
@@ -224,6 +235,17 @@
                     </div>
                 </div>
 
+            </div>
+
+            <div class="tab-pane" id="about_tab">
+                <div class="container">
+                    <label> Team Members </label>
+                    <ul>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                    </ul>
+                </div>
             </div>
 
 
