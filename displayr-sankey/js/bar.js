@@ -64,7 +64,7 @@ function barplotInit(data) {
 
 function drawBarplot(data) {
     barplot = barplotInit(data);
-    console.log(data);
+
     // Define X,Y Axes
     // X
     barplot.g.append("g")
@@ -72,7 +72,6 @@ function drawBarplot(data) {
         .attr("transform", "translate(0, " + barplot.height + ")")
         .call(barplot.xAxis)
         .selectAll("text")
-        .on("mouseover", mouseover)
         .attr("transform", " translate(-15, 10) rotate(-65)")
         .style("text-anchor", "end");
 
