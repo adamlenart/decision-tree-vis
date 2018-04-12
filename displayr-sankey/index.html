@@ -30,7 +30,23 @@
     .bar:hover {
         fill: brown;
     }
-
+    div.sorter_barChart {
+        width: 800px;
+        text-align: center;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .fixedTop {
+        background-color: #FFFFFF;
+        position:fixed;
+        top:0;
+        width:100%;
+        z-index:100;
+    }
+    body {
+        padding-top: 50px;
+    }
 </style>
 
 </head>
@@ -39,11 +55,12 @@
 
 
     <div class="tabbable">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs fixedTop">
             <li><a class="dtab" href="#description_tab" data-toggle="tab">Description</a></li>
             <li class="active"><a href="#sankey_tab" data-toggle="tab">Decision Tree</a></li>
             <li><a href="#barplot_tab" data-toggle="tab">Feature Importance</a></li>
             <li><a href="#decision_path_tab" data-toggle="tab">Decision Path</a></li>
+            <li><a href="#about_tab" data-toggle="tab">About</a></li>
         </ul>
         <div class="tab-content">
 
@@ -185,15 +202,15 @@
 
             </div>
             <div class="tab-pane" id="barplot_tab">
-
-
-                <svg id="barplot_container" width="800" height="600"></svg>
+                <div class="sorter_barChart">
+                    </br>
+                    <strong>Sort type</strong>
+                    </br>
+                    <button type="button" class="sort-button" autofocus="autofocus" id="button_alphabetic">Alphabetic</button>
+                    <button type="button" class="sort-button" id="button_ranking">Ranking</button>
+                </div>
                 <br>
-                <strong>Sort type</strong>
-                </br>
-                <button type="button" class="sort-button" autofocus="autofocus" id="button_alphabetic">Alphabetic</button>
-                <button type="button" class="sort-button" id="button_ranking">Ranking</button>
-
+                <svg id="barplot_container" width="800" height="600"></svg>
 
             </div>
 
@@ -218,6 +235,50 @@
                     </div>
                 </div>
 
+            </div>
+
+            <div class="tab-pane" id="about_tab">
+                <div class="container">
+                    <h2> Visualizing Scikit-learn Decision Trees </h2>
+                    <p>An interactive visualization of decision trees which clearly highlights important features while allowing an analyst to select different branches for more specific information on the features leading to that result.</p>
+                    <br/>
+                    <label>Objective</label>
+                    <p>Our project aims to assist analysts in using these trees by providing visual information on:</p>
+                    <ul>
+                        <li>highlighting most important variables in a dataset,</li>
+                        <li>explaining predictions</li>
+                        <li>exploring interactions between features</li>
+                        <li>visualizing the decision function</li>
+                        <li>demonstrating the model to business partners</li>
+                    </ul>
+                    <br/>
+                    <label>Audience</label>
+                    <p>Data scientists using scikit-learn.</p>
+                    <br/>
+                    <label>Dataset</label>
+                    <p><a href="https://www.cdc.gov/brfss/annual_data/2014/pdf/codebook14_llcp.pdf">U.S. Behavioral Risk Factor Surveillance System Report</a></p>
+                    <p>Demographic and health information features used to predict whether or not an individual has been tested for AIDS.</p>
+                    <ul>
+                        <li>418,626 records</li>
+                        <li>240 fields</li>
+                        <li>117,007 positive samples (after data cleansing)</li>
+                        <li>301,619 negative samples (after data cleansing)</li>
+                    </ul>
+                    <br/>
+                    <label>Team Members</label>
+                    <p>Adam Lenart</p>
+                    <ul>
+                        <li>alenart@ischool.berkeley.edu</li>
+                    </ul>
+                    <p>Tingwen Bao</p>
+                    <ul>
+                        <li>tingwenbao@berkeley.edu</li>
+                    </ul>
+                    <p>Nic Vogler</p>
+                    <ul>
+                        <li>nvogler@berkeley.edu</li>
+                    </ul>
+                </div>
             </div>
 
 
