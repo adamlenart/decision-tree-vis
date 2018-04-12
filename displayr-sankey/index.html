@@ -30,7 +30,13 @@
     .bar:hover {
         fill: brown;
     }
-
+    div.sorter_barChart {
+        width: 800px;
+        text-align: center;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+    }
 </style>
 
 </head>
@@ -185,15 +191,15 @@
 
             </div>
             <div class="tab-pane" id="barplot_tab">
-
-
-                <svg id="barplot_container" width="800" height="600"></svg>
+                <div class="sorter_barChart">
+                    </br>
+                    <strong>Sort type</strong>
+                    </br>
+                    <button type="button" class="sort-button" autofocus="autofocus" id="button_alphabetic">Alphabetic</button>
+                    <button type="button" class="sort-button" id="button_ranking">Ranking</button>
+                </div>
                 <br>
-                <strong>Sort type</strong>
-                </br>
-                <button type="button" class="sort-button" autofocus="autofocus" id="button_alphabetic">Alphabetic</button>
-                <button type="button" class="sort-button" id="button_ranking">Ranking</button>
-
+                <svg id="barplot_container" width="800" height="600"></svg>
 
             </div>
 
