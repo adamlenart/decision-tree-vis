@@ -141,17 +141,6 @@ HTMLWidgets.widget({
         });
         meanLabelLength = (meanLabelLength / totalNodes) | 0 + 1;
 
-        // sort the tree according to the node names
-
-        function sortTree() {
-            tree.sort(function (a, b) {
-                return b[opts.name].toLowerCase() < a[opts.name].toLowerCase() ? 1 : -1;
-            });
-        }
-        // Sort the tree initially in case the JSON isn't in a sorted order.
-        sortTree();
-
-
         // TODO: Pan function, can be better implemented.
 
         function pan(domNode, direction) {
