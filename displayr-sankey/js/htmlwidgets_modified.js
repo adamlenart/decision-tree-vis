@@ -8,12 +8,6 @@
     var viewerMode = window.HTMLWidgets.viewerMode =
         /\bviewer_pane=1\b/.test(window.location);
 
-    // See if we're running in Shiny mode. If not, it's a static document.
-    // Note that static widgets can appear in both Shiny and static modes, but
-    // obviously, Shiny widgets can only appear in Shiny apps/documents.
-    var shinyMode = window.HTMLWidgets.shinyMode =
-        typeof (window.Shiny) !== "undefined" && !!window.Shiny.outputBindings;
-
     // We can't count on jQuery being available, so we implement our own
     // version if necessary.
     function querySelectorAll(scope, selector) {
@@ -460,104 +454,6 @@
         });
         window.HTMLWidgets.widgets.push(staticBinding);
 
-        if (shinyMode) {
-            // Shiny is running. Register the definition with an output binding.
-            // The definition itself will not be the output binding, instead
-            // we will make an output binding object that delegates to the
-            // definition. This is because we foolishly used the same method
-            // name (renderValue) for htmlwidgets definition and Shiny bindings
-            // but they actually have quite different semantics (the Shiny
-            // bindings receive data that includes lots of metadata that it
-            // strips off before calling htmlwidgets renderValue). We can't
-            // just ignore the difference because in some widgets it's helpful
-            // to call this.renderValue() from inside of resize(), and if
-            // we're not delegating, then that call will go to the Shiny
-            // version instead of the htmlwidgets version.
-
-            // Merge defaults with definition, without mutating either.
-            var bindingDef = extend({}, defaults, definition);
-
-            // This object will be our actual Shiny binding.
-            var shinyBinding = new Shiny.OutputBinding();
-
-            // With a few exceptions, we'll want to simply use the bindingDef's
-            // version of methods if they are available, otherwise fall back to
-            // Shiny's defaults. NOTE: If Shiny's output bindings gain additional
-            // methods in the future, and we want them to be overrideable by
-            // HTMLWidget binding definitions, then we'll need to add them to this
-            // list.
-            delegateMethod(shinyBinding, bindingDef, "getId");
-            delegateMethod(shinyBinding, bindingDef, "onValueChange");
-            delegateMethod(shinyBinding, bindingDef, "onValueError");
-            delegateMethod(shinyBinding, bindingDef, "renderError");
-            delegateMethod(shinyBinding, bindingDef, "clearError");
-            delegateMethod(shinyBinding, bindingDef, "showProgress");
-
-            // The find, renderValue, and resize are handled differently, because we
-            // want to actually decorate the behavior of the bindingDef methods.
-
-            shinyBinding.find = function (scope) {
-                var results = bindingDef.find(scope);
-
-                // Only return elements that are Shiny outputs, not static ones
-                var dynamicResults = results.filter(".html-widget-output");
-
-                // It's possible that whatever caused Shiny to think there might be
-                // new dynamic outputs, also caused there to be new static outputs.
-                // Since there might be lots of different htmlwidgets bindings, we
-                // schedule execution for later--no need to staticRender multiple
-                // times.
-                if (results.length !== dynamicResults.length)
-                    scheduleStaticRender();
-
-                return dynamicResults;
-            };
-
-            // Wrap renderValue to handle initialization, which unfortunately isn't
-            // supported natively by Shiny at the time of this writing.
-
-            shinyBinding.renderValue = function (el, data) {
-                Shiny.renderDependencies(data.deps);
-                // Resolve strings marked as javascript literals to objects
-                if (!(data.evals instanceof Array)) data.evals = [data.evals];
-                for (var i = 0; data.evals && i < data.evals.length; i++) {
-                    window.HTMLWidgets.evaluateStringMember(data.x, data.evals[i]);
-                }
-                if (!bindingDef.renderOnNullValue) {
-                    if (data.x === null) {
-                        el.style.visibility = "hidden";
-                        return;
-                    } else {
-                        el.style.visibility = "inherit";
-                    }
-                }
-                if (!elementData(el, "initialized")) {
-                    initSizing(el);
-
-                    elementData(el, "initialized", true);
-                    if (bindingDef.initialize) {
-                        var result = bindingDef.initialize(el, el.offsetWidth,
-                            el.offsetHeight);
-                        elementData(el, "init_result", result);
-                    }
-                }
-                bindingDef.renderValue(el, data.x, elementData(el, "init_result"));
-                evalAndRun(data.jsHooks.render, elementData(el, "init_result"), [el, data.x]);
-            };
-
-            // Only override resize if bindingDef implements it
-            if (bindingDef.resize) {
-                shinyBinding.resize = function (el, width, height) {
-                    // Shiny can call resize before initialize/renderValue have been
-                    // called, which doesn't make sense for widgets.
-                    if (elementData(el, "initialized")) {
-                        bindingDef.resize(el, width, height, elementData(el, "init_result"));
-                    }
-                };
-            }
-
-            Shiny.outputBindings.register(shinyBinding, bindingDef.name);
-        }
     };
 
     var scheduleStaticRenderTimerId = null;
@@ -664,7 +560,7 @@
                         // Draw barplot
                         drawBarplot(keepImportant(data));
                         sortFeature(keepImportant(data));
-                        
+
                         //Decision paths
                         drawDecisionPathTable(data);
                         //sortDecisionPaths();
