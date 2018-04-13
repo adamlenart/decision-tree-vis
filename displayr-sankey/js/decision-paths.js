@@ -74,17 +74,13 @@ function drawDecisionPathTable(data) {
         .enter()
         .append('tr')
 
-    var rowIndex = 0;
+    var rowIndex = 1;
     var cells = rows.selectAll('td')
         .data(function (row) {
             return colnames.map(function (colname, i) {
-                if (colname === 'rank') {
-                    rowIndex++;
-                }
                 return {
                     column: colname,
                     value: row[i - 1],
-                    rownum: rowIndex
                 };
             });
         })
@@ -92,7 +88,7 @@ function drawDecisionPathTable(data) {
         .append('td')
         .text(function (d) {
             if (d.column === 'rank') {
-                return d.rownum;
+                return rowIndex++;
             }
             if (d.column === 'terminal_node') {
                 //console.log(data.leaf_values);
@@ -102,7 +98,8 @@ function drawDecisionPathTable(data) {
             return d.value;
         });
 
-    sortDecisionPaths(rows)
+    sortDecisionPaths(rows);
+    //   console.log(cells);
 };
 
 ////////////////////////////////////
@@ -131,5 +128,21 @@ function sortDecisionPaths(rows) {
                 }
                 return d3.descending(a, b);
             });
+            reRank(rows.selectAll('td'))
         });
+};
+
+function reRank(cells) {
+    var rowIndex = 1;
+    cells.text(function (d) {
+        if (d.column === 'rank') {
+            return rowIndex++;
+        }
+        if (d.column === 'terminal_node') {
+            //console.log(data.leaf_values);
+            //console.log(d.value);
+            return d.value + ': [' + data.leaf_values[d.value] + "]";
+        }
+        return d.value;
+    });
 };
