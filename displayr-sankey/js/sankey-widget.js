@@ -238,119 +238,22 @@ HTMLWidgets.widget({
         var zoomListener = d3.behavior.zoom().scaleExtent([0.1, 3]).on("zoom", redraw);
 
 
-
-
-        ////////////////////////////////////
-        //              toggle            //
-        ////////////////////////////////////
-
-        function initiateDrag(d, domNode) {
-            draggingNode = d;
-            d3.select(domNode).select('.ghostCircle').attr('pointer-events', 'none');
-            d3.selectAll('.ghostCircle').attr('class', 'ghostCircle show');
-            d3.select(domNode).attr('class', 'node activeDrag');
-            svgGroup.selectAll("g.node").sort(function (a, b) { // select the parent and sort the path's
-                if (a[opts.id] != draggingNode[opts.id]) return 1; // a is not the hovered element, send "a" to the back
-                else return -1; // a is the hovered element, bring "a" to the front
-            });
-            // if nodes has children, remove the links and nodes
-            if (nodes.length > 1) {
-                // remove link paths
-                links = tree.links(nodes);
-                nodePaths = svgGroup.selectAll("path.link")
-                    .data(links, function (d) {
-                        return d.target[opts.id];
-                    }).remove();
-                // remove child nodes
-                nodesExit = svgGroup.selectAll("g.node")
-                    .data(nodes, function (d) {
-                        return d[opts.id];
-                    }).filter(function (d, i) {
-                        if (d[opts.id] == draggingNode[opts.id]) {
-                            return false;
-                        }
-                        return true;
-                    }).remove();
-            }
-
-            // remove parent link
-            parentLink = tree.links(tree.nodes(draggingNode.parent));
-            svgGroup.selectAll('path.link').filter(function (d, i) {
-                if (d.target[opts.id] == draggingNode[opts.id]) {
-                    return true;
-                }
-                return false;
-            }).remove();
-
-            dragStarted = null;
-        }
-
         baseSvg
             .call(zoomListener);
 
 
-        // Helper functions for collapsing and expanding nodes.
-
-        function collapse(d) {
-            if (d[opts.childrenName]) {
-                d._children = d[opts.childrenName];
-                d._children.forEach(collapse);
-                d[opts.childrenName] = null;
-            }
-        }
-
-        function expand(d) {
-            if (d._children) {
-                d[opts.childrenName] = d._children;
-                d[opts.childrenName].forEach(expand);
-                d._children = null;
-            }
-        }
-
-        var overCircle = function (d) {
-            selectedNode = d;
-            updateTempConnector();
-        };
-        var outCircle = function (d) {
-            selectedNode = null;
-            updateTempConnector();
-        };
-
-        // Function to update the temporary connector indicating dragging affiliation
-        var updateTempConnector = function () {
-            var data = [];
-            if (draggingNode !== null && selectedNode !== null) {
-                // have to flip the source coordinates since we did this for the existing connectors on the original tree
-                data = [{
-                    source: {
-                        x: selectedNode.y0,
-                        y: selectedNode.x0
-                    },
-                    target: {
-                        x: draggingNode.y0,
-                        y: draggingNode.x0
-                    }
-                }];
-            }
-            var link = svgGroup.selectAll(".templink").data(data);
-
-            link.enter().append("path")
-                .attr("class", "templink")
-                .attr("d", d3.svg.diagonal())
-                .attr('pointer-events', 'none');
-
-            link.attr("d", d3.svg.diagonal());
-
-            link.exit().remove();
-        };
-
+        
+        //////////////////////////////////
+        //          Collapse            //
+        //////////////////////////////////
+        
         // Function to center node when clicked/dropped so node doesn't get lost when collapsing/moving with large amount of children.
 
         function centerNode(source) {
             scale = zoomListener.scale();
             x = -source.y0;
             y = -source.x0;
-            x = x * scale + (source[opts.name] !== root[opts.name] ? viewerWidth / 2 : viewerWidth / 4);
+            x = x * scale + (source[opts.name] !== root[opts.name] ? viewerWidth / 2 : viewerWidth / 10);
             y = y * scale + viewerHeight / 2;
             d3.select('g').transition()
                 .duration(duration)
@@ -378,7 +281,7 @@ HTMLWidgets.widget({
             if (d3.event.defaultPrevented) return; // click suppressed
             d = toggleChildren(d);
             update(d);
-            centerNode(d);
+            //centerNode(d);
         }
 
 
@@ -449,16 +352,6 @@ HTMLWidgets.widget({
                 })
                 .on('click', click);
 
-            /*
-            nodeEnter.append("circle")
-                .attr('class', 'nodeCircle')
-                .attr("r", 0)
-                .style("fill", function(d) {
-                    return d._children ? "lightsteelblue" : "#fff";
-                })
-                .on('mouseover', tip.show)
-                .on('mouseout', tip.hide);
-            */
 
             nodeEnter.append("rect")
                 .attr("class", "nodeRect")
@@ -490,19 +383,6 @@ HTMLWidgets.widget({
                 })
                 .style("fill-opacity", 0);
 
-            // phantom node to give us mouseover in a radius around it
-            nodeEnter.append("circle")
-                .attr('class', 'ghostCircle')
-                .attr("r", 30)
-                .attr("opacity", 0.2) // change this to zero to hide the target area
-                .style("fill", "red")
-                .attr('pointer-events', 'mouseover')
-                .on("mouseover", function (node) {
-                    overCircle(node);
-                })
-                .on("mouseout", function (node) {
-                    outCircle(node);
-                });
 
             // Update the text to reflect whether node has children or not.
             node.select('text')
