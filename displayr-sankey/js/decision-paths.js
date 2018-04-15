@@ -15,9 +15,11 @@ function getColumns(data) {
 ////////////////////////////////////////////////////
 //    Draw a table listing the decision paths     //
 ////////////////////////////////////////////////////
-
+/*
 function decisionPathInit(data) {
-    var ncols = getColumns(data.decision_paths);
+
+
+
 
     var svg = d3.select("#decision_path_tab").append('svg').attr("width", 800).attr("height", 500),
         margin = {
@@ -40,13 +42,30 @@ function decisionPathInit(data) {
 
     return decisionPath;
 }
+*/
+
+function addDecisionPathSortOptions(data) {
+   /* var form = d3.select("#decision_path_container").append('div').attr('class', 'form-group'),
+        form_label = form.append('label').attr('for', 'sel1').append('text').text('Sort Decision Path By');*/
+    var form_control = d3.select('#table-sorter')
+    form_control.append('option').attr('value', 'default').attr('selected', 'selected').append('text').text('Leaf number');
+    var n_option = 0;
+    // for each class, add an option to sort by the decision paths
+    data.x.opts.classLabels.forEach(function(cl) {
+        form_control.append('option').attr('value', n_option).append('text').text(cl);
+        n_option++;
+    });
+}
 
 function drawDecisionPathTable(data) {
-    dp = decisionPathInit(data);
+
+
+
+    var ncols = getColumns(data.decision_paths);
 
     // create column names
     var colnames = ['rank', 'root']
-    var nodenames = Array.apply(null, Array(dp.ncols - 2)).map(function (d, i) {
+    var nodenames = Array.apply(null, Array(ncols - 2)).map(function (d, i) {
         return 'node_' + (i + 1)
     })
     var colnames = colnames.concat(nodenames).concat(['terminal_node'])
@@ -116,14 +135,14 @@ function leafValueExtractor(row, n) {
 
 function sortDecisionPaths(rows) {
 
-    d3.select('#sort-table')
+    d3.select('#table-sorter')
         .on("change", function () {
-            v = d3.select('#sort-table').property('value');
+            v = d3.select('#table-sorter').property('value');
             rows.sort(function (a, b) {
 
                 var a = leafValueExtractor(a, v),
                     b = leafValueExtractor(b, v)
-                if (v === '2') {
+                if (v === 'default') {
                     return d3.ascending(a, b);
                 }
                 return d3.descending(a, b);

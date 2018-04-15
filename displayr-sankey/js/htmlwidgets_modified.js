@@ -563,8 +563,9 @@
                         sortFeature(keepImportant(data));
 
                         //Decision paths
+                        addDecisionPathSortOptions(data);
                         drawDecisionPathTable(data);
-                        //sortDecisionPaths();
+
 
                     });
                 }
