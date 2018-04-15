@@ -637,8 +637,7 @@
             "maxLabelLength": 15,
             "name": "label",
             "nodeHeight": null,
-            "tooltip": null,
-            "treeColors": false,
+            "tooltip": "show",
             "value": "samples"
         }
     },
