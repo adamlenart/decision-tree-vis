@@ -54,20 +54,29 @@ HTMLWidgets.widget({
         //              tooltip           //
         ////////////////////////////////////
 
-        function makeClassValueTable(d) {
-            var classes = [' '].concat(data.x.opts.classLabels);
+        function makeClassValueTable(d, ky) {
+            var classes = [d['label']].concat(data.x.opts.classLabels);
             var headerRow = classes.map(function (cl) {
                 return '<th>' + cl + '</th>';
             }).join('');
-            var trueValues = ['true'].concat(d['children'][0]['n_obs'])
-            var falseValues = ['false'].concat(d['children'][1]['n_obs'])
-            var trueRow = trueValues.map(function (v) {
-                return '<td>' + v + '</td>';
-            }).join('');
-            var falseRow = falseValues.map(function (v) {
-                return '<td>' + v + '</td>';
-            }).join('')
-            return '<table class="tooltip-table"><tr>' + headerRow + '</tr><tr>' + trueRow + '</tr><tr>' + falseRow + '</tr></table>';
+            if (ky === 'children') {
+                var trueValues = ['true'].concat(d['children'][0]['n_obs'])
+                var falseValues = ['false'].concat(d['children'][1]['n_obs'])
+                var trueRow = trueValues.map(function (v) {
+                    return '<td>' + v + '</td>';
+                }).join('');
+                var falseRow = falseValues.map(function (v) {
+                    return '<td>' + v + '</td>';
+                }).join('')
+                return '<table class="tooltip-table"><tr>' + headerRow + '</tr><tr>' + trueRow + '</tr><tr>' + falseRow + '</tr></table>';
+            } else {
+                var leafValues = [''].concat(d['n_obs']);
+                var leafFrequencies = leafValues.map(function (v) {
+                    return '<td>' + v + '</td>';
+                }).join('')
+                return '<table class="tooltip-table"><tr>' + headerRow + '</tr><tr>' + leafFrequencies + '</tr></table>';
+
+            }
         };
 
         var tip = {};
@@ -77,13 +86,14 @@ HTMLWidgets.widget({
                 .attr('class', 'd3-tip')
                 .html(function (d) {
                     var htmltip = [];
-                    var info_node = ['label', 'samples', 'children', 'impurity'],
-                        info_leaf = ['label', 'samples', 'n_obs', 'impurity']
+                    var info_node = [ 'children', 'samples','impurity'],
+                        info_leaf = ['n_obs','samples', 'impurity']
+                    // rewrite this to check whether the node has children
                     var info = d['label'].substr(0, 4) === 'leaf' ? info_leaf : info_node === 'leaf' ? info_leaf : info_node
                     info.forEach(function (ky) {
-                        //is it a leaf node?
-                        if (ky === 'children') {
-                            htmltip.push(makeClassValueTable(d))
+                        if (ky === 'children' || ky === 'n_obs') {
+                            // make a cross tab for decision and class for internal nodes
+                            htmltip.push(makeClassValueTable(d, ky));
                         } else {
                             htmltip.push(ky + ": " + d[ky]);
                         }
