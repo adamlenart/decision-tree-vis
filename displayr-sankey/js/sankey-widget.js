@@ -50,34 +50,31 @@ HTMLWidgets.widget({
         var newWidth;
         var newHeight;
 
-        // add treeColors if told yes
-        if (x.opts.treeColors) {
-            var tc = TreeColors("add");
-            tc.children(opts.childrenName);
-            tc(treeData);
-        }
-
-        // work on tooltip
+        ////////////////////////////////////
+        //              tooltip           //
+        ////////////////////////////////////
+        
         var tip = {};
 
-        if (opts.tooltip) {
+        if (opts.tooltip === 'show') {
             tip = d3.tip()
                 .attr('class', 'd3-tip')
                 .html(function (d) {
-                    return d;
-                });
-
-            if (Array.isArray(opts.tooltip)) {
-                tip.html(function (d) {
                     var htmltip = [];
-                    opts.tooltip.forEach(function (ky) {
-                        htmltip.push(ky + ": " + d[ky]);
+                    var info_node = ['label', 'samples', 'children'],
+                        info_leaf = ['label', 'samples']
+                    var info = d['label'].substr(0,4) === 'leaf'? info_leaf : info_node;=== 'leaf'? info_leaf : info_node)
+                    info.forEach(function (ky) {
+                        //is it a leaf node?
+                        if (ky === 'children') {
+                            htmltip.push("true : " + d['children'][0]['value'])
+                            htmltip.push("false : " + d['children'][1]['value'])
+                        } else {
+                            htmltip.push(ky + ": " + d[ky]);
+                        }
                     });
                     return htmltip.join("<br/>");
                 });
-            } else if (typeof (opts.tooltip) === "function") {
-                tip.html(opts.tooltip);
-            }
         }
 
         // define the baseSvg, attaching a class for styling and the zoomListener
@@ -352,15 +349,6 @@ HTMLWidgets.widget({
                 })
                 .on('click', click);
 
-                var tooltip = d3.select("body")
-                .append("div")
-                .style("position", "absolute")
-                .style("z-index", "10")
-                .style("visibility", "hidden")
-                .style("background", "white")
-                .text("a simple tooltip")
-                .style("font-size", "10px");
-
             nodeEnter.append("rect")
                 .attr("class", "nodeRect")
                 .attr("x", -2.5)
@@ -377,6 +365,7 @@ HTMLWidgets.widget({
                 .on('mouseover', opts.tooltip ? tip.show : null)
                 .on('mouseout', opts.tooltip ? tip.hide : null);
 
+
             nodeEnter.append("text")
                 .attr("x", function (d) {
                     return d[opts.childrenName] || d._children ? -10 : 10;
@@ -390,14 +379,8 @@ HTMLWidgets.widget({
                     return d[opts.name];
                 })
                 .style("fill-opacity", 0)
-                .on('mouseover', function(d){
-                  console.log(d.parent);
-                  tooltip.text("["+d.parent.children[0].value + ","+ d.parent.children[1].value + "]");
-                  return tooltip.style("visibility", "visible");})
-                .on("mousemove", function(){
-                  return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
-                .on("mouseout", function(){return tooltip.style("visibility", "hidden");});;
-
+                .on('mouseover', opts.tooltip ? tip.show : null)
+                .on('mouseout', opts.tooltip ? tip.hide : null);
 
             // Update the text to reflect whether node has children or not.
             node.select('text')
