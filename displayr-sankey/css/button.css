@@ -16,3 +16,17 @@
  }
 
 
+ .nav-tabs{
+   background-color:green;
+ }
+
+ .nav-tabs > li > a{
+   border: medium none;
+   background-color:	#91bbe4;
+ }
+ .nav-tabs > li > a:hover{
+   background-color: #0a4f75;
+     border: medium none;
+     border-radius: 0;
+     color:white;
+ }

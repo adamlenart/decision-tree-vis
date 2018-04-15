@@ -242,11 +242,11 @@ HTMLWidgets.widget({
             .call(zoomListener);
 
 
-        
+
         //////////////////////////////////
         //          Collapse            //
         //////////////////////////////////
-        
+
         // Function to center node when clicked/dropped so node doesn't get lost when collapsing/moving with large amount of children.
 
         function centerNode(source) {
@@ -306,7 +306,7 @@ HTMLWidgets.widget({
 
             if (opts.maxLabelLength) {
                 newWidth = (levelWidth.length + 2) * (maxLabelLength * 10) +
-                    levelWidth.length * 10; // node link size + node rect size              
+                    levelWidth.length * 10; // node link size + node rect size
             } else {
                 newWidth = (levelWidth.length + 2) * (meanLabelLength * pxPerChar) +
                     levelWidth.length * 10; // node link size + node rect size
@@ -321,7 +321,7 @@ HTMLWidgets.widget({
 
             // Size link width according to n based on total n
             wscale = d3.scale.linear()
-                .range([0, opts.nodeHeight || 25])
+                .range([0.5, opts.nodeHeight || 25]) // use 0.5 to prevent some small branch being unseen
                 .domain([0, treeData[opts.value]]);
 
             // Set widths between levels based on maxLabelLength.
@@ -352,6 +352,14 @@ HTMLWidgets.widget({
                 })
                 .on('click', click);
 
+                var tooltip = d3.select("body")
+                .append("div")
+                .style("position", "absolute")
+                .style("z-index", "10")
+                .style("visibility", "hidden")
+                .style("background", "white")
+                .text("a simple tooltip")
+                .style("font-size", "10px");
 
             nodeEnter.append("rect")
                 .attr("class", "nodeRect")
@@ -381,7 +389,14 @@ HTMLWidgets.widget({
                 .text(function (d) {
                     return d[opts.name];
                 })
-                .style("fill-opacity", 0);
+                .style("fill-opacity", 0)
+                .on('mouseover', function(d){
+                  console.log(d.parent);
+                  tooltip.text("["+d.parent.children[0].value + ","+ d.parent.children[1].value + "]");
+                  return tooltip.style("visibility", "visible");})
+                .on("mousemove", function(){
+                  return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+                .on("mouseout", function(){return tooltip.style("visibility", "hidden");});;
 
 
             // Update the text to reflect whether node has children or not.
@@ -479,7 +494,9 @@ HTMLWidgets.widget({
                 });
 
             link.style("stroke-width", function (d) {
-                return wscale(d.target.value)
+                // in case a branch is too small to see
+
+                return wscale(d.target.value);
             });
 
             // Transition links to their new position.
