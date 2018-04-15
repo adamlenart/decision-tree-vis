@@ -5,95 +5,104 @@
         "data": {
             "label": "x.age80 \u2264 55.5",
             "samples": 280479,
-            "value": [
+            "n_obs": [
                 78391,
                 202088
             ],
             "color": "#D95F02",
+            "impurity": 0.403,
             "children": [
                 {
                     "label": "x.imprace_2 \u2264 0.5",
                     "samples": 126650,
-                    "value": [
+                    "n_obs": [
                         53640,
                         73010
                     ],
                     "color": "#D95F02",
+                    "impurity": 0.488,
                     "children": [
                         {
                             "label": "x.rfsmok3_1 \u2264 0.5",
                             "samples": 115848,
-                            "value": [
+                            "n_obs": [
                                 46188,
                                 69660
                             ],
                             "color": "#D95F02",
+                            "impurity": 0.479,
                             "children": [
                                 {
                                     "label": "x.age80 \u2264 48.5",
                                     "samples": 22705,
-                                    "value": [
+                                    "n_obs": [
                                         11538,
                                         11167
                                     ],
                                     "color": "#1B9E77",
+                                    "impurity": 0.5,
                                     "children": [
                                         {
                                             "label": "x.age80 \u2264 21.5",
                                             "samples": 16011,
-                                            "value": [
+                                            "n_obs": [
                                                 8824,
                                                 7187
                                             ],
                                             "color": "#1B9E77",
+                                            "impurity": 0.495,
                                             "children": [
                                                 {
                                                     "label": "leaf1",
                                                     "samples": 1078,
-                                                    "value": [
+                                                    "n_obs": [
                                                         398,
                                                         680
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.466
                                                 },
-
                                                 {
                                                     "label": "leaf2",
                                                     "samples": 14933,
-                                                    "value": [
+                                                    "n_obs": [
                                                         8426,
                                                         6507
                                                     ],
-                                                    "color": "#1B9E77"
+                                                    "color": "#1B9E77",
+                                                    "impurity": 0.492
                                                 }
                                             ]
                                         },
                                         {
                                             "label": "x.impmrtl_1 \u2264 0.5",
                                             "samples": 6694,
-                                            "value": [
+                                            "n_obs": [
                                                 2714,
                                                 3980
                                             ],
                                             "color": "#D95F02",
+                                            "impurity": 0.482,
                                             "children": [
                                                 {
                                                     "label": "leaf3",
                                                     "samples": 3661,
-                                                    "value": [
+                                                    "n_obs": [
                                                         1756,
                                                         1905
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.499
                                                 },
                                                 {
                                                     "label": "leaf4",
                                                     "samples": 3033,
-                                                    "value": [
+                                                    "n_obs": [
                                                         958,
                                                         2075
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.432
                                                 }
                                             ]
                                         }
@@ -102,67 +111,74 @@
                                 {
                                     "label": "x.age80 \u2264 21.5",
                                     "samples": 93143,
-                                    "value": [
+                                    "n_obs": [
                                         34650,
                                         58493
                                     ],
                                     "color": "#D95F02",
+                                    "impurity": 0.467,
                                     "children": [
                                         {
                                             "label": "x.impmrtl_5 \u2264 0.5",
                                             "samples": 6226,
-                                            "value": [
+                                            "n_obs": [
                                                 1038,
                                                 5188
                                             ],
                                             "color": "#D95F02",
+                                            "impurity": 0.278,
                                             "children": [
                                                 {
                                                     "label": "leaf5",
                                                     "samples": 685,
-                                                    "value": [
+                                                    "n_obs": [
                                                         206,
                                                         479
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.421
                                                 },
                                                 {
                                                     "label": "leaf6",
                                                     "samples": 5541,
-                                                    "value": [
+                                                    "n_obs": [
                                                         832,
                                                         4709
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.255
                                                 }
                                             ]
                                         },
                                         {
                                             "label": "x.age80 \u2264 48.5",
                                             "samples": 86917,
-                                            "value": [
+                                            "n_obs": [
                                                 33612,
                                                 53305
                                             ],
                                             "color": "#D95F02",
+                                            "impurity": 0.474,
                                             "children": [
                                                 {
                                                     "label": "leaf7",
                                                     "samples": 60039,
-                                                    "value": [
+                                                    "n_obs": [
                                                         25601,
                                                         34438
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.489
                                                 },
                                                 {
                                                     "label": "leaf8",
                                                     "samples": 26878,
-                                                    "value": [
+                                                    "n_obs": [
                                                         8011,
                                                         18867
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.418
                                                 }
                                             ]
                                         }
@@ -173,76 +189,84 @@
                         {
                             "label": "x.age80 \u2264 20.5",
                             "samples": 10802,
-                            "value": [
+                            "n_obs": [
                                 7452,
                                 3350
                             ],
                             "color": "#1B9E77",
+                            "impurity": 0.428,
                             "children": [
                                 {
                                     "label": "x.age80 \u2264 18.5",
                                     "samples": 517,
-                                    "value": [
+                                    "n_obs": [
                                         181,
                                         336
                                     ],
                                     "color": "#D95F02",
+                                    "impurity": 0.455,
                                     "children": [
                                         {
                                             "label": "x.impcsex_123456789 \u2264 0.5",
                                             "samples": 193,
-                                            "value": [
+                                            "n_obs": [
                                                 45,
                                                 148
                                             ],
                                             "color": "#D95F02",
+                                            "impurity": 0.358,
                                             "children": [
                                                 {
                                                     "label": "leaf9",
                                                     "samples": 78,
-                                                    "value": [
+                                                    "n_obs": [
                                                         10,
                                                         68
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.224
                                                 },
                                                 {
                                                     "label": "leaf10",
                                                     "samples": 115,
-                                                    "value": [
+                                                    "n_obs": [
                                                         35,
                                                         80
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.423
                                                 }
                                             ]
                                         },
                                         {
                                             "label": "htin4 \u2264 64.5",
                                             "samples": 324,
-                                            "value": [
+                                            "n_obs": [
                                                 136,
                                                 188
                                             ],
                                             "color": "#D95F02",
+                                            "impurity": 0.487,
                                             "children": [
                                                 {
                                                     "label": "leaf11",
                                                     "samples": 109,
-                                                    "value": [
+                                                    "n_obs": [
                                                         59,
                                                         50
                                                     ],
-                                                    "color": "#1B9E77"
+                                                    "color": "#1B9E77",
+                                                    "impurity": 0.497
                                                 },
                                                 {
                                                     "label": "leaf12",
                                                     "samples": 215,
-                                                    "value": [
+                                                    "n_obs": [
                                                         77,
                                                         138
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.46
                                                 }
                                             ]
                                         }
@@ -251,67 +275,74 @@
                                 {
                                     "label": "x.age80 \u2264 46.5",
                                     "samples": 10285,
-                                    "value": [
+                                    "n_obs": [
                                         7271,
                                         3014
                                     ],
                                     "color": "#1B9E77",
+                                    "impurity": 0.414,
                                     "children": [
                                         {
                                             "label": "x.age80 \u2264 23.5",
                                             "samples": 6504,
-                                            "value": [
+                                            "n_obs": [
                                                 4936,
                                                 1568
                                             ],
                                             "color": "#1B9E77",
+                                            "impurity": 0.366,
                                             "children": [
                                                 {
                                                     "label": "leaf13",
                                                     "samples": 593,
-                                                    "value": [
+                                                    "n_obs": [
                                                         368,
                                                         225
                                                     ],
-                                                    "color": "#1B9E77"
+                                                    "color": "#1B9E77",
+                                                    "impurity": 0.471
                                                 },
                                                 {
                                                     "label": "leaf14",
                                                     "samples": 5911,
-                                                    "value": [
+                                                    "n_obs": [
                                                         4568,
                                                         1343
                                                     ],
-                                                    "color": "#1B9E77"
+                                                    "color": "#1B9E77",
+                                                    "impurity": 0.351
                                                 }
                                             ]
                                         },
                                         {
                                             "label": "drocdy3. \u2264 5.0",
                                             "samples": 3781,
-                                            "value": [
+                                            "n_obs": [
                                                 2335,
                                                 1446
                                             ],
                                             "color": "#1B9E77",
+                                            "impurity": 0.472,
                                             "children": [
                                                 {
                                                     "label": "leaf15",
                                                     "samples": 2454,
-                                                    "value": [
+                                                    "n_obs": [
                                                         1399,
                                                         1055
                                                     ],
-                                                    "color": "#1B9E77"
+                                                    "color": "#1B9E77",
+                                                    "impurity": 0.49
                                                 },
                                                 {
                                                     "label": "leaf16",
                                                     "samples": 1327,
-                                                    "value": [
+                                                    "n_obs": [
                                                         936,
                                                         391
                                                     ],
-                                                    "color": "#1B9E77"
+                                                    "color": "#1B9E77",
+                                                    "impurity": 0.416
                                                 }
                                             ]
                                         }
@@ -324,85 +355,94 @@
                 {
                     "label": "x.age80 \u2264 69.5",
                     "samples": 153829,
-                    "value": [
+                    "n_obs": [
                         24751,
                         129078
                     ],
                     "color": "#D95F02",
+                    "impurity": 0.27,
                     "children": [
                         {
                             "label": "x.impmrtl_1 \u2264 0.5",
                             "samples": 88980,
-                            "value": [
+                            "n_obs": [
                                 19261,
                                 69719
                             ],
                             "color": "#D95F02",
+                            "impurity": 0.339,
                             "children": [
                                 {
                                     "label": "x.imprace_2 \u2264 0.5",
                                     "samples": 35241,
-                                    "value": [
+                                    "n_obs": [
                                         10243,
                                         24998
                                     ],
                                     "color": "#D95F02",
+                                    "impurity": 0.412,
                                     "children": [
                                         {
                                             "label": "x.impmrtl_3 \u2264 0.5",
                                             "samples": 31034,
-                                            "value": [
+                                            "n_obs": [
                                                 8309,
                                                 22725
                                             ],
                                             "color": "#D95F02",
+                                            "impurity": 0.392,
                                             "children": [
                                                 {
                                                     "label": "leaf17",
                                                     "samples": 23068,
-                                                    "value": [
+                                                    "n_obs": [
                                                         6863,
                                                         16205
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.418
                                                 },
                                                 {
                                                     "label": "leaf18",
                                                     "samples": 7966,
-                                                    "value": [
+                                                    "n_obs": [
                                                         1446,
                                                         6520
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.297
                                                 }
                                             ]
                                         },
                                         {
                                             "label": "x.age80 \u2264 60.5",
                                             "samples": 4207,
-                                            "value": [
+                                            "n_obs": [
                                                 1934,
                                                 2273
                                             ],
                                             "color": "#D95F02",
+                                            "impurity": 0.497,
                                             "children": [
                                                 {
                                                     "label": "leaf19",
                                                     "samples": 1695,
-                                                    "value": [
+                                                    "n_obs": [
                                                         916,
                                                         779
                                                     ],
-                                                    "color": "#1B9E77"
+                                                    "color": "#1B9E77",
+                                                    "impurity": 0.497
                                                 },
                                                 {
                                                     "label": "leaf20",
                                                     "samples": 2512,
-                                                    "value": [
+                                                    "n_obs": [
                                                         1018,
                                                         1494
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.482
                                                 }
                                             ]
                                         }
@@ -411,67 +451,74 @@
                                 {
                                     "label": "x.imprace_2 \u2264 0.5",
                                     "samples": 53739,
-                                    "value": [
+                                    "n_obs": [
                                         9018,
                                         44721
                                     ],
                                     "color": "#D95F02",
+                                    "impurity": 0.279,
                                     "children": [
                                         {
                                             "label": "x.impeduc_4 \u2264 0.5",
                                             "samples": 51305,
-                                            "value": [
+                                            "n_obs": [
                                                 8165,
                                                 43140
                                             ],
                                             "color": "#D95F02",
+                                            "impurity": 0.268,
                                             "children": [
                                                 {
                                                     "label": "leaf21",
                                                     "samples": 38093,
-                                                    "value": [
+                                                    "n_obs": [
                                                         6639,
                                                         31454
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.288
                                                 },
                                                 {
                                                     "label": "leaf22",
                                                     "samples": 13212,
-                                                    "value": [
+                                                    "n_obs": [
                                                         1526,
                                                         11686
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.204
                                                 }
                                             ]
                                         },
                                         {
                                             "label": "x.rfmam2y_123456789 \u2264 0.5",
                                             "samples": 2434,
-                                            "value": [
+                                            "n_obs": [
                                                 853,
                                                 1581
                                             ],
                                             "color": "#D95F02",
+                                            "impurity": 0.455,
                                             "children": [
                                                 {
                                                     "label": "leaf23",
                                                     "samples": 1342,
-                                                    "value": [
+                                                    "n_obs": [
                                                         405,
                                                         937
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.421
                                                 },
                                                 {
                                                     "label": "leaf24",
                                                     "samples": 1092,
-                                                    "value": [
+                                                    "n_obs": [
                                                         448,
                                                         644
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.484
                                                 }
                                             ]
                                         }
@@ -482,76 +529,84 @@
                         {
                             "label": "x.age80 \u2264 75.5",
                             "samples": 64849,
-                            "value": [
+                            "n_obs": [
                                 5490,
                                 59359
                             ],
                             "color": "#D95F02",
+                            "impurity": 0.155,
                             "children": [
                                 {
                                     "label": "x.imprace_2 \u2264 0.5",
                                     "samples": 28340,
-                                    "value": [
+                                    "n_obs": [
                                         3314,
                                         25026
                                     ],
                                     "color": "#D95F02",
+                                    "impurity": 0.207,
                                     "children": [
                                         {
                                             "label": "x.impmrtl_2 \u2264 0.5",
                                             "samples": 26612,
-                                            "value": [
+                                            "n_obs": [
                                                 2884,
                                                 23728
                                             ],
                                             "color": "#D95F02",
+                                            "impurity": 0.193,
                                             "children": [
                                                 {
                                                     "label": "leaf25",
                                                     "samples": 22668,
-                                                    "value": [
+                                                    "n_obs": [
                                                         2183,
                                                         20485
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.174
                                                 },
                                                 {
                                                     "label": "leaf26",
                                                     "samples": 3944,
-                                                    "value": [
+                                                    "n_obs": [
                                                         701,
                                                         3243
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.292
                                                 }
                                             ]
                                         },
                                         {
                                             "label": "x.rfmam2y_123456789 \u2264 0.5",
                                             "samples": 1728,
-                                            "value": [
+                                            "n_obs": [
                                                 430,
                                                 1298
                                             ],
                                             "color": "#D95F02",
+                                            "impurity": 0.374,
                                             "children": [
                                                 {
                                                     "label": "leaf27",
                                                     "samples": 1180,
-                                                    "value": [
+                                                    "n_obs": [
                                                         248,
                                                         932
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.332
                                                 },
                                                 {
                                                     "label": "leaf28",
                                                     "samples": 548,
-                                                    "value": [
+                                                    "n_obs": [
                                                         182,
                                                         366
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.444
                                                 }
                                             ]
                                         }
@@ -560,67 +615,74 @@
                                 {
                                     "label": "x.imprace_1 \u2264 0.5",
                                     "samples": 36509,
-                                    "value": [
+                                    "n_obs": [
                                         2176,
                                         34333
                                     ],
                                     "color": "#D95F02",
+                                    "impurity": 0.112,
                                     "children": [
                                         {
                                             "label": "x.rfmam2y_123456789 \u2264 0.5",
                                             "samples": 4329,
-                                            "value": [
+                                            "n_obs": [
                                                 530,
                                                 3799
                                             ],
                                             "color": "#D95F02",
+                                            "impurity": 0.215,
                                             "children": [
                                                 {
                                                     "label": "leaf29",
                                                     "samples": 2968,
-                                                    "value": [
+                                                    "n_obs": [
                                                         292,
                                                         2676
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.177
                                                 },
                                                 {
                                                     "label": "leaf30",
                                                     "samples": 1361,
-                                                    "value": [
+                                                    "n_obs": [
                                                         238,
                                                         1123
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.289
                                                 }
                                             ]
                                         },
                                         {
                                             "label": "x.rfmam2y_123456789 \u2264 0.5",
                                             "samples": 32180,
-                                            "value": [
+                                            "n_obs": [
                                                 1646,
                                                 30534
                                             ],
                                             "color": "#D95F02",
+                                            "impurity": 0.097,
                                             "children": [
                                                 {
                                                     "label": "leaf31",
                                                     "samples": 21181,
-                                                    "value": [
+                                                    "n_obs": [
                                                         800,
                                                         20381
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.073
                                                 },
                                                 {
                                                     "label": "leaf32",
                                                     "samples": 10999,
-                                                    "value": [
+                                                    "n_obs": [
                                                         846,
                                                         10153
                                                     ],
-                                                    "color": "#D95F02"
+                                                    "color": "#D95F02",
+                                                    "impurity": 0.142
                                                 }
                                             ]
                                         }
@@ -633,13 +695,16 @@
             ]
         },
         "opts": {
+            "classLabels": [
+                "tested",
+                "not-tested"
+            ],
             "childrenName": "children",
             "id": "id",
             "maxLabelLength": 15,
             "name": "label",
             "nodeHeight": null,
             "tooltip": "show",
-            "treeColors": false,
             "value": "samples"
         }
     },

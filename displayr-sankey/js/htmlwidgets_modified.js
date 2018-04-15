@@ -547,6 +547,7 @@
                     data = [];
                     d3.json(scriptData.textContent || scriptData.text, function (json) {
                         data = json;
+                        console.log(json);
                         // eval(scriptData.textContent);
                         //var data = JSON.parse(scriptData.textContent || scriptData.text);
                         // Resolve strings marked as javascript literals to objects

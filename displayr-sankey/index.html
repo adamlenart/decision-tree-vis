@@ -48,21 +48,33 @@
         padding-top: 50px;
     }
 
-    table {
+    #decision_path_tab table, #description_tab table,
+    .tooltip-table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
     }
 
-    td, th {
-    border: 1px solid #dddddd;
+    #decision_path_tab td, #decision_path_tab th,
+    #description_tab td, #description_tab th,
+    {
+    border: 1px solid black;
+    text-align: left;
+    padding: 10px;
+    }
+    
+      .tooltip-table td, .tooltip-table th{
+    border: 1px solid white;
     text-align: left;
     padding: 10px;
     }
 
-    tr:nth-child(even) {
+    #description_tab tr:nth-child(even),
+    #decision_path_tab tr:nth-child(even) {
     background-color: #dddddd;
     }
+    
+    
 </style>
 
 </head>

@@ -53,7 +53,23 @@ HTMLWidgets.widget({
         ////////////////////////////////////
         //              tooltip           //
         ////////////////////////////////////
-        
+
+        function makeClassValueTable(d) {
+            var classes = [' '].concat(data.x.opts.classLabels);
+            var headerRow = classes.map(function (cl) {
+                return '<th>' + cl + '</th>';
+            }).join('');
+            var trueValues = ['true'].concat(d['children'][0]['n_obs'])
+            var falseValues = ['false'].concat(d['children'][1]['n_obs'])
+            var trueRow = trueValues.map(function (v) {
+                return '<td>' + v + '</td>';
+            }).join('');
+            var falseRow = falseValues.map(function (v) {
+                return '<td>' + v + '</td>';
+            }).join('')
+            return '<table class="tooltip-table"><tr>' + headerRow + '</tr><tr>' + trueRow + '</tr><tr>' + falseRow + '</tr></table>';
+        };
+
         var tip = {};
 
         if (opts.tooltip === 'show') {
@@ -61,14 +77,13 @@ HTMLWidgets.widget({
                 .attr('class', 'd3-tip')
                 .html(function (d) {
                     var htmltip = [];
-                    var info_node = ['label', 'samples', 'children'],
-                        info_leaf = ['label', 'samples']
-                    var info = d['label'].substr(0,4) === 'leaf'? info_leaf : info_node;=== 'leaf'? info_leaf : info_node)
+                    var info_node = ['label', 'samples', 'children', 'impurity'],
+                        info_leaf = ['label', 'samples', 'n_obs', 'impurity']
+                    var info = d['label'].substr(0, 4) === 'leaf' ? info_leaf : info_node === 'leaf' ? info_leaf : info_node
                     info.forEach(function (ky) {
                         //is it a leaf node?
                         if (ky === 'children') {
-                            htmltip.push("true : " + d['children'][0]['value'])
-                            htmltip.push("false : " + d['children'][1]['value'])
+                            htmltip.push(makeClassValueTable(d))
                         } else {
                             htmltip.push(ky + ": " + d[ky]);
                         }
