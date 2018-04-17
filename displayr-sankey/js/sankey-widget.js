@@ -297,7 +297,7 @@ HTMLWidgets.widget({
 
             if (direction == "down") {
                 while (i < x.length) {
-                    if (x[i].__data__.depth == selectedDepth) {
+                    if (x[i].__data__.depth == selectedDepth && x[i].__data__.children) {
                         eventFire(x[i], 'click');
                     }
                     i += 1;
