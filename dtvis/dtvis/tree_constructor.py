@@ -59,7 +59,7 @@ class D3Tree:
         # build a dictionary that contains all of the correct signs,
         # use that leafs are ordered as the variation (with repetition) of the ('<=','>') signs
         decision_signs = defaultdict(dict)
-        for n,item in enumerate(product(["\u2264",">"], repeat=5)):
+        for n,item in enumerate(product(["\u2264",">"], repeat = tree_depth)):
             decision_signs['leaf'+str(n+1)] = item
 
         # build a new dictionary that substitutes these signs to the previously built 
