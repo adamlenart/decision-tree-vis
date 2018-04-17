@@ -143,6 +143,7 @@ HTMLWidgets.widget({
             visitFn(parent);
 
             var children = childrenFn(parent);
+
             if (children) {
                 var count = children.length;
                 for (var i = 0; i < count; i++) {
@@ -198,6 +199,15 @@ HTMLWidgets.widget({
         //.attr("width", 40)
         //.attr("height", 40);
 
+
+        // create label
+        zoomLabel = baseSvg.append('g').attr('class', 'zoom-label');
+        zoomLabel
+            .append('text')
+            .attr('x', 45)
+            .attr('y', 50)
+            .text('Zoom')
+            .attr('class', 'zoom-button-text');
 
         // create zoom buttons
         zoomButtons = baseSvg.append('g').attr('class', 'zoom-button');
@@ -265,6 +275,97 @@ HTMLWidgets.widget({
 
 
 
+        ///////////////////////////////////////////
+        //             Toggle Depth              //
+        ///////////////////////////////////////////
+        var selectedDepth = 5;
+
+        function eventFire(el, etype){
+            if (el.fireEvent) {
+                el.fireEvent('on' + etype);
+                }
+            else {
+                var evObj = document.createEvent('Events');
+                evObj.initEvent(etype, true, false);
+                el.dispatchEvent(evObj);
+            }
+        }
+
+        function toggleDepth(direction) {
+            var x = document.getElementsByClassName("node");
+            var i = 0;
+
+            if (direction == "down") {
+                while (i < x.length) {
+                    if (x[i].__data__.depth == selectedDepth && x[i].__data__.children) {
+                        eventFire(x[i], 'click');
+                    }
+                    i += 1;
+                }
+            } else {
+                while (i < x.length) {
+                    if (x[i].__data__.depth == selectedDepth - 1) {
+                        eventFire(x[i], 'click');
+                    }
+                    i += 1;
+                }
+            }
+
+        }
+
+        // create label
+        depthLabel = baseSvg.append('g').attr('class', 'depth-label');
+        depthLabel
+            .append('text')
+            .attr('x', 45)
+            .attr('y', 150)
+            .text('Depth')
+            .attr('class', 'zoom-button-text');
+
+        // create depth buttons
+        toggleButtons = baseSvg.append('g').attr('class', 'zoom-button');
+
+        depthUp = toggleButtons.append('g');
+        depthUp
+            .append('text')
+            .attr('x', 19)
+            .attr('y', 131)
+            .text('+')
+            .attr('class', 'zoom-button-text');
+        depthUp
+            .append('rect')
+            .attr('x', 10)
+            .attr('y', 110)
+            .attr('width', '30')
+            .attr('height', '30')
+            .attr('id', 'depthUp');
+
+        depthDown = toggleButtons.append('g');
+        depthDown
+            .append('text')
+            .attr('x', 21)
+            .attr('y', 166)
+            .text('-')
+            .attr('class', 'zoom-button-text');
+        depthDown
+            .append('rect')
+            .attr('x', 10)
+            .attr('y', 145)
+            .attr('width', '30')
+            .attr('height', '30')
+            .attr('id', 'depthDown');
+
+
+        depthUp.on("click", function (d) {
+            selectedDepth += 1;
+            toggleDepth("up");
+        });
+
+        depthDown.on("click", function (d) {
+            selectedDepth -= 1;
+            toggleDepth("down");
+        });
+
         //////////////////////////////////
         //          Collapse            //
         //////////////////////////////////
@@ -304,6 +405,7 @@ HTMLWidgets.widget({
             d = toggleChildren(d);
             update(d);
             //centerNode(d);
+            console.log(d);
         }
 
 
