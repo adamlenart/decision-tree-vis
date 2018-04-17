@@ -88,8 +88,8 @@ HTMLWidgets.widget({
                     var htmltip = [];
                     var info_node = [ 'children', 'samples','impurity'],
                         info_leaf = ['n_obs','samples', 'impurity']
-                    // rewrite this to check whether the node has children
-                    var info = d['label'].substr(0, 4) === 'leaf' ? info_leaf : info_node === 'leaf' ? info_leaf : info_node
+                    // Show crosstab between true , false and class if internal node, show only class aggregates if ternminal node
+                    var info = d['children'] == null ? info_leaf : info_node === 'leaf' ? info_leaf : info_node
                     info.forEach(function (ky) {
                         if (ky === 'children' || ky === 'n_obs') {
                             // make a cross tab for decision and class for internal nodes
