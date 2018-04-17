@@ -333,7 +333,7 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table" id="decision-path-table">
+                        <table class="table" id="decision-path-table" width="100%">
 
                         </table>
                     </div>
@@ -397,8 +397,8 @@
                     d3.json('data/d3tree_data.json', function (json) {
                         data = json;
                         // Draw Sankey
-                        inst = sankeyInit('#htmlwidget','1440px','750px');
-                        drawSankey('#htmlwidget', data.x, inst);
+                        sankeyInit('#htmlwidget','1440px','750px');
+                        drawSankey('#htmlwidget', data.x);
                         // Draw barplot
                         drawBarplot(keepImportant(data));
                         sortFeature(keepImportant(data));
