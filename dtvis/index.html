@@ -304,8 +304,8 @@
             <div class="tab-pane active" id="sankey_tab">
 
                 <p>Click on the node to collapse and expand the tree and go to other tabs for more comparison</p>
-                <div id="htmlwidget_container" style="width:1440px;height:750px">
-                    <div id="htmlwidget" class="sankeytree" style="width:1440px;height:750px;">
+                <div id="decision_tree_container" style="width:1440px;height:750px">
+                    <div id="decision-tree" class="sankeytree" style="width:1440px;height:750px;">
                     </div>
                 </div>
 
@@ -397,8 +397,8 @@
                     d3.json('data/d3tree_data.json', function (json) {
                         data = json;
                         // Draw Sankey
-                        sankeyInit('#htmlwidget','1440px','750px');
-                        drawSankey('#htmlwidget', data.x);
+                        sankeyInit('#decision-tree','1440px','750px');
+                        drawSankey('#decision-tree', data.x);
                         // Draw barplot
                         drawBarplot(keepImportant(data));
                         sortFeature(keepImportant(data));

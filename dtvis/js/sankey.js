@@ -100,8 +100,8 @@ function drawSankey(el, x) {
 
 
     // size of the diagram
-    var viewerWidth = $("#htmlwidget").width();
-    var viewerHeight = $("#htmlwidget").height();
+    var viewerWidth = $("#decision-tree").width();
+    var viewerHeight = $("#decision-tree").height();
 
     var tree = d3.layout.tree()
         .size([viewerHeight, viewerWidth])
