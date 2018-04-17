@@ -10,15 +10,13 @@
     <link href="css/zoom.css" rel="stylesheet">
     <link href="css/button.css" rel="stylesheet">
     <link href="css/tooltip.css" rel="stylesheet">
-    <!--    <link href="css/decisionPaths.css" rel="stylesheet">-->
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src='js/d3.min.js'></script>
     <script src="js/bar.js"></script>
     <script src="js/decision-paths.js"></script>
-    <script src='js/htmlwidgets_modified.js'></script>
     <script src='js/d3-tip.js'></script>
-    <script src="js/sankey-widget.js"></script>
+    <script src="js/sankey.js"></script>
 
 </head>
 
@@ -392,12 +390,28 @@
 
         </div>
     </div>
+<script>
+
+    
+                    data = [];
+                    d3.json('data/d3tree_data.json', function (json) {
+                        data = json;
+                        // Draw Sankey
+                        inst = sankeyInit('#htmlwidget','1440px','750px');
+                        drawSankey('#htmlwidget', data.x, inst);
+                        // Draw barplot
+                        drawBarplot(keepImportant(data));
+                        sortFeature(keepImportant(data));
+
+                        //Decision paths
+                        addDecisionPathSortOptions(data);
+                        drawDecisionPathTable(data);
 
 
-    <script type="application/json" data-for="htmlwidget">
-        data/d3tree_data.json
+                    });
+</script>
 
-    </script>
+
 
 </body>
 
