@@ -126,11 +126,11 @@ function drawDecisionPathTable(data) {
 ////////////////////////////////////
 
 function leafValueExtractor(row, n) {
-    if (n == 2) {
+    if (n === "default") {
         // cut leaf from the beginning of the string
-        return parseInt(row[5].substring(4));
+        return parseInt(row[row.length -1].substring(4));
     }
-    return data.leaf_values[row[5]][n];
+    return data.leaf_values[row[row.length -1]][n];
 };
 
 function sortDecisionPaths(rows) {
