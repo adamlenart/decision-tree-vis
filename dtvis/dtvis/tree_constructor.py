@@ -39,38 +39,25 @@ class D3Tree:
           "value": "samples"
         }
     def decision_path(self):
-        def build_decision_path(node, path):
+        def build_decision_path(node, path, direction):
             if node is None:
                 return
-            path.append(node['label'])
+            this_node = node['label']
+            if direction == "right":
+                this_node = re.sub("\u2264", ">" , this_node) 
+            path.append(this_node)
             try:
                 child1, child2 = node['children']
-            # if terminal node
             except KeyError:
                 self.decision_paths[node['label']] = path
                 return
             else:
-                build_decision_path(child1, list(path))
-                build_decision_path(child2, list(path)) 
-        # traverse the tree starting from the root node
-        build_decision_path(self.leaves[0], [])
-        tree_depth = self.clf.max_depth
-        # substitute correct signs for the decisions 
-        # build a dictionary that contains all of the correct signs,
-        # use that leafs are ordered as the variation (with repetition) of the ('<=','>') signs
-        decision_signs = defaultdict(dict)
-        for n,item in enumerate(product(["\u2264",">"], repeat = tree_depth)):
-            decision_signs['leaf'+str(n+1)] = item
+                build_decision_path(child1, list(path),'left')
+                build_decision_path(child2, list(path),'right')
 
-        # build a new dictionary that substitutes these signs to the previously built 
-        # decision paths
-        #decision_paths_correct_sign ={leaf:leaf for leaf in decision_paths.keys()}
-        decision_paths_correct_sign = defaultdict(list)
-        for leaf in self.decision_paths.keys():
-            for sign,decision in zip(decision_signs[leaf], self.decision_paths[leaf]):
-                decision_paths_correct_sign[leaf].append(re.sub("\u2264|>", sign ,decision))
-            decision_paths_correct_sign[leaf].append(leaf)
-        self.decision_paths = decision_paths_correct_sign
+        # traverse the tree starting from the root node
+        build_decision_path(self.leaves[0], [], 'left')
+
         
     def importance(self):
         for feature, importance in zip(self.feature_names, self.clf.feature_importances_):
