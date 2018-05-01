@@ -1,3 +1,7 @@
+// ATTRIBUTION:
+// Much of this is based on the rhtmlsankey R package
+
+
 function sankeyInit(el, width, height) {
 
     d3.select(el)
@@ -12,8 +16,6 @@ function sankeyInit(el, width, height) {
 };
 
 function drawSankey(el, x) {
-    // ATTRIBUTION:  much of this JavaScript code
-    //  came from http://bl.ocks.org/robschmuecker/0f29a2c867dcb1b44d18
 
     var dispatch = d3.dispatch("update", "click", "mouseover", "mouseout");
 
@@ -506,7 +508,7 @@ function drawSankey(el, x) {
             .text(function (d) {
                 return d[opts.name];
             });
-
+/*
         // Change the circle fill depending on whether it has children and is collapsed
         node.select("circle.nodeCircle")
             .attr("r", 4.5)
@@ -514,6 +516,7 @@ function drawSankey(el, x) {
                 return d._children ? "lightsteelblue" : "#fff";
             });
 
+*/
         // Transition nodes to their new position.
         var nodeUpdate = node.transition()
             .duration(duration)
@@ -532,9 +535,10 @@ function drawSankey(el, x) {
                 return "translate(" + source.y + "," + source.x + ")";
             })
             .remove();
-
+/*
         nodeExit.select("circle")
             .attr("r", 0);
+*/
 
         nodeExit.select("text")
             .style("fill-opacity", 0);
