@@ -353,6 +353,57 @@ function drawSankey(el, x) {
         selectedDepth -= 1;
         toggleDepth("down");
     });
+    
+    
+    //////////////////////////////////////
+    //       Leafs as pie charts        //
+    //////////////////////////////////////
+
+    pie = d3.layout.pie()
+        .sort(null)
+        .value(function (d) {
+            return d.n_obs;
+        });
+
+    // reformat the data into nclass x 2 dimensions
+    // data.x.data.n_obs
+    // data.x.opts.classLabels
+    function makePieData(d, classes) {
+        var pietable = new Array(classes.length);
+
+        /* loop through the classes and make an array of class in the first column and n_obs in the second column, later pass this dataframe to the pie chart generator
+            https://bl.ocks.org/mbostock/3887235*/
+        for (var i = 0; i < classes.length; i++) {
+            pietable[i] = {
+                label: classes[i],
+                n_obs: d.n_obs[i]
+            };
+        };
+        //console.log(pietable);
+        return pie(pietable);
+    };
+
+    function piePlotter(d, classes, el, x, y) {
+        var piedata = makePieData(d, classes);
+        var pieg = el.append("g").attr("transform", "translate(" + x + "," + y + ")");
+        radius = 70;
+        var path = d3.svg.arc()
+            .outerRadius(radius - 10)
+            .innerRadius(0);
+        var arc = pieg.selectAll(".arc")
+            .data(piedata)
+            .enter().append("g")
+            .attr("class", "arc");
+        arc.append("path")
+            .attr("d", path)
+            .attr("fill", function (d) {
+                return d.color;
+            });
+
+
+    };
+
+   
 
     //////////////////////////////////
     //          Collapse            //
@@ -529,6 +580,8 @@ function drawSankey(el, x) {
             .text(function (d) {
                 return d[opts.name];
             });
+        
+        
         /*
                 // Change the circle fill depending on whether it has children and is collapsed
                 node.select("circle.nodeCircle")
