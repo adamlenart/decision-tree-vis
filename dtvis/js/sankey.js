@@ -353,8 +353,8 @@ function drawSankey(el, x) {
         selectedDepth -= 1;
         toggleDepth("down");
     });
-    
-    
+
+
     //////////////////////////////////////
     //       Leafs as pie charts        //
     //////////////////////////////////////
@@ -403,7 +403,7 @@ function drawSankey(el, x) {
 
     };
 
-   
+
 
     //////////////////////////////////
     //          Collapse            //
@@ -533,10 +533,10 @@ function drawSankey(el, x) {
 
         nodeEnter.append("rect")
             .attr("class", "nodeLabelRect")
-          .attr("x", function (d) {
-                return d[opts.childrenName] || d._children ? 
-                    - 0 - d[opts.name].length*pxPerChar 
-                : 5;
+            .attr("x", function (d) {
+                return d[opts.childrenName] || d._children ?
+                    -0 - d[opts.name].length * pxPerChar :
+                    5;
             })
             .attr("y", "-0.75em")
             .attr("width", function (d) {
@@ -546,12 +546,12 @@ function drawSankey(el, x) {
             .text(function (d) {
                 return d[opts.name]
             })
-          /*  .style("fill", "white")
-            .style("stroke", "grey")
-            .style("stroke-width",1.5)
-            .style("fill-opacity",0.5)
-            */
-            ;
+        /*  .style("fill", "white")
+          .style("stroke", "grey")
+          .style("stroke-width",1.5)
+          .style("fill-opacity",0.5)
+          */
+        ;
 
         nodeEnter.append("text")
             .attr("x", function (d) {
@@ -580,8 +580,13 @@ function drawSankey(el, x) {
             .text(function (d) {
                 return d[opts.name];
             });
-        
-        
+
+        d3.selectAll(".nodeLabelRect").each(function (d, i) {
+            
+            piePlotter(d, data.x.opts.classLabels, svgGroup, d.x, d.y)
+            
+            console.log("The x position of the rect #" + i + " is " + d3.select(this).attr("x"))
+        })
         /*
                 // Change the circle fill depending on whether it has children and is collapsed
                 node.select("circle.nodeCircle")
