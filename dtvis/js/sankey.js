@@ -356,7 +356,7 @@ function drawSankey(el, x) {
 
 
     //////////////////////////////////////
-    //       Leafs as pie charts        //
+    //       Nodes as pie charts        //
     //////////////////////////////////////
 
     pie = d3.layout.pie()
@@ -364,6 +364,10 @@ function drawSankey(el, x) {
         .value(function (d) {
             return d.n_obs;
         });
+    // Size link width according to n based on total n
+    var pieScaler = d3.scale.linear()
+        .range([20, 70]) // use 20 instead of 0 to prevent some small node becoming invisible
+        .domain([0, treeData[opts.value]]);
 
     // reformat the data into nclass x 2 dimensions
     // data.x.data.n_obs
@@ -384,9 +388,10 @@ function drawSankey(el, x) {
     };
 
     function piePlotter(d, classes, colors, el, x, y) {
+        console.log(d);
         var piedata = makePieData(d, classes);
         var pieg = el.append("g").attr("transform", "translate(" + x + "," + y + ")");
-        radius = 70;
+        radius = pieScaler(d.samples);
         var color = d3.scale.ordinal().domain(classes).range(colors)
         var path = d3.svg.arc()
             .outerRadius(radius - 10)
@@ -398,8 +403,7 @@ function drawSankey(el, x) {
         arc.append("path")
             .attr("d", path)
             .attr("fill", function (d) {
-            console.log(d);
-                return color(d.data.label);//colors;
+                return color(d.data.label); //colors;
             });
 
 
@@ -583,11 +587,10 @@ function drawSankey(el, x) {
                 return d[opts.name];
             });
 
-        d3.selectAll(".nodeLabelRect").each(function (d, i) {
-            
+        // Add pie chart to nodes
+        d3.selectAll(".nodeLabelRect").each(function (d) {
+
             piePlotter(d, data.x.opts.classLabels, data.x.opts.colors, svgGroup, d.y, d.x)
-            
-            console.log("The x position of the rect #" + i + " is " + d3.select(this).attr("x"))
         })
         /*
                 // Change the circle fill depending on whether it has children and is collapsed
