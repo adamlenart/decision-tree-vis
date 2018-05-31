@@ -383,10 +383,11 @@ function drawSankey(el, x) {
         return pie(pietable);
     };
 
-    function piePlotter(d, classes, el, x, y) {
+    function piePlotter(d, classes, colors, el, x, y) {
         var piedata = makePieData(d, classes);
         var pieg = el.append("g").attr("transform", "translate(" + x + "," + y + ")");
         radius = 70;
+        var color = d3.scale.ordinal().domain(classes).range(colors)
         var path = d3.svg.arc()
             .outerRadius(radius - 10)
             .innerRadius(0);
@@ -397,7 +398,8 @@ function drawSankey(el, x) {
         arc.append("path")
             .attr("d", path)
             .attr("fill", function (d) {
-                return d.color;
+            console.log(d);
+                return color(d.data.label);//colors;
             });
 
 
@@ -583,7 +585,7 @@ function drawSankey(el, x) {
 
         d3.selectAll(".nodeLabelRect").each(function (d, i) {
             
-            piePlotter(d, data.x.opts.classLabels, svgGroup, d.x, d.y)
+            piePlotter(d, data.x.opts.classLabels, data.x.opts.colors, svgGroup, d.y, d.x)
             
             console.log("The x position of the rect #" + i + " is " + d3.select(this).attr("x"))
         })
