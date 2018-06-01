@@ -380,7 +380,8 @@ function drawSankey(el, x) {
         for (var i = 0; i < classes.length; i++) {
             pietable[i] = {
                 label: classes[i],
-                n_obs: d.n_obs[i]
+                n_obs: d.n_obs[i],
+                samples: d.samples
             };
         };
         //console.log(pietable);
@@ -409,9 +410,9 @@ function drawSankey(el, x) {
     };
 
     // Initial settings
-    function setPieChart(d, classes, colors, el, x, y) {
+    function setPieChart(d, classes, colors, node, x, y) {
         var piedata = makePieData(d, classes);
-        var pieg = el.append("g").attr("transform", "translate(" + x + "," + y + ")");
+        var pieg = node.append("g").attr("transform", "translate(" + x + "," + y + ")");
         radius = pieScaler(d.samples);
         var color = d3.scale.ordinal().domain(classes).range(colors);
         var path = d3.svg.arc()
@@ -451,6 +452,9 @@ function drawSankey(el, x) {
                 return color(d.data.label); //colors;
             });
     };
+
+
+
 
     // Enter new elements
     // Update remaining elements
@@ -503,9 +507,8 @@ function drawSankey(el, x) {
     function click(d) {
         if (d3.event.defaultPrevented) return; // click suppressed
         d = toggleChildren(d);
-        update(d);
-        //centerNode(d);
         console.log(d);
+        update(d);
     }
 
 
@@ -592,19 +595,45 @@ function drawSankey(el, x) {
             })
             .on('click', click);
 
-        // Add pie chart to nodes
-        /*d3.selectAll(".nodeLabelRect").each(function (d) {*/
-        nodeEnter.each(function (d) {
+        //////////////////////////////////
+        //    Add pie chart to nodes    //
+        //////////////////////////////////
+       
+        
+        // Join data
+        pieColor = d3.scale.ordinal().domain(opts.classLabels).range(opts.colors);
+        pieChart = nodeEnter.append('g').selectAll('.arc')
+            .data(function (d, i) {
+                return makePieData(d, opts.classLabels)
+            });
 
-            var pieSettings = setPieChart(d, data.x.opts.classLabels,
-                data.x.opts.colors, svgGroup, d.y, d.x);
-            //piePlotter(d, data.x.opts.classLabels, data.x.opts.colors, svgGroup, d.y, d.x)
-            var pieArc = joinPieData(pieSettings);
-            exitPieChart(pieArc);
-            updatePieChart(pieSettings, pieArc);
-            enterPieChart(pieSettings, pieArc);
+        //Exit
+        pieChart.exit().transition().remove();
 
-        })
+        //Update
+        pieChart.append('g').attr('class', 'arc')
+            .append('path')
+            .attr('d', path)
+            .attr('fill', function (d) {
+                return pieColor(d.data.label);
+            });
+
+        //Enter
+
+        var path = d3.svg.arc()
+            .outerRadius(function (d) {
+                return pieScaler(d.data.samples) - 10
+            })
+            .innerRadius(0)
+        pieChart.enter().append('g')
+            .attr('class', 'arc')
+            .append('path')
+            .attr('d', path)
+            .attr('fill', function (d) {d
+                return pieColor(d.data.label);
+            });
+
+
         // Add rect to nodes
         /* nodeEnter.append("rect")
              .attr("class", "nodeRect")
@@ -621,6 +650,11 @@ function drawSankey(el, x) {
              .style("pointer-events", "all")
              .on('mouseover', opts.tooltip ? tip.show : null)
              .on('mouseout', opts.tooltip ? tip.hide : null);*/
+
+
+        //////////////////////////////////////
+        //      rectange around node        //
+        //////////////////////////////////////
 
         nodeEnter.append("rect")
             .attr("class", "nodeLabelRect")
@@ -641,9 +675,17 @@ function drawSankey(el, x) {
                 return d[opts.childrenName] || d._children ?
                     1.5 : 0
             })
+            .style('fill-opacity', function (d) {
+                return d[opts.childrenName] || d._children ?
+                    0.5 : 0
+            })
             .on('mouseover', opts.tooltip ? tip.show : null)
             .on('mouseout', opts.tooltip ? tip.hide : null);
 
+
+        //////////////////////////////////////
+        //              node label          //
+        //////////////////////////////////////
 
         nodeEnter.append("text")
             .attr("x", function (d) {
@@ -698,14 +740,6 @@ function drawSankey(el, x) {
 
 
         // Update the links
-
-
-        // probably not the best way or place to do this
-        //   but start here with adjusting paths higher
-        //   or lower to do like a stacked bar
-        //   since our stroke-width will reflect size
-        //   similar to a Sankey
-
         // 1. start by nesting our link paths by source
         var link_nested = d3.nest()
             .key(function (d) {
