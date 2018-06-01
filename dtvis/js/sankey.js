@@ -388,7 +388,6 @@ function drawSankey(el, x) {
     };
 
     function piePlotter(d, classes, colors, el, x, y) {
-        console.log(d);
         var piedata = makePieData(d, classes);
         var pieg = el.append("g").attr("transform", "translate(" + x + "," + y + ")");
         radius = pieScaler(d.samples);
@@ -409,8 +408,64 @@ function drawSankey(el, x) {
 
     };
 
+    // Initial settings
+    function setPieChart(d, classes, colors, el, x, y) {
+        var piedata = makePieData(d, classes);
+        var pieg = el.append("g").attr("transform", "translate(" + x + "," + y + ")");
+        radius = pieScaler(d.samples);
+        var color = d3.scale.ordinal().domain(classes).range(colors);
+        var path = d3.svg.arc()
+            .outerRadius(radius - 10)
+            .innerRadius(0);
+        return {
+            data: piedata,
+            chart: pieg,
+            color: color,
+            path: path
+        };
+    };
 
+    // Join data
+    function joinPieData(settings) {
+        var chart = settings.chart,
+            data = settings.data;
+        var arc = chart.selectAll(".arc")
+            .data(data);
+        return arc;
+    };
 
+    // Exit old elemenets
+    function exitPieChart(arc) {
+        arc.exit().transition().remove();
+    };
+
+    // Update remaining elements
+    function updatePieChart(settings, arc) {
+        var path = settings.path,
+            color = settings.color;
+        var arc = arc.append("g")
+            .attr("class", "arc");
+        arc.append("path")
+            .attr("d", path)
+            .attr("fill", function (d) {
+                return color(d.data.label); //colors;
+            });
+    };
+
+    // Enter new elements
+    // Update remaining elements
+    function enterPieChart(settings, arc) {
+        var path = settings.path,
+            color = settings.color;
+        var arc = arc.enter()
+            .append("g")
+            .attr("class", "arc");
+        arc.append("path")
+            .attr("d", path)
+            .attr("fill", function (d) {
+                return color(d.data.label); //colors;
+            });
+    };
     //////////////////////////////////
     //          Collapse            //
     //////////////////////////////////
@@ -512,6 +567,22 @@ function drawSankey(el, x) {
                 return d[opts.id] || (d[opts.id] = ++i);
             });
 
+
+        // Transition exiting nodes to the parent's new position.
+        var nodeExit = node.exit().transition()
+            .duration(duration)
+            .attr("transform", function (d) {
+                return "translate(" + source.y + "," + source.x + ")";
+            })
+            .remove();
+        /*
+                nodeExit.select("circle")
+                    .attr("r", 0);
+        */
+
+        nodeExit.select("text")
+            .style("fill-opacity", 0);
+
         // Enter any new nodes at the parent's previous position.
         var nodeEnter = node.enter().append("g")
             // .call(dragListener)
@@ -521,21 +592,35 @@ function drawSankey(el, x) {
             })
             .on('click', click);
 
-        nodeEnter.append("rect")
-            .attr("class", "nodeRect")
-            .attr("x", -2.5)
-            .attr("y", function (d) {
-                return -wscale(d.value) / 2
-            })
-            .attr("height", function (d) {
-                return wscale(d.value)
-            })
-            .attr("width", 5)
-            .style("fill", "white")
-            .style("stroke", "white")
-            .style("pointer-events", "all")
-            .on('mouseover', opts.tooltip ? tip.show : null)
-            .on('mouseout', opts.tooltip ? tip.hide : null);
+        // Add pie chart to nodes
+        /*d3.selectAll(".nodeLabelRect").each(function (d) {*/
+        nodeEnter.each(function (d) {
+            
+            var pieSettings = setPieChart(d, data.x.opts.classLabels,
+                       data.x.opts.colors, svgGroup,d.y, d.x);
+            //piePlotter(d, data.x.opts.classLabels, data.x.opts.colors, svgGroup, d.y, d.x)
+            var pieArc = joinPieData(pieSettings);
+            exitPieChart(pieArc);
+            updatePieChart(pieSettings, pieArc);
+            enterPieChart(pieSettings, pieArc);
+        
+        })
+        // Add rect to nodes
+        /* nodeEnter.append("rect")
+             .attr("class", "nodeRect")
+             .attr("x", -2.5)
+             .attr("y", function (d) {
+                 return -wscale(d.value) / 2
+             })
+             .attr("height", function (d) {
+                 return wscale(d.value)
+             })
+             .attr("width", 5)
+             .style("fill", "white")
+             .style("stroke", "white")
+             .style("pointer-events", "all")
+             .on('mouseover', opts.tooltip ? tip.show : null)
+             .on('mouseout', opts.tooltip ? tip.hide : null);*/
 
         nodeEnter.append("rect")
             .attr("class", "nodeLabelRect")
@@ -552,6 +637,7 @@ function drawSankey(el, x) {
             .text(function (d) {
                 return d[opts.name]
             })
+
         /*  .style("fill", "white")
           .style("stroke", "grey")
           .style("stroke-width",1.5)
@@ -569,7 +655,7 @@ function drawSankey(el, x) {
                 return d[opts.childrenName] || d._children ? "end" : "start";
             })
             .text(function (d) {
-                return d[opts.name];
+                return 'fffff' //d[opts.name];
             })
             .style("fill-opacity", 0)
             .on('mouseover', opts.tooltip ? tip.show : null)
@@ -587,11 +673,7 @@ function drawSankey(el, x) {
                 return d[opts.name];
             });
 
-        // Add pie chart to nodes
-        d3.selectAll(".nodeLabelRect").each(function (d) {
 
-            piePlotter(d, data.x.opts.classLabels, data.x.opts.colors, svgGroup, d.y, d.x)
-        })
         /*
                 // Change the circle fill depending on whether it has children and is collapsed
                 node.select("circle.nodeCircle")
@@ -612,20 +694,7 @@ function drawSankey(el, x) {
         nodeUpdate.select("text")
             .style("fill-opacity", 1);
 
-        // Transition exiting nodes to the parent's new position.
-        var nodeExit = node.exit().transition()
-            .duration(duration)
-            .attr("transform", function (d) {
-                return "translate(" + source.y + "," + source.x + ")";
-            })
-            .remove();
-        /*
-                nodeExit.select("circle")
-                    .attr("r", 0);
-        */
 
-        nodeExit.select("text")
-            .style("fill-opacity", 0);
 
         // Update the links
 
