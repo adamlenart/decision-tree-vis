@@ -655,14 +655,15 @@ function drawSankey(el, x) {
                 return d[opts.childrenName] || d._children ? "end" : "start";
             })
             .text(function (d) {
-                return 'fffff' //d[opts.name];
+             return d[opts.childrenName] || d._children ? d[opts.name] : ""
+                //return d[opts.name];
             })
             .style("fill-opacity", 0)
             .on('mouseover', opts.tooltip ? tip.show : null)
             .on('mouseout', opts.tooltip ? tip.hide : null);
 
         // Update the text to reflect whether node has children or not.
-        node.select('text')
+      /* node.select('text')
             .attr("x", function (d) {
                 return d[opts.childrenName] || d._children ? -10 : 10;
             })
@@ -673,7 +674,7 @@ function drawSankey(el, x) {
                 return d[opts.name];
             });
 
-
+*/
         /*
                 // Change the circle fill depending on whether it has children and is collapsed
                 node.select("circle.nodeCircle")
