@@ -595,15 +595,15 @@ function drawSankey(el, x) {
         // Add pie chart to nodes
         /*d3.selectAll(".nodeLabelRect").each(function (d) {*/
         nodeEnter.each(function (d) {
-            
+
             var pieSettings = setPieChart(d, data.x.opts.classLabels,
-                       data.x.opts.colors, svgGroup,d.y, d.x);
+                data.x.opts.colors, svgGroup, d.y, d.x);
             //piePlotter(d, data.x.opts.classLabels, data.x.opts.colors, svgGroup, d.y, d.x)
             var pieArc = joinPieData(pieSettings);
             exitPieChart(pieArc);
             updatePieChart(pieSettings, pieArc);
             enterPieChart(pieSettings, pieArc);
-        
+
         })
         // Add rect to nodes
         /* nodeEnter.append("rect")
@@ -627,7 +627,7 @@ function drawSankey(el, x) {
             .attr("x", function (d) {
                 return d[opts.childrenName] || d._children ?
                     -0 - d[opts.name].length * pxPerChar :
-                    5;
+                    0;
             })
             .attr("y", "-0.75em")
             .attr("width", function (d) {
@@ -637,13 +637,13 @@ function drawSankey(el, x) {
             .text(function (d) {
                 return d[opts.name]
             })
+            .style('stroke-width', function (d) {
+                return d[opts.childrenName] || d._children ?
+                    1.5 : 0
+            })
+            .on('mouseover', opts.tooltip ? tip.show : null)
+            .on('mouseout', opts.tooltip ? tip.hide : null);
 
-        /*  .style("fill", "white")
-          .style("stroke", "grey")
-          .style("stroke-width",1.5)
-          .style("fill-opacity",0.5)
-          */
-        ;
 
         nodeEnter.append("text")
             .attr("x", function (d) {
@@ -655,7 +655,7 @@ function drawSankey(el, x) {
                 return d[opts.childrenName] || d._children ? "end" : "start";
             })
             .text(function (d) {
-             return d[opts.childrenName] || d._children ? d[opts.name] : ""
+                return d[opts.childrenName] || d._children ? d[opts.name] : ""
                 //return d[opts.name];
             })
             .style("fill-opacity", 0)
@@ -663,7 +663,7 @@ function drawSankey(el, x) {
             .on('mouseout', opts.tooltip ? tip.hide : null);
 
         // Update the text to reflect whether node has children or not.
-      /* node.select('text')
+        /* node.select('text')
             .attr("x", function (d) {
                 return d[opts.childrenName] || d._children ? -10 : 10;
             })
