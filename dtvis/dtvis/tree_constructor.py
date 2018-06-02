@@ -5,11 +5,16 @@ import re, json
 
 class D3Tree:
     
-    def __init__(self,clf,feature_names, class_labels, colors = 'default'):
+    def __init__(self,clf,feature_names, class_labels, node_type = 'leaf-pie', colors = 'default'):
+        '''
+        node_type: string, three options either: 'all-pie', 'leaf-pie' or 'no-pie' to plot the all 
+        of the nodes as pie charts, only the leaf nodes as pie charts or do not plot pie charts at all, respectively.
+        '''
         self.clf = clf
         self.feature_names = feature_names
         self.class_labels = class_labels
         self.colors = colors
+        self.node_type = node_type
         self.tree = {}
         self.decision_paths = {}
         self.importances = []
@@ -48,6 +53,7 @@ class D3Tree:
           "nodeHeight": None, 
           "tooltip": display_tooltip,
           "value": "samples",
+          "nodeType": self.node_type,
           "colors": self.colors
         }
     def decision_path(self):
