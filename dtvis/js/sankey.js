@@ -35,7 +35,7 @@ function drawSankey(el, x) {
     var i = 0;
     var duration = 750;
     var root;
-    var pxPerChar = 6;
+    var pxPerChar = 8;
     var newWidth;
     var newHeight;
 
