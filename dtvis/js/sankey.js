@@ -574,33 +574,44 @@ function drawSankey(el, x) {
 
 
         // Add rect to nodes
-        /* nodeEnter.append("rect")
-             .attr("class", "nodeRect")
-             .attr("x", -2.5)
-             .attr("y", function (d) {
-                 return -wscale(d.value) / 2
-             })
-             .attr("height", function (d) {
-                 return wscale(d.value)
-             })
-             .attr("width", 5)
-             .style("fill", "white")
-             .style("stroke", "white")
-             .style("pointer-events", "all")
-             .on('mouseover', opts.tooltip ? tip.show : null)
-             .on('mouseout', opts.tooltip ? tip.hide : null);*/
+        if (opts.nodeType !== 'all-pie') {
+            nodeEnter.append("rect")
+                .attr("class", "nodeRect")
+                .attr("x", -2.5)
+                .attr("y", function (d) {
+                    return -wscale(d.value) / 2
+                })
+                .attr("height", function (d) {
+                return d[opts.childrenName] || d._children ?
+                   wscale(d.value) :
+                    0;
+                //    return wscale(d.value)
+                })
+                .attr("width", 5)
+                .style("fill", "white")
+                .style("stroke", "white")
+                .style("pointer-events", "all")
+                .on('mouseover', opts.tooltip ? tip.show : null)
+                .on('mouseout', opts.tooltip ? tip.hide : null);
+        }
 
 
         //////////////////////////////////////
-        //      rectange around node        //
+        //   rectange around node  label    //
         //////////////////////////////////////
 
         nodeEnter.append("rect")
             .attr("class", "nodeLabelRect")
             .attr("x", function (d) {
+                if(opts.nodeType !== 'no-pie') {
                 return d[opts.childrenName] || d._children ?
-                    -0 - d[opts.name].length * pxPerChar :
+                     - d[opts.name].length * pxPerChar :
                     0;
+                } else {
+                       return d[opts.childrenName] || d._children ?
+                     - d[opts.name].length * pxPerChar :
+                      5
+                }
             })
             .attr("y", "-0.75em")
             .attr("width", function (d) {
@@ -608,16 +619,24 @@ function drawSankey(el, x) {
             })
             .attr("height", "20px")
             .text(function (d) {
-                return d[opts.name]
+                return d[opts.name];
             })
             .style('stroke-width', function (d) {
+            if(opts.nodeType !== 'no-pie') {
                 return d[opts.childrenName] || d._children ?
-                    1.5 : 0
+                    1.5 : 0;
+            } else {
+                return 1.5;
+            };
             })
             .style('fill-opacity', function (d) {
+            if(opts.nodeType !== 'no-pie') {
                 return d[opts.childrenName] || d._children ?
-                    0.5 : 0
-            })
+                    0.5 : 0;
+            } else {
+                return 0.5;
+            };
+            });
 
 
         //////////////////////////////////////
@@ -634,8 +653,11 @@ function drawSankey(el, x) {
                 return d[opts.childrenName] || d._children ? "end" : "start";
             })
             .text(function (d) {
+                if(opts.nodeType !== 'no-pie') {
                 return d[opts.childrenName] || d._children ? d[opts.name] : ""
-                //return d[opts.name];
+                } else {
+                    return d[opts.name];
+                }
             })
             .style("fill-opacity", 0)
 
