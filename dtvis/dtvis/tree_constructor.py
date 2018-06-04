@@ -5,16 +5,32 @@ import re, json
 
 class D3Tree:
     
-    def __init__(self,clf,feature_names, class_labels, colors = 'default'):
+    def __init__(self,clf,feature_names, class_labels, node_type = 'leaf-pie', colors = 'default'):
+        '''
+        node_type: string, three options either: 'all-pie', 'leaf-pie' or 'no-pie' to plot the all 
+        of the nodes as pie charts, only the leaf nodes as pie charts or do not plot pie charts at all, respectively.
+        '''
         self.clf = clf
         self.feature_names = feature_names
         self.class_labels = class_labels
         self.colors = colors
+        self.node_type = node_type
         self.tree = {}
         self.decision_paths = {}
         self.importances = []
     
-    def reconstruct(self):
+    def reconstruct(self):      
+        '''
+        self.colors: A list whose length equals the number of classes in the classification problem. If "default", 
+        the colors are imported from brewer2mpl Dark2 qualitative scheme. 
+        '''
+        if self.colors == 'default':
+            from brewer2mpl import qualitative
+            num_classes = len(self.clf.classes_)
+            if num_classes < 3:
+                num_classes = 3
+            temp_colors = qualitative.Dark2[num_classes].hex_colors
+            self.colors = temp_colors[:len(self.clf.classes_)]
         self.tree['data'], self.leaves, self.leaf_values = reconstruct_tree(self.clf, self.feature_names, self.colors)
     
     def options(self, class_labels, display_tooltip = 'show'):
@@ -36,7 +52,9 @@ class D3Tree:
           "name": "label", 
           "nodeHeight": None, 
           "tooltip": display_tooltip,
-          "value": "samples"
+          "value": "samples",
+          "nodeType": self.node_type,
+          "colors": self.colors
         }
     def decision_path(self):
         def build_decision_path(node, path, direction):
@@ -77,27 +95,19 @@ class D3Tree:
         with open(path + filename, 'w') as fp:
             json.dump(json_out, fp, indent = 4)
 
-def reconstruct_tree(clf, feature_names, colors = 'default'):
+def reconstruct_tree(clf, feature_names, colors):
     '''Construct a hierarchical tree for plotting with d3.layout.tree from a scikit-learn DecisionTreeClassifier.
     
     Parameters:
     -----------
     clf: DecisionTreeClassifier object.
     feature_names: A list of the names of the features that were fitted with the DecisionTreeClassifier.
-    colors: A list whose length equals the number of classes in the classification problem. If "default", 
-    the colors are imported from brewer2mpl Dark2 qualitative scheme. 
     
     Returns:
     --------
     A dict representing the tree in a nested format.
     '''
     
-    if colors == 'default':
-        from brewer2mpl import qualitative
-        num_classes = len(clf.classes_)
-        if num_classes < 3:
-            num_classes = 3
-        colors = qualitative.Dark2[num_classes].hex_colors
     # data for reconstructing the tree
     features = clf.tree_.feature
     n_samples = clf.tree_.n_node_samples

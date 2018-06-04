@@ -354,6 +354,56 @@ function drawSankey(el, x) {
         toggleDepth("down");
     });
 
+
+    //////////////////////////////////////
+    //       Nodes as pie charts        //
+    //////////////////////////////////////
+
+    pie = d3.layout.pie()
+        .sort(null)
+        .value(function (d) {
+            return d.n_obs;
+        });
+    // Size link width according to n based on total n
+    var pieScaler = d3.scale.linear()
+        .range([20, 70]) // use 20 instead of 0 to prevent some small node becoming invisible
+        .domain([0, treeData[opts.value]]);
+
+    // Append pie charts to the nodes based on opts.nodeType
+    function pieAppender(d) {
+        switch (opts.nodeType) {
+            case 'all-pie':
+                return makePieData(d, opts.classLabels);
+            case 'leaf-pie':
+                return d[opts.childrenName] || d._children ?
+                    0 : makePieData(d, opts.classLabels);
+            case 'no-pie':
+                return 0;
+        };
+
+        //return makePieData(d, opts.classLabels)
+    }
+
+    // reformat the data into nclass x 2 dimensions
+    // data.x.data.n_obs
+    // data.x.opts.classLabels
+    function makePieData(d, classes) {
+        var pietable = new Array(classes.length);
+
+        /* loop through the classes and make an array of class in the first column and n_obs in the second column, later pass this dataframe to the pie chart generator
+            https://bl.ocks.org/mbostock/3887235*/
+        for (var i = 0; i < classes.length; i++) {
+            pietable[i] = {
+                label: classes[i],
+                n_obs: d.n_obs[i],
+                samples: d.samples
+            };
+        };
+        //console.log(pietable);
+        return pie(pietable);
+    };
+
+
     //////////////////////////////////
     //          Collapse            //
     //////////////////////////////////
@@ -391,9 +441,8 @@ function drawSankey(el, x) {
     function click(d) {
         if (d3.event.defaultPrevented) return; // click suppressed
         d = toggleChildren(d);
-        update(d);
-        //centerNode(d);
         console.log(d);
+        update(d);
     }
 
 
@@ -455,6 +504,22 @@ function drawSankey(el, x) {
                 return d[opts.id] || (d[opts.id] = ++i);
             });
 
+
+        // Transition exiting nodes to the parent's new position.
+        var nodeExit = node.exit().transition()
+            .duration(duration)
+            .attr("transform", function (d) {
+                return "translate(" + source.y + "," + source.x + ")";
+            })
+            .remove();
+        /*
+                nodeExit.select("circle")
+                    .attr("r", 0);
+        */
+
+        nodeExit.select("text")
+            .style("fill-opacity", 0);
+
         // Enter any new nodes at the parent's previous position.
         var nodeEnter = node.enter().append("g")
             // .call(dragListener)
@@ -462,30 +527,91 @@ function drawSankey(el, x) {
             .attr("transform", function (d) {
                 return "translate(" + source.y0 + "," + source.x0 + ")";
             })
-            .on('click', click);
-
-        nodeEnter.append("rect")
-            .attr("class", "nodeRect")
-            .attr("x", -2.5)
-            .attr("y", function (d) {
-                return -wscale(d.value) / 2
-            })
-            .attr("height", function (d) {
-                return wscale(d.value)
-            })
-            .attr("width", 5)
-            .style("fill", "white")
-            .style("stroke", "white")
-            .style("pointer-events", "all")
+            .on('click', click)
             .on('mouseover', opts.tooltip ? tip.show : null)
-            .on('mouseout', opts.tooltip ? tip.hide : null);
+            .on('mouseout', opts.tooltip ? tip.hide : null);;
+
+        //////////////////////////////////
+        //    Add pie chart to nodes    //
+        //////////////////////////////////
+
+
+        // Initial settings
+        var pieColor = d3.scale.ordinal().domain(opts.classLabels).range(opts.colors);
+        var path = d3.svg.arc()
+            .outerRadius(function (d) {
+                return pieScaler(d.data.samples) - 10
+            })
+            .innerRadius(0)
+
+
+        // Join data
+        pieChart = nodeEnter.append('g').selectAll('.arc')
+            .data(function (d) {
+                return pieAppender(d);
+            })
+
+        //Exit
+        pieChart.exit().transition().remove();
+
+
+        //Update
+        pieChart.append('g').attr('class', 'arc')
+            .append('path')
+            .attr('d', path)
+            .attr('fill', function (d) {
+                return pieColor(d.data.label);
+            });
+
+        //Enter
+        pieChart.enter().append('g')
+            .attr('class', 'arc')
+            .append('path')
+            .attr('d', path)
+            .attr('fill', function (d) {
+                return pieColor(d.data.label);
+            });
+
+
+        // Add rect to nodes
+        if (opts.nodeType !== 'all-pie') {
+            nodeEnter.append("rect")
+                .attr("class", "nodeRect")
+                .attr("x", -2.5)
+                .attr("y", function (d) {
+                    return -wscale(d.value) / 2
+                })
+                .attr("height", function (d) {
+                return d[opts.childrenName] || d._children ?
+                   wscale(d.value) :
+                    0;
+                //    return wscale(d.value)
+                })
+                .attr("width", 5)
+                .style("fill", "white")
+                .style("stroke", "white")
+                .style("pointer-events", "all")
+                .on('mouseover', opts.tooltip ? tip.show : null)
+                .on('mouseout', opts.tooltip ? tip.hide : null);
+        }
+
+
+        //////////////////////////////////////
+        //   rectange around node  label    //
+        //////////////////////////////////////
 
         nodeEnter.append("rect")
             .attr("class", "nodeLabelRect")
-          .attr("x", function (d) {
-                return d[opts.childrenName] || d._children ? 
-                    - 0 - d[opts.name].length*pxPerChar 
-                : 5;
+            .attr("x", function (d) {
+                if(opts.nodeType !== 'no-pie') {
+                return d[opts.childrenName] || d._children ?
+                     - d[opts.name].length * pxPerChar :
+                    0;
+                } else {
+                       return d[opts.childrenName] || d._children ?
+                     - d[opts.name].length * pxPerChar :
+                      5
+                }
             })
             .attr("y", "-0.75em")
             .attr("width", function (d) {
@@ -493,14 +619,29 @@ function drawSankey(el, x) {
             })
             .attr("height", "20px")
             .text(function (d) {
-                return d[opts.name]
+                return d[opts.name];
             })
-          /*  .style("fill", "white")
-            .style("stroke", "grey")
-            .style("stroke-width",1.5)
-            .style("fill-opacity",0.5)
-            */
-            ;
+            .style('stroke-width', function (d) {
+            if(opts.nodeType !== 'no-pie') {
+                return d[opts.childrenName] || d._children ?
+                    1.5 : 0;
+            } else {
+                return 1.5;
+            };
+            })
+            .style('fill-opacity', function (d) {
+            if(opts.nodeType !== 'no-pie') {
+                return d[opts.childrenName] || d._children ?
+                    0.5 : 0;
+            } else {
+                return 0.5;
+            };
+            });
+
+
+        //////////////////////////////////////
+        //              node label          //
+        //////////////////////////////////////
 
         nodeEnter.append("text")
             .attr("x", function (d) {
@@ -512,14 +653,17 @@ function drawSankey(el, x) {
                 return d[opts.childrenName] || d._children ? "end" : "start";
             })
             .text(function (d) {
-                return d[opts.name];
+                if(opts.nodeType !== 'no-pie') {
+                return d[opts.childrenName] || d._children ? d[opts.name] : ""
+                } else {
+                    return d[opts.name];
+                }
             })
             .style("fill-opacity", 0)
-            .on('mouseover', opts.tooltip ? tip.show : null)
-            .on('mouseout', opts.tooltip ? tip.hide : null);
+
 
         // Update the text to reflect whether node has children or not.
-        node.select('text')
+        /* node.select('text')
             .attr("x", function (d) {
                 return d[opts.childrenName] || d._children ? -10 : 10;
             })
@@ -529,6 +673,8 @@ function drawSankey(el, x) {
             .text(function (d) {
                 return d[opts.name];
             });
+
+*/
         /*
                 // Change the circle fill depending on whether it has children and is collapsed
                 node.select("circle.nodeCircle")
@@ -549,30 +695,9 @@ function drawSankey(el, x) {
         nodeUpdate.select("text")
             .style("fill-opacity", 1);
 
-        // Transition exiting nodes to the parent's new position.
-        var nodeExit = node.exit().transition()
-            .duration(duration)
-            .attr("transform", function (d) {
-                return "translate(" + source.y + "," + source.x + ")";
-            })
-            .remove();
-        /*
-                nodeExit.select("circle")
-                    .attr("r", 0);
-        */
 
-        nodeExit.select("text")
-            .style("fill-opacity", 0);
 
         // Update the links
-
-
-        // probably not the best way or place to do this
-        //   but start here with adjusting paths higher
-        //   or lower to do like a stacked bar
-        //   since our stroke-width will reflect size
-        //   similar to a Sankey
-
         // 1. start by nesting our link paths by source
         var link_nested = d3.nest()
             .key(function (d) {
