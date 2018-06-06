@@ -105,14 +105,26 @@ function drawSankey(el, x) {
     var viewerWidth = $("#decision-tree").width();
     var viewerHeight = $("#decision-tree").height();
 
-    var tree = d3.layout.tree()
-        .size([viewerHeight, viewerWidth])
-        .children(function (d) {
-            return d[opts.childrenName]
-        })
-        .value(function (d) {
-            return d[opts.value]
-        });
+    if (opts.classShow === 'all') {
+        var tree = d3.layout.tree()
+            .size([viewerHeight, viewerWidth])
+            .children(function (d) {
+                return d[opts.childrenName]
+            })
+            .value(function (d) {
+                return d[opts.value]
+            });
+    } else {
+          var classShow = opts.classLabels.indexOf(opts.classShow);
+        var tree = d3.layout.tree()
+            .size([viewerHeight, viewerWidth])
+            .children(function (d) {
+                return d[opts.childrenName]
+            })
+            .value(function (d) {
+                return d.n_obs[classShow]
+            });
+    }
 
     // define a d3 diagonal projection for use by the node paths later on.
     var diagonal = d3.svg.diagonal()
@@ -367,7 +379,7 @@ function drawSankey(el, x) {
     // Size link width according to n based on total n
     var pieScaler = d3.scale.linear()
         .range([20, 70]) // use 20 instead of 0 to prevent some small node becoming invisible
-        .domain([0, treeData[opts.value]]);
+        .domain([0, treeData.samples]);
 
     // Append pie charts to the nodes based on opts.nodeType
     function pieAppender(d) {
@@ -476,14 +488,21 @@ function drawSankey(el, x) {
         tree = tree.size([newHeight, newWidth]);
 
         // Compute the new tree layout.
+        console.log(tree.links)
         var nodes = tree.nodes(root).reverse(),
             links = tree.links(nodes);
 
 
         // Size link width according to n based on total n
+        if(opts.classShow === 'all') {
         wscale = d3.scale.linear()
             .range([0.5, opts.nodeHeight || 25]) // use 0.5 to prevent some small branch being unseen
             .domain([0, treeData[opts.value]]);
+        } else {
+                    wscale = d3.scale.linear()
+            .range([0.5, opts.nodeHeight || 25]) // use 0.5 to prevent some small branch being unseen
+            .domain([0, treeData.n_obs[classShow]]);
+        }
 
         // Set widths between levels based on maxLabelLength.
         if (opts.maxLabelLength) {
@@ -582,10 +601,10 @@ function drawSankey(el, x) {
                     return -wscale(d.value) / 2
                 })
                 .attr("height", function (d) {
-                return d[opts.childrenName] || d._children ?
-                   wscale(d.value) :
-                    0;
-                //    return wscale(d.value)
+                    return d[opts.childrenName] || d._children ?
+                        wscale(d.value) :
+                        0;
+                    //    return wscale(d.value)
                 })
                 .attr("width", 5)
                 .style("fill", "white")
@@ -603,14 +622,14 @@ function drawSankey(el, x) {
         nodeEnter.append("rect")
             .attr("class", "nodeLabelRect")
             .attr("x", function (d) {
-                if(opts.nodeType !== 'no-pie') {
-                return d[opts.childrenName] || d._children ?
-                     - d[opts.name].length * pxPerChar :
-                    0;
+                if (opts.nodeType !== 'no-pie') {
+                    return d[opts.childrenName] || d._children ?
+                        -d[opts.name].length * pxPerChar :
+                        0;
                 } else {
-                       return d[opts.childrenName] || d._children ?
-                     - d[opts.name].length * pxPerChar :
-                      5
+                    return d[opts.childrenName] || d._children ?
+                        -d[opts.name].length * pxPerChar :
+                        5
                 }
             })
             .attr("y", "-0.75em")
@@ -622,20 +641,20 @@ function drawSankey(el, x) {
                 return d[opts.name];
             })
             .style('stroke-width', function (d) {
-            if(opts.nodeType !== 'no-pie') {
-                return d[opts.childrenName] || d._children ?
-                    1.5 : 0;
-            } else {
-                return 1.5;
-            };
+                if (opts.nodeType !== 'no-pie') {
+                    return d[opts.childrenName] || d._children ?
+                        1.5 : 0;
+                } else {
+                    return 1.5;
+                };
             })
             .style('fill-opacity', function (d) {
-            if(opts.nodeType !== 'no-pie') {
-                return d[opts.childrenName] || d._children ?
-                    0.5 : 0;
-            } else {
-                return 0.5;
-            };
+                if (opts.nodeType !== 'no-pie') {
+                    return d[opts.childrenName] || d._children ?
+                        0.5 : 0;
+                } else {
+                    return 0.5;
+                };
             });
 
 
@@ -653,8 +672,8 @@ function drawSankey(el, x) {
                 return d[opts.childrenName] || d._children ? "end" : "start";
             })
             .text(function (d) {
-                if(opts.nodeType !== 'no-pie') {
-                return d[opts.childrenName] || d._children ? d[opts.name] : ""
+                if (opts.nodeType !== 'no-pie') {
+                    return d[opts.childrenName] || d._children ? d[opts.name] : ""
                 } else {
                     return d[opts.name];
                 }
@@ -696,7 +715,7 @@ function drawSankey(el, x) {
             .style("fill-opacity", 1);
 
 
-
+/*
         // Update the links
         // 1. start by nesting our link paths by source
         var link_nested = d3.nest()
@@ -719,7 +738,7 @@ function drawSankey(el, x) {
             })
         })
 
-
+*/
         var link = svgGroup.selectAll("path.link")
             .data(links, function (d) {
                 return d.target[opts.id];
@@ -744,8 +763,8 @@ function drawSankey(el, x) {
 
             return wscale(d.target.value);
         });
-
         // Transition links to their new position.
+        if(opts.classShow === 'all') {
         link.transition()
             .duration(duration)
             .attr("d", diagonal)
@@ -764,6 +783,28 @@ function drawSankey(el, x) {
                     return "#ccc"
                 }
             });
+        } else {
+            var linkColor = opts.colors[classShow];
+                link.transition()
+            .duration(duration)
+            .attr("d", diagonal)
+            .style("stroke", function (d) {
+                if (linkColor) {
+                    if (typeof linkColor === 'string') {
+                        return d3.lab(linkColor)
+                    } else {
+                        return d3.hcl(
+                            linkColor.h,
+                            linkColor.c,
+                            linkColor.l
+                        )
+                    }
+                } else {
+                    return "#ccc"
+                }
+            });   
+            
+        }
 
         // Transition exiting nodes to the parent's new position.
         link.exit().transition()

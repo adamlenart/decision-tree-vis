@@ -5,16 +5,20 @@ import re, json
 
 class D3Tree:
     
-    def __init__(self,clf,feature_names, class_labels, node_type = 'leaf-pie', colors = 'default'):
+    def __init__(self,clf,feature_names, class_labels, node_type = 'leaf-pie', class_show = 'all', colors = 'default'):
         '''
         node_type: string, three options either: 'all-pie', 'leaf-pie' or 'no-pie' to plot the all 
         of the nodes as pie charts, only the leaf nodes as pie charts or do not plot pie charts at all, respectively.
+        class_show: string, chooses which classes to visualize as the width of the lines of the sankey tree. If 'all' 
+        then all of the classes are summed up and the color of the line will be the one of the majority class. If not 'all'
+        it has to be a name of the class which also appears in class_labels.
         '''
         self.clf = clf
         self.feature_names = feature_names
         self.class_labels = class_labels
         self.colors = colors
         self.node_type = node_type
+        self.class_show = class_show
         self.tree = {}
         self.decision_paths = {}
         self.importances = []
@@ -54,6 +58,7 @@ class D3Tree:
           "tooltip": display_tooltip,
           "value": "samples",
           "nodeType": self.node_type,
+          "classShow": self.class_show,
           "colors": self.colors
         }
     def decision_path(self):
