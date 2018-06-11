@@ -115,7 +115,7 @@ function drawSankey(el, x) {
                 return d[opts.value]
             });
     } else {
-          var classShow = opts.classLabels.indexOf(opts.classShow);
+        var classShow = opts.classLabels.indexOf(opts.classShow);
         var tree = d3.layout.tree()
             .size([viewerHeight, viewerWidth])
             .children(function (d) {
@@ -212,15 +212,29 @@ function drawSankey(el, x) {
 
     // create zoom buttons
     zoomButtons = baseSvg.append('g').attr('class', 'zoom-button');
-    zoomOut = zoomButtons.append('g');
-    zoomIn = zoomButtons.append('g');
+    zoomOut = zoomButtons.append('g')
+            .on('mouseenter', function () {
+            return d3.select(this).classed('zoom-button-highlight', true);
+        })
+        .on('mouseleave', function () {
+            return d3.select(this).classed('zoom-button-highlight', false);
+        });
+    zoomIn = zoomButtons.append('g')
+            .on('mouseenter', function () {
+            return d3.select(this).classed('zoom-button-highlight', true);
+        })
+        .on('mouseleave', function () {
+            return d3.select(this).classed('zoom-button-highlight', false);
+        });
 
     zoomIn
         .append('text')
         .attr('x', 19)
         .attr('y', 31)
         .text('+')
-        .attr('class', 'zoom-button-text');
+        .attr('class', 'zoom-button-text')
+  
+;
     zoomIn
         .append('rect')
         .attr('x', 10)
@@ -325,7 +339,13 @@ function drawSankey(el, x) {
     // create depth buttons
     toggleButtons = baseSvg.append('g').attr('class', 'zoom-button');
 
-    depthUp = toggleButtons.append('g');
+    depthUp = toggleButtons.append('g')
+            .on('mouseenter', function () {
+            return d3.select(this).classed('zoom-button-highlight', true);
+        })
+        .on('mouseleave', function () {
+            return d3.select(this).classed('zoom-button-highlight', false);
+        });
     depthUp
         .append('text')
         .attr('x', 19)
@@ -340,7 +360,13 @@ function drawSankey(el, x) {
         .attr('height', '30')
         .attr('id', 'depthUp');
 
-    depthDown = toggleButtons.append('g');
+    depthDown = toggleButtons.append('g')
+            .on('mouseenter', function () {
+            return d3.select(this).classed('zoom-button-highlight', true);
+        })
+        .on('mouseleave', function () {
+            return d3.select(this).classed('zoom-button-highlight', false);
+        });
     depthDown
         .append('text')
         .attr('x', 21)
@@ -488,20 +514,19 @@ function drawSankey(el, x) {
         tree = tree.size([newHeight, newWidth]);
 
         // Compute the new tree layout.
-        console.log(tree.links)
         var nodes = tree.nodes(root).reverse(),
             links = tree.links(nodes);
 
 
         // Size link width according to n based on total n
-        if(opts.classShow === 'all') {
-        wscale = d3.scale.linear()
-            .range([0.5, opts.nodeHeight || 25]) // use 0.5 to prevent some small branch being unseen
-            .domain([0, treeData[opts.value]]);
+        if (opts.classShow === 'all') {
+            wscale = d3.scale.linear()
+                .range([0.5, opts.nodeHeight || 25]) // use 0.5 to prevent some small branch being unseen
+                .domain([0, treeData[opts.value]]);
         } else {
-                    wscale = d3.scale.linear()
-            .range([0.5, opts.nodeHeight || 25]) // use 0.5 to prevent some small branch being unseen
-            .domain([0, treeData.n_obs[classShow]]);
+            wscale = d3.scale.linear()
+                .range([0.5, opts.nodeHeight || 25]) // use 0.5 to prevent some small branch being unseen
+                .domain([0, treeData.n_obs[classShow]]);
         }
 
         // Set widths between levels based on maxLabelLength.
@@ -715,30 +740,30 @@ function drawSankey(el, x) {
             .style("fill-opacity", 1);
 
 
-/*
-        // Update the links
-        // 1. start by nesting our link paths by source
-        var link_nested = d3.nest()
-            .key(function (d) {
-                return d.source[opts.id]
-            })
-            .entries(links);
-        // 2. manual method for stacking since d3.layout.stack
-        //      did not work
-        link_nested.forEach(function (d) {
-            var ystacky = 0;
-            d.values.reverse().forEach(function (dd) {
-                var ywidth = wscale(dd.target.value)
-                var srcwidth = wscale(dd.source.value)
-                srcwidth = isNaN(srcwidth) ? wscale.range()[1] / 2 : srcwidth;
-                ystacky = ystacky + ywidth;
-                dd.x = dd.source.x + srcwidth / 2 - ystacky + ywidth / 2;
-                dd.y = dd.source.y;
-                dd.ystacky = ystacky;
-            })
-        })
+        /*
+                // Update the links
+                // 1. start by nesting our link paths by source
+                var link_nested = d3.nest()
+                    .key(function (d) {
+                        return d.source[opts.id]
+                    })
+                    .entries(links);
+                // 2. manual method for stacking since d3.layout.stack
+                //      did not work
+                link_nested.forEach(function (d) {
+                    var ystacky = 0;
+                    d.values.reverse().forEach(function (dd) {
+                        var ywidth = wscale(dd.target.value)
+                        var srcwidth = wscale(dd.source.value)
+                        srcwidth = isNaN(srcwidth) ? wscale.range()[1] / 2 : srcwidth;
+                        ystacky = ystacky + ywidth;
+                        dd.x = dd.source.x + srcwidth / 2 - ystacky + ywidth / 2;
+                        dd.y = dd.source.y;
+                        dd.ystacky = ystacky;
+                    })
+                })
 
-*/
+        */
         var link = svgGroup.selectAll("path.link")
             .data(links, function (d) {
                 return d.target[opts.id];
@@ -764,46 +789,46 @@ function drawSankey(el, x) {
             return wscale(d.target.value);
         });
         // Transition links to their new position.
-        if(opts.classShow === 'all') {
-        link.transition()
-            .duration(duration)
-            .attr("d", diagonal)
-            .style("stroke", function (d) {
-                if (d.target.color) {
-                    if (typeof d.target.color === 'string') {
-                        return d3.lab(d.target.color)
+        if (opts.classShow === 'all') {
+            link.transition()
+                .duration(duration)
+                .attr("d", diagonal)
+                .style("stroke", function (d) {
+                    if (d.target.color) {
+                        if (typeof d.target.color === 'string') {
+                            return d3.lab(d.target.color)
+                        } else {
+                            return d3.hcl(
+                                d.target.color.h,
+                                d.target.color.c,
+                                d.target.color.l
+                            )
+                        }
                     } else {
-                        return d3.hcl(
-                            d.target.color.h,
-                            d.target.color.c,
-                            d.target.color.l
-                        )
+                        return "#ccc"
                     }
-                } else {
-                    return "#ccc"
-                }
-            });
+                });
         } else {
             var linkColor = opts.colors[classShow];
-                link.transition()
-            .duration(duration)
-            .attr("d", diagonal)
-            .style("stroke", function (d) {
-                if (linkColor) {
-                    if (typeof linkColor === 'string') {
-                        return d3.lab(linkColor)
+            link.transition()
+                .duration(duration)
+                .attr("d", diagonal)
+                .style("stroke", function (d) {
+                    if (linkColor) {
+                        if (typeof linkColor === 'string') {
+                            return d3.lab(linkColor)
+                        } else {
+                            return d3.hcl(
+                                linkColor.h,
+                                linkColor.c,
+                                linkColor.l
+                            )
+                        }
                     } else {
-                        return d3.hcl(
-                            linkColor.h,
-                            linkColor.c,
-                            linkColor.l
-                        )
+                        return "#ccc"
                     }
-                } else {
-                    return "#ccc"
-                }
-            });   
-            
+                });
+
         }
 
         // Transition exiting nodes to the parent's new position.
