@@ -5,6 +5,8 @@ function keepImportant(data) {
     })
 };
 
+
+
 ///////////////////////////////////////////////////////////
 //                    barplot settings                   //
 ///////////////////////////////////////////////////////////
@@ -35,8 +37,8 @@ function barplotInit(data) {
     var yScale = y.domain([0, d3.max(data, function (d) {
         return d.importance;
     })])
-    var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(function(d){
-      return d.substring(0,10);
+    var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(function (d) {
+        return d.substring(0, 10);
     });
     var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(10);
 
@@ -65,6 +67,25 @@ function barplotInit(data) {
 function drawBarplot(data) {
     barplot = barplotInit(data);
 
+
+
+    ////////////////////////////////////////////
+    //              tooltip                   //
+    ////////////////////////////////////////////
+
+    // if tooltip then set it up
+
+
+    tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .html(function(d) {
+            return d.attribute + ' : ' + Math.round(d.importance*1000)/1000;
+    });
+    
+    barplot.svg.append('g').call(tip);
+
+    
+
     // Define X,Y Axes
     // X
     barplot.g.append("g")
@@ -76,11 +97,11 @@ function drawBarplot(data) {
         .style("text-anchor", "end");
 
     // tooltip
-    d3.selectAll('.axis.axis--x>.tick')
+    /*d3.selectAll('.axis.axis--x>.tick')
         .append('title')
-        .text(function(d){
-          return d;
-        });
+        .text(function (d) {
+            return d;
+        });*/
 
     barplot.g.append("text")
         .attr("dx", "1em")
@@ -118,49 +139,19 @@ function drawBarplot(data) {
         .attr("height", function (d) {
             return barplot.height - barplot.yScale(d.importance);
         })
-        .on("mouseover", mouseover)
-        .on("mouseout", mouseout)
-        .on("mousemove", function (d) {
-            var xPosition = d3.mouse(this)[0] - 15;
-            var yPosition = d3.mouse(this)[1] - 25;
-            tooltip_bar.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-            tooltip_bar.select("text")
-                .text(d.attribute + ": " + d.importance);
+        .on('mouseover', tip.show)
+        .on('mouseout', tip.hide);
+    /* .on("mouseover", mouseover)
+     .on("mouseout", mouseout)
+     .on("mousemove", function (d) {
+         var xPosition = d3.mouse(this)[0] - 15;
+         var yPosition = d3.mouse(this)[1] - 25;
+         tooltip_bar.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+         tooltip_bar.select("text")
+             .text(d.attribute + ": " + Math.round(d.importance*100)/100);
 
-        });
-
-    ////////////////////////////////////////////
-    //              tooltip                   //
-    ////////////////////////////////////////////
-    
-    var tooltip_bar = barplot.svg.append("g")
-        .attr("class", "tooltip_bar")
-        .style("display", "none");
-
-    tooltip_bar.append("rect")
-        .attr("width", 30)
-        .attr("height", 20)
-        .attr("fill", "white")
-        .style("opacity", 0.5);
-
-    tooltip_bar.append("text")
-        .attr("x", 15)
-        .attr("dy", "1.2em")
-        .attr("font-size", "12px")
-        .attr("font-weight", "bold")
-        .attr("fill","black");
-
-    function mouseover() {
-        tooltip_bar.style("display", null);
-    }
-
-    function mouseout() {
-        tooltip_bar.style("display", "none");
-    }
+     });*/
 };
-
-
-
 
 ///////////////////////////////////////
 //                 Sort              //

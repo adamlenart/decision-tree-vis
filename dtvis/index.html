@@ -12,9 +12,9 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src='js/d3.min.js'></script>
+    <script src='js/d3-tip.js'></script>
     <script src="js/bar.js"></script>
     <script src="js/decision-paths.js"></script>
-    <script src='js/d3-tip.js'></script>
     <script src="js/sankey.js"></script>
 
 </head>
@@ -137,26 +137,25 @@
 
         </div>
     </div>
-<script>
+    <script>
+        data = [];
+        d3.json('data/d3tree_data.json', function(json) {
+            data = json;
+            // Draw Sankey
+            sankeyInit('#decision-tree', '1440px', '750px');
+            drawSankey('#decision-tree', data.x);
+            // Draw barplot
+            drawBarplot(keepImportant(data));
+            sortFeature(keepImportant(data));
 
-    
-                    data = [];
-                    d3.json('data/d3tree_data.json', function (json) {
-                        data = json;
-                        // Draw Sankey
-                        sankeyInit('#decision-tree','1440px','750px');
-                        drawSankey('#decision-tree', data.x);
-                        // Draw barplot
-                        drawBarplot(keepImportant(data));
-                        sortFeature(keepImportant(data));
-
-                        //Decision paths
-                        addDecisionPathSortOptions(data);
-                        drawDecisionPathTable(data);
+            //Decision paths
+            addDecisionPathSortOptions(data);
+            drawDecisionPathTable(data);
 
 
-                    });
-</script>
+        });
+
+    </script>
 
 
 
