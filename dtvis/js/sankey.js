@@ -650,7 +650,7 @@ function drawSankey(el, x) {
                 if (opts.nodeType !== 'no-pie') {
                     return d[opts.childrenName] || d._children ?
                         -d[opts.name].length * pxPerChar :
-                        0;
+                        null;
                 } else {
                     return d[opts.childrenName] || d._children ?
                         -d[opts.name].length * pxPerChar :
@@ -659,7 +659,14 @@ function drawSankey(el, x) {
             })
             .attr("y", "-0.75em")
             .attr("width", function (d) {
-                return d[opts.name].length * pxPerChar;
+                            if (opts.nodeType !== 'no-pie') {
+                    return d[opts.childrenName] || d._children ?
+                        d[opts.name].length * pxPerChar :
+                        null;
+                } else {
+                   return d[opts.name].length * pxPerChar;
+                }
+
             })
             .attr("height", "20px")
             .text(function (d) {
@@ -668,7 +675,7 @@ function drawSankey(el, x) {
             .style('stroke-width', function (d) {
                 if (opts.nodeType !== 'no-pie') {
                     return d[opts.childrenName] || d._children ?
-                        1.5 : 0;
+                        1.5 : null;
                 } else {
                     return 1.5;
                 };
@@ -740,30 +747,9 @@ function drawSankey(el, x) {
             .style("fill-opacity", 1);
 
 
-        /*
+     
                 // Update the links
-                // 1. start by nesting our link paths by source
-                var link_nested = d3.nest()
-                    .key(function (d) {
-                        return d.source[opts.id]
-                    })
-                    .entries(links);
-                // 2. manual method for stacking since d3.layout.stack
-                //      did not work
-                link_nested.forEach(function (d) {
-                    var ystacky = 0;
-                    d.values.reverse().forEach(function (dd) {
-                        var ywidth = wscale(dd.target.value)
-                        var srcwidth = wscale(dd.source.value)
-                        srcwidth = isNaN(srcwidth) ? wscale.range()[1] / 2 : srcwidth;
-                        ystacky = ystacky + ywidth;
-                        dd.x = dd.source.x + srcwidth / 2 - ystacky + ywidth / 2;
-                        dd.y = dd.source.y;
-                        dd.ystacky = ystacky;
-                    })
-                })
-
-        */
+  
         var link = svgGroup.selectAll("path.link")
             .data(links, function (d) {
                 return d.target[opts.id];
