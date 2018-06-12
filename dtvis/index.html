@@ -9,6 +9,8 @@
     <link href="css/zoom.css" rel="stylesheet">
     <link href="css/button.css" rel="stylesheet">
     <link href="css/tooltip.css" rel="stylesheet">
+    <link href="css/decisionPaths.css" rel="stylesheet">
+    <link href="css/bar.css" rel="stylesheet">
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src='js/d3.min.js'></script>
@@ -20,63 +22,11 @@
 </head>
 
 <style>
-    .bar {
-        fill: steelblue;
-    }
-
-    .bar:hover {
-        fill: brown;
-    }
-
-    div.sorter_barChart {
-        width: 800px;
-        text-align: center;
-        display: inline-block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .fixedTop {
-        background-color: #FFFFFF;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 100;
-    }
 
     body {
         padding-top: 50px;
     }
 
-    #decision_path_tab table,
-    #description_tab table,
-    .tooltip-table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    #decision_path_tab td,
-    #decision_path_tab th,
-    #description_tab td,
-    #description_tab th,
-        {
-        border: 1px solid black;
-        text-align: left;
-        padding: 10px;
-    }
-
-    .tooltip-table td,
-    .tooltip-table th {
-        border: 1px solid white;
-        text-align: left;
-        padding: 10px;
-    }
-
-    #description_tab tr:nth-child(even),
-    #decision_path_tab tr:nth-child(even) {
-        background-color: #dddddd;
-    }
 
 </style>
 

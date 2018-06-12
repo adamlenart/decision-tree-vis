@@ -15,11 +15,6 @@
   width: 100%;
  }
 
-
- .nav-tabs{
-   background-color:green;
- }
-
  .nav-tabs > li > a{
    border: medium none;
    background-color:	#91bbe4;

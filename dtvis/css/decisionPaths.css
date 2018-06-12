@@ -1,0 +1,32 @@
+.fixedTop {
+    background-color: #FFFFFF;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+
+#decision_path_tab table,
+#description_tab table,
+.tooltip-table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#decision_path_tab td,
+#decision_path_tab th,
+#description_tab td,
+#description_tab th,
+    {
+    border: 1px solid black;
+    text-align: left;
+    padding: 10px;
+}
+
+
+#description_tab tr:nth-child(even),
+#decision_path_tab tr:nth-child(even) {
+    background-color: #dddddd;
+}
