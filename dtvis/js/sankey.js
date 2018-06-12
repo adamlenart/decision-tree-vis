@@ -713,28 +713,6 @@ function drawSankey(el, x) {
             .style("fill-opacity", 0)
 
 
-        // Update the text to reflect whether node has children or not.
-        /* node.select('text')
-            .attr("x", function (d) {
-                return d[opts.childrenName] || d._children ? -10 : 10;
-            })
-            .attr("text-anchor", function (d) {
-                return d[opts.childrenName] || d._children ? "end" : "start";
-            })
-            .text(function (d) {
-                return d[opts.name];
-            });
-
-*/
-        /*
-                // Change the circle fill depending on whether it has children and is collapsed
-                node.select("circle.nodeCircle")
-                    .attr("r", 4.5)
-                    .style("fill", function (d) {
-                        return d._children ? "lightsteelblue" : "#fff";
-                    });
-
-        */
         // Transition nodes to their new position.
         var nodeUpdate = node.transition()
             .duration(duration)

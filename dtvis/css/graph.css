@@ -37,18 +37,10 @@ position: absolute;
 top: 0;
 left: 0;
 }
-.ghostCircle.show{
-display:block;
-}
-.ghostCircle, .activeDrag .ghostCircle{
-display: none;
-}
 
 .nodeLabelRect {
 fill:white;
 stroke:grey;
 stroke-width:1.5;
 fill-opacity:0.5;
-}
-    
 }
