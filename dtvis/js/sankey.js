@@ -38,6 +38,8 @@ function drawSankey(el, x) {
     var pxPerChar = 8;
     var newWidth;
     var newHeight;
+    // colors for bar and pie charts
+    var labelColor = d3.scale.ordinal().domain(opts.classLabels).range(opts.colors);
 
     ////////////////////////////////////
     //              tooltip           //
@@ -213,14 +215,14 @@ function drawSankey(el, x) {
     // create zoom buttons
     zoomButtons = baseSvg.append('g').attr('class', 'zoom-button');
     zoomOut = zoomButtons.append('g')
-            .on('mouseenter', function () {
+        .on('mouseenter', function () {
             return d3.select(this).classed('zoom-button-highlight', true);
         })
         .on('mouseleave', function () {
             return d3.select(this).classed('zoom-button-highlight', false);
         });
     zoomIn = zoomButtons.append('g')
-            .on('mouseenter', function () {
+        .on('mouseenter', function () {
             return d3.select(this).classed('zoom-button-highlight', true);
         })
         .on('mouseleave', function () {
@@ -233,8 +235,8 @@ function drawSankey(el, x) {
         .attr('y', 31)
         .text('+')
         .attr('class', 'zoom-button-text')
-  
-;
+
+    ;
     zoomIn
         .append('rect')
         .attr('x', 10)
@@ -340,7 +342,7 @@ function drawSankey(el, x) {
     toggleButtons = baseSvg.append('g').attr('class', 'zoom-button');
 
     depthUp = toggleButtons.append('g')
-            .on('mouseenter', function () {
+        .on('mouseenter', function () {
             return d3.select(this).classed('zoom-button-highlight', true);
         })
         .on('mouseleave', function () {
@@ -361,7 +363,7 @@ function drawSankey(el, x) {
         .attr('id', 'depthUp');
 
     depthDown = toggleButtons.append('g')
-            .on('mouseenter', function () {
+        .on('mouseenter', function () {
             return d3.select(this).classed('zoom-button-highlight', true);
         })
         .on('mouseleave', function () {
@@ -402,7 +404,7 @@ function drawSankey(el, x) {
         .value(function (d) {
             return d.n_obs;
         });
-    // Size link width according to n based on total n
+
     var pieScaler = d3.scale.linear()
         .range([20, 70]) // use 20 instead of 0 to prevent some small node becoming invisible
         .domain([0, treeData.samples]);
@@ -411,6 +413,7 @@ function drawSankey(el, x) {
     function pieAppender(d) {
         switch (opts.nodeType) {
             case 'all-pie':
+                console.log(makeBarData(d, opts.classLabels));
                 return makePieData(d, opts.classLabels);
             case 'leaf-pie':
                 return d[opts.childrenName] || d._children ?
@@ -419,12 +422,13 @@ function drawSankey(el, x) {
                 return 0;
         };
 
-        //return makePieData(d, opts.classLabels)
-    }
+    };
 
-    // reformat the data into nclass x 2 dimensions
+
+    // reformat the data into nclass x 3 dimensions
     // data.x.data.n_obs
     // data.x.opts.classLabels
+    // data.x.data.samples (for the radius of the pie charts)
     function makePieData(d, classes) {
         var pietable = new Array(classes.length);
 
@@ -440,6 +444,67 @@ function drawSankey(el, x) {
         //console.log(pietable);
         return pie(pietable);
     };
+
+    ///////////////////////////////////////////
+    //           Add bars to nodes           //
+    ///////////////////////////////////////////
+    var heightStacked = 50,
+        widthStacked = 100;
+
+     xBarScale = d3.scale.ordinal().domain(['bar'])
+        .rangeRoundBands([heightStacked, 0],0);
+     yBarScale = d3.scale.linear().domain([0,1])
+        .rangeRound([widthStacked, 0], 0);
+
+   /* var xBarAxis = d3.svg.axis().scale(xBarScale)
+        .orient('bottom');
+    var yBarAxis = d3.svg.axis().scale(yBarScale)
+        .orient('left')*/
+    stack = d3.layout.stack()
+
+    // Append bar charts to the nodes based on opts.nodeType
+    function barAppender(d) {
+        switch (opts.nodeType) {
+            case 'all-bar':
+                console.log(makeBarData(d, opts.classLabels));
+                return makeBarData(d, opts.classLabels);
+            case 'leaf-bar':
+                return d[opts.childrenName] || d._children ?
+                    0 : makeBarData(d, opts.classLabels);
+            case 'no-bar':
+                return 0;
+        };
+
+    };
+
+
+    // TODO: cleanup the code by integrating the bar chart data generator function with the pie data generating function
+    function makeBarData(d, classes) {
+        //console.log(pietable);
+        let leaftable = new Array(classes.length);
+        var cumsum_n_obs = []
+        d.n_obs.reduce(function(a,b,i) {
+            return cumsum_n_obs[i] = a + b;
+        }, 0);
+        /* loop through the classes and make an array of class in the first column and n_obs in the second column, later pass this dataframe to the pie chart generator
+            https://bl.ocks.org/mbostock/3887235*/
+        for (var i = 0; i < classes.length; i++) {
+           // leaftable[i] = new Array(1);
+            tmpObj = {
+                x: 'bar',
+                y: cumsum_n_obs[i]/d3.sum(d.n_obs),
+                class: classes[i]
+            };
+
+            leaftable[i] = [tmpObj];
+        };
+        console.log(leaftable)
+        console.log(stack(leaftable));
+        return stack(leaftable)
+
+    };
+
+
 
 
     //////////////////////////////////
@@ -581,7 +646,7 @@ function drawSankey(el, x) {
 
 
         // Initial settings
-        var pieColor = d3.scale.ordinal().domain(opts.classLabels).range(opts.colors);
+
         var path = d3.svg.arc()
             .outerRadius(function (d) {
                 return pieScaler(d.data.samples) - 10
@@ -604,7 +669,7 @@ function drawSankey(el, x) {
             .append('path')
             .attr('d', path)
             .attr('fill', function (d) {
-                return pieColor(d.data.label);
+                return labelColor(d.data.label);
             });
 
         //Enter
@@ -613,11 +678,64 @@ function drawSankey(el, x) {
             .append('path')
             .attr('d', path)
             .attr('fill', function (d) {
-                return pieColor(d.data.label);
+                return labelColor(d.data.label);
+            });
+
+        ////////////////////////////////////
+        //    Add bar chart to the nodes  //
+        ////////////////////////////////////
+
+        // Join data
+        barChart = nodeEnter.append('g').selectAll('.rect')
+            .data(function (d) {
+                dat = makeBarData(d, opts.classLabels)
+                return dat;
+                //barAppender(d);
+            })
+
+        //Exit
+        barChart.exit().transition().remove();
+
+
+        //Update
+        barChart.append('g') //.attr('class', 'arc')
+            .append('rect')
+            .attr('width', function(d) {
+            return yBarScale(d.y0) - yBarScale(d.y);})
+            .attr('fill', function (d) {
+                return labelColor(d.x);
+            });
+
+        //Enter
+        barChart
+
+            //.data(function(d) {
+            //console.log(d);
+            //return d;})
+            .enter()
+            .append('g')
+            .attr('class', 'barchart')
+            .append('rect')
+            .attr('x', function(d) {
+                let point = d[0];
+                return yBarScale(point.y);
+        })
+            .attr('height', 10)
+            .attr('width', function (d) {
+                 let point = d[0];
+                console.log(point);
+                return yBarScale(point.y0) - yBarScale(point.y);
+            })
+            .attr('fill', function (d) {
+                let point = d[0]
+                return labelColor(point.class);
             });
 
 
-        // Add rect to nodes
+        /////////////////////////////////////
+        //         Rectangle to nodes      //
+        /////////////////////////////////////
+
         if (opts.nodeType !== 'all-pie') {
             nodeEnter.append("rect")
                 .attr("class", "nodeRect")
@@ -659,12 +777,12 @@ function drawSankey(el, x) {
             })
             .attr("y", "-0.75em")
             .attr("width", function (d) {
-                            if (opts.nodeType !== 'no-pie') {
+                if (opts.nodeType !== 'no-pie') {
                     return d[opts.childrenName] || d._children ?
                         d[opts.name].length * pxPerChar :
                         null;
                 } else {
-                   return d[opts.name].length * pxPerChar;
+                    return d[opts.name].length * pxPerChar;
                 }
 
             })
@@ -725,9 +843,9 @@ function drawSankey(el, x) {
             .style("fill-opacity", 1);
 
 
-     
-                // Update the links
-  
+
+        // Update the links
+
         var link = svgGroup.selectAll("path.link")
             .data(links, function (d) {
                 return d.target[opts.id];
