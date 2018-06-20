@@ -420,6 +420,8 @@ function drawSankey(el, x) {
                     0 : makePieData(d, opts.classLabels);
             case 'no-pie':
                 return 0;
+            default:
+                return 0;
         };
 
     };
@@ -451,19 +453,20 @@ function drawSankey(el, x) {
     var heightStacked = 50,
         widthStacked = 100;
 
-     xBarScale = d3.scale.ordinal().domain(['bar'])
-        .rangeRoundBands([heightStacked, 0],0);
-     yBarScale = d3.scale.linear().domain([0,1])
+    xBarScale = d3.scale.ordinal().domain(['bar'])
+        .rangeRoundBands([heightStacked, 0], 0);
+    yBarScale = d3.scale.linear().domain([0, 1])
         .rangeRound([widthStacked, 0], 0);
 
-   /* var xBarAxis = d3.svg.axis().scale(xBarScale)
-        .orient('bottom');
-    var yBarAxis = d3.svg.axis().scale(yBarScale)
-        .orient('left')*/
+    /* var xBarAxis = d3.svg.axis().scale(xBarScale)
+         .orient('bottom');
+     var yBarAxis = d3.svg.axis().scale(yBarScale)
+         .orient('left')*/
     stack = d3.layout.stack()
 
     // Append bar charts to the nodes based on opts.nodeType
     function barAppender(d) {
+        console.log('i am here')
         switch (opts.nodeType) {
             case 'all-bar':
                 console.log(makeBarData(d, opts.classLabels));
@@ -473,6 +476,10 @@ function drawSankey(el, x) {
                     0 : makeBarData(d, opts.classLabels);
             case 'no-bar':
                 return 0;
+            default:
+                //   return 0;
+                return d[opts.childrenName] || d._children ?
+                    0 : makeBarData(d, opts.classLabels);
         };
 
     };
@@ -482,17 +489,18 @@ function drawSankey(el, x) {
     function makeBarData(d, classes) {
         //console.log(pietable);
         let leaftable = new Array(classes.length);
+        // calulate cunulative sum for proper coordinates of the stacked bar chart
         var cumsum_n_obs = []
-        d.n_obs.reduce(function(a,b,i) {
+        d.n_obs.reduce(function (a, b, i) {
             return cumsum_n_obs[i] = a + b;
         }, 0);
         /* loop through the classes and make an array of class in the first column and n_obs in the second column, later pass this dataframe to the pie chart generator
             https://bl.ocks.org/mbostock/3887235*/
         for (var i = 0; i < classes.length; i++) {
-           // leaftable[i] = new Array(1);
+            // leaftable[i] = new Array(1);
             tmpObj = {
                 x: 'bar',
-                y: cumsum_n_obs[i]/d3.sum(d.n_obs),
+                y: cumsum_n_obs[i] / d3.sum(d.n_obs),
                 class: classes[i]
             };
 
@@ -688,9 +696,9 @@ function drawSankey(el, x) {
         // Join data
         barChart = nodeEnter.append('g').selectAll('.rect')
             .data(function (d) {
-                dat = makeBarData(d, opts.classLabels)
-                return dat;
-                //barAppender(d);
+                console.log(d);
+                //dat = makeBarData(d, opts.classLabels)
+                return barAppender(d);
             })
 
         //Exit
@@ -700,12 +708,13 @@ function drawSankey(el, x) {
         //Update
         barChart.append('g') //.attr('class', 'arc')
             .append('rect')
-            .attr('width', function(d) {
-            return yBarScale(d.y0) - yBarScale(d.y);})
+            .attr('width', function (d) {
+                return yBarScale(d.y0) - yBarScale(d.y);
+            })
             .attr('fill', function (d) {
                 return labelColor(d.x);
             });
-
+        
         //Enter
         barChart
 
@@ -716,13 +725,14 @@ function drawSankey(el, x) {
             .append('g')
             .attr('class', 'barchart')
             .append('rect')
-            .attr('x', function(d) {
+            .attr("transform", "translate(" + pxPerChar * 7 + "," + (-5) + ")")
+            .attr('x', function (d) {
                 let point = d[0];
                 return yBarScale(point.y);
-        })
+            })
             .attr('height', 10)
             .attr('width', function (d) {
-                 let point = d[0];
+                let point = d[0];
                 console.log(point);
                 return yBarScale(point.y0) - yBarScale(point.y);
             })
