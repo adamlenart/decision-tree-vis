@@ -466,28 +466,27 @@ function drawSankey(el, x) {
 
     // Append bar charts to the nodes based on opts.nodeType
     function barAppender(d) {
-        console.log('i am here')
+        var hasChildren = d[opts.childrenName] || d._children ? true : false;
         switch (opts.nodeType) {
             case 'all-bar':
-                console.log(makeBarData(d, opts.classLabels));
-                return makeBarData(d, opts.classLabels);
+                return makeBarData(d, opts.classLabels, hasChildren);
             case 'leaf-bar':
-                return d[opts.childrenName] || d._children ?
-                    0 : makeBarData(d, opts.classLabels);
+                return hasChildren ?
+                    0 : makeBarData(d, opts.classLabels, hasChildren);
             case 'no-bar':
                 return 0;
-            default:
+            default:           
                 //   return 0;
-                return d[opts.childrenName] || d._children ?
-                    0 : makeBarData(d, opts.classLabels);
+                return hasChildren ?
+                    0 : makeBarData(d, opts.classLabels, hasChildren);
         };
 
     };
 
 
     // TODO: cleanup the code by integrating the bar chart data generator function with the pie data generating function
-    function makeBarData(d, classes) {
-        //console.log(pietable);
+    function makeBarData(d, classes, hasChildren) {
+        console.log(hasChildren);
         let leaftable = new Array(classes.length);
         // calulate cunulative sum for proper coordinates of the stacked bar chart
         var cumsum_n_obs = []
@@ -501,13 +500,12 @@ function drawSankey(el, x) {
             tmpObj = {
                 x: 'bar',
                 y: cumsum_n_obs[i] / d3.sum(d.n_obs),
-                class: classes[i]
+                class: classes[i],
+                hasChildren: hasChildren
             };
 
             leaftable[i] = [tmpObj];
         };
-        console.log(leaftable)
-        console.log(stack(leaftable));
         return stack(leaftable)
 
     };
@@ -696,7 +694,6 @@ function drawSankey(el, x) {
         // Join data
         barChart = nodeEnter.append('g').selectAll('.rect')
             .data(function (d) {
-                console.log(d);
                 //dat = makeBarData(d, opts.classLabels)
                 return barAppender(d);
             })
@@ -725,7 +722,9 @@ function drawSankey(el, x) {
             .append('g')
             .attr('class', 'barchart')
             .append('rect')
-            .attr("transform", "translate(" + pxPerChar * 7 + "," + (-5) + ")")
+            .attr("transform", function(d) {
+            console.log(d[0]);
+            return "translate(" + pxPerChar * 7 + "," + (-5) + ")";})
             .attr('x', function (d) {
                 let point = d[0];
                 return yBarScale(point.y);
@@ -733,7 +732,6 @@ function drawSankey(el, x) {
             .attr('height', 10)
             .attr('width', function (d) {
                 let point = d[0];
-                console.log(point);
                 return yBarScale(point.y0) - yBarScale(point.y);
             })
             .attr('fill', function (d) {
@@ -809,7 +807,7 @@ function drawSankey(el, x) {
                 };
             })
             .style('fill-opacity', function (d) {
-                if (opts.nodeType !== 'no-pie') {
+                if(opts.nodeType !== 'no-pie') {
                     return d[opts.childrenName] || d._children ?
                         0.5 : 0;
                 } else {
