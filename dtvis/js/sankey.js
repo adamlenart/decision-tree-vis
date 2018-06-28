@@ -25,9 +25,6 @@ function drawSankey(el, x) {
     // Calculate total nodes, max label length
     var totalNodes = 0;
     var maxLabelLength = 0;
-    // variables for drag/drop
-    var selectedNode = null;
-    var draggingNode = null;
     // panning variables
     var panSpeed = 200;
     var panBoundary = 20; // Within 20px from edges will pan when dragging.
@@ -413,7 +410,6 @@ function drawSankey(el, x) {
     function pieAppender(d) {
         switch (opts.nodeType) {
             case 'all-pie':
-                console.log(makeBarData(d, opts.classLabels));
                 return makePieData(d, opts.classLabels);
             case 'leaf-pie':
                 return d[opts.childrenName] || d._children ?
@@ -476,9 +472,9 @@ function drawSankey(el, x) {
             case 'no-bar':
                 return 0;
             default:
-                //   return 0;
-                return hasChildren ?
-                    0 : makeBarData(d, opts.classLabels, hasChildren);
+                   return 0;
+            /*    return hasChildren ?
+                    0 : makeBarData(d, opts.classLabels, hasChildren);*/
         };
 
     };
@@ -664,6 +660,35 @@ function drawSankey(el, x) {
             .on('mouseover', opts.tooltip ? tip.show : null)
             .on('mouseout', opts.tooltip ? tip.hide : null);;
 
+        
+        
+        /////////////////////////////////////
+        //         Rectangle to nodes      //
+        /////////////////////////////////////
+
+        if (opts.nodeType !== 'all-pie') {
+            nodeEnter.append("rect")
+                .attr("class", "nodeRect")
+                .attr("x", -2.5)
+                .attr("y", function (d) {
+                    return -wscale(d.value) / 2
+                })
+                .attr("height", function (d) {
+                    return d[opts.childrenName] || d._children ?
+                        wscale(d.value) :
+                        0;
+                    //    return wscale(d.value)
+                })
+                .attr("width", 5)
+                .style("fill", "white")
+                .style("stroke", "white")
+                .style("pointer-events", "all")
+                .on('mouseover', opts.tooltip ? tip.show : null)
+                .on('mouseout', opts.tooltip ? tip.hide : null);
+        }
+
+        
+        
         //////////////////////////////////
         //    Add pie chart to nodes    //
         //////////////////////////////////
@@ -741,8 +766,12 @@ function drawSankey(el, x) {
             .attr('class', 'barchart')
             .append('rect')
             .attr("transform", function (d) {
-                console.log(d[0]);
-                return "translate(" + pxPerChar * 7 + "," + (-5) + ")";
+                let point = d[0];
+                if (point.hasChildren) {
+                    return "translate(" + (-widthStacked/2)+ "," + (-5) + ")";
+                } else {
+                    return "translate(" + 5 + "," + (-5) + ")";
+                };
             })
             .attr('x', function (d) {
                 let point = d[0];
@@ -758,31 +787,6 @@ function drawSankey(el, x) {
                 return labelColor(point.class);
             });
 
-
-        /////////////////////////////////////
-        //         Rectangle to nodes      //
-        /////////////////////////////////////
-
-        if (opts.nodeType !== 'all-pie') {
-            nodeEnter.append("rect")
-                .attr("class", "nodeRect")
-                .attr("x", -2.5)
-                .attr("y", function (d) {
-                    return -wscale(d.value) / 2
-                })
-                .attr("height", function (d) {
-                    return d[opts.childrenName] || d._children ?
-                        wscale(d.value) :
-                        0;
-                    //    return wscale(d.value)
-                })
-                .attr("width", 5)
-                .style("fill", "white")
-                .style("stroke", "white")
-                .style("pointer-events", "all")
-                .on('mouseover', opts.tooltip ? tip.show : null)
-                .on('mouseout', opts.tooltip ? tip.hide : null);
-        }
 
 
         //////////////////////////////////////
@@ -919,7 +923,8 @@ function drawSankey(el, x) {
                     } else {
                         return "#ccc"
                     }
-                });
+                })
+                .style("stroke-opacity",0.75);
         } else {
             var linkColor = opts.colors[classShow];
             link.transition()
@@ -939,7 +944,8 @@ function drawSankey(el, x) {
                     } else {
                         return "#ccc"
                     }
-                });
+                })
+                  .style("stroke-opacity",0.75);
 
         }
 
