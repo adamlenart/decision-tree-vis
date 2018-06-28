@@ -475,7 +475,7 @@ function drawSankey(el, x) {
                     0 : makeBarData(d, opts.classLabels, hasChildren);
             case 'no-bar':
                 return 0;
-            default:           
+            default:
                 //   return 0;
                 return hasChildren ?
                     0 : makeBarData(d, opts.classLabels, hasChildren);
@@ -510,8 +510,26 @@ function drawSankey(el, x) {
 
     };
 
+    //////////////////////////////////
+    //       node label helper      //
+    //////////////////////////////////
 
-
+    function getLabelOption(node_type, all_show_value, leaf_value, no_show_value) {
+        switch (node_type) {
+            case 'no-pie':
+                return no_show_value;
+            case 'leaf-pie':
+                return leaf_value
+            case 'all-pie':
+                return all_show_value
+            case 'no-bar':
+                return no_show_value;
+            case 'leaf-bar':
+                return leaf_value;
+            case 'all-bar':
+                return all_show_value;
+        }
+    }
 
     //////////////////////////////////
     //          Collapse            //
@@ -711,7 +729,7 @@ function drawSankey(el, x) {
             .attr('fill', function (d) {
                 return labelColor(d.x);
             });
-        
+
         //Enter
         barChart
 
@@ -722,9 +740,10 @@ function drawSankey(el, x) {
             .append('g')
             .attr('class', 'barchart')
             .append('rect')
-            .attr("transform", function(d) {
-            console.log(d[0]);
-            return "translate(" + pxPerChar * 7 + "," + (-5) + ")";})
+            .attr("transform", function (d) {
+                console.log(d[0]);
+                return "translate(" + pxPerChar * 7 + "," + (-5) + ")";
+            })
             .attr('x', function (d) {
                 let point = d[0];
                 return yBarScale(point.y);
@@ -767,52 +786,55 @@ function drawSankey(el, x) {
 
 
         //////////////////////////////////////
-        //   rectange around node  label    //
+        //   rectangle around node  label    //
         //////////////////////////////////////
 
         nodeEnter.append("rect")
             .attr("class", "nodeLabelRect")
             .attr("x", function (d) {
-                if (opts.nodeType !== 'no-pie') {
-                    return d[opts.childrenName] || d._children ?
-                        -d[opts.name].length * pxPerChar :
-                        null;
-                } else {
-                    return d[opts.childrenName] || d._children ?
-                        -d[opts.name].length * pxPerChar :
-                        5
-                }
+                /*var always_value = 
+                return getLabelOption(d, non_leaf_value, leaf_value, always_value)*/
+                var hasChildren = d[opts.childrenName] || d._children ? true : false;
+                var noShowValue = hasChildren ?
+                    -d[opts.name].length * pxPerChar : 5;
+                var leafValue = hasChildren ?
+                    -d[opts.name].length * pxPerChar : null;
+                var allShowValue = hasChildren ?
+                    -d[opts.name].length * pxPerChar :
+                    null;
+                return getLabelOption(opts.nodeType, allShowValue, leafValue, noShowValue);
             })
             .attr("y", "-0.75em")
             .attr("width", function (d) {
-                if (opts.nodeType !== 'no-pie') {
-                    return d[opts.childrenName] || d._children ?
-                        d[opts.name].length * pxPerChar :
-                        null;
-                } else {
-                    return d[opts.name].length * pxPerChar;
-                }
-
+                var hasChildren = d[opts.childrenName] || d._children ? true : false;
+                var noShowValue = d[opts.name].length * pxPerChar;
+                var leafValue = hasChildren ?
+                    -d[opts.name].length * pxPerChar :
+                    null;
+                var allShowValue = hasChildren ?
+                    -d[opts.name].length * pxPerChar :
+                    null;
+                return getLabelOption(opts.nodeType, allShowValue, leafValue, noShowValue);
             })
             .attr("height", "20px")
             .text(function (d) {
                 return d[opts.name];
             })
             .style('stroke-width', function (d) {
-                if (opts.nodeType !== 'no-pie') {
-                    return d[opts.childrenName] || d._children ?
-                        1.5 : null;
-                } else {
-                    return 1.5;
-                };
+                var hasChildren = d[opts.childrenName] || d._children ? true : false;
+                var noShowValue = 1.5;
+                var leafValue = hasChildren ? 1.5 : null
+                var allShowValue = hasChildren ?
+                    1.5 : null
+                return getLabelOption(opts.nodeType, allShowValue, leafValue, noShowValue);
             })
             .style('fill-opacity', function (d) {
-                if(opts.nodeType !== 'no-pie') {
-                    return d[opts.childrenName] || d._children ?
-                        0.5 : 0;
-                } else {
-                    return 0.5;
-                };
+                var hasChildren = d[opts.childrenName] || d._children ? true : false;
+                var noShowValue = 0.5;
+                var leafValue = hasChildren ? 0.5 : 0
+                var allShowValue = hasChildren ?
+                    0.5 : 0
+                return getLabelOption(opts.nodeType, allShowValue, leafValue, noShowValue);
             });
 
 
