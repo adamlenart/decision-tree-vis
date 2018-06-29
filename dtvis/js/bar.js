@@ -96,13 +96,6 @@ function drawBarplot(data) {
         .attr("transform", " translate(-15, 10) rotate(-65)")
         .style("text-anchor", "end");
 
-    // tooltip
-    /*d3.selectAll('.axis.axis--x>.tick')
-        .append('title')
-        .text(function (d) {
-            return d;
-        });*/
-
     barplot.g.append("text")
         .attr("dx", "1em")
         .attr("y", barplot.height + (barplot.margin.bottom))
@@ -141,16 +134,7 @@ function drawBarplot(data) {
         })
         .on('mouseover', tip.show)
         .on('mouseout', tip.hide);
-    /* .on("mouseover", mouseover)
-     .on("mouseout", mouseout)
-     .on("mousemove", function (d) {
-         var xPosition = d3.mouse(this)[0] - 15;
-         var yPosition = d3.mouse(this)[1] - 25;
-         tooltip_bar.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-         tooltip_bar.select("text")
-             .text(d.attribute + ": " + Math.round(d.importance*100)/100);
 
-     });*/
 };
 
 ///////////////////////////////////////

@@ -25,9 +25,6 @@ function drawSankey(el, x) {
     // Calculate total nodes, max label length
     var totalNodes = 0;
     var maxLabelLength = 0;
-    // variables for drag/drop
-    var selectedNode = null;
-    var draggingNode = null;
     // panning variables
     var panSpeed = 200;
     var panBoundary = 20; // Within 20px from edges will pan when dragging.
@@ -38,6 +35,9 @@ function drawSankey(el, x) {
     var pxPerChar = 8;
     var newWidth;
     var newHeight;
+    var nodeLabelYAdjustment = '-1.5em'
+    // colors for bar and pie charts
+    var labelColor = d3.scale.ordinal().domain(opts.classLabels).range(opts.colors);
 
     ////////////////////////////////////
     //              tooltip           //
@@ -213,14 +213,14 @@ function drawSankey(el, x) {
     // create zoom buttons
     zoomButtons = baseSvg.append('g').attr('class', 'zoom-button');
     zoomOut = zoomButtons.append('g')
-            .on('mouseenter', function () {
+        .on('mouseenter', function () {
             return d3.select(this).classed('zoom-button-highlight', true);
         })
         .on('mouseleave', function () {
             return d3.select(this).classed('zoom-button-highlight', false);
         });
     zoomIn = zoomButtons.append('g')
-            .on('mouseenter', function () {
+        .on('mouseenter', function () {
             return d3.select(this).classed('zoom-button-highlight', true);
         })
         .on('mouseleave', function () {
@@ -233,8 +233,8 @@ function drawSankey(el, x) {
         .attr('y', 31)
         .text('+')
         .attr('class', 'zoom-button-text')
-  
-;
+
+    ;
     zoomIn
         .append('rect')
         .attr('x', 10)
@@ -340,7 +340,7 @@ function drawSankey(el, x) {
     toggleButtons = baseSvg.append('g').attr('class', 'zoom-button');
 
     depthUp = toggleButtons.append('g')
-            .on('mouseenter', function () {
+        .on('mouseenter', function () {
             return d3.select(this).classed('zoom-button-highlight', true);
         })
         .on('mouseleave', function () {
@@ -361,7 +361,7 @@ function drawSankey(el, x) {
         .attr('id', 'depthUp');
 
     depthDown = toggleButtons.append('g')
-            .on('mouseenter', function () {
+        .on('mouseenter', function () {
             return d3.select(this).classed('zoom-button-highlight', true);
         })
         .on('mouseleave', function () {
@@ -402,7 +402,7 @@ function drawSankey(el, x) {
         .value(function (d) {
             return d.n_obs;
         });
-    // Size link width according to n based on total n
+
     var pieScaler = d3.scale.linear()
         .range([20, 70]) // use 20 instead of 0 to prevent some small node becoming invisible
         .domain([0, treeData.samples]);
@@ -417,14 +417,17 @@ function drawSankey(el, x) {
                     0 : makePieData(d, opts.classLabels);
             case 'no-pie':
                 return 0;
+            default:
+                return 0;
         };
 
-        //return makePieData(d, opts.classLabels)
-    }
+    };
 
-    // reformat the data into nclass x 2 dimensions
+
+    // reformat the data into nclass x 3 dimensions
     // data.x.data.n_obs
     // data.x.opts.classLabels
+    // data.x.data.samples (for the radius of the pie charts)
     function makePieData(d, classes) {
         var pietable = new Array(classes.length);
 
@@ -441,6 +444,89 @@ function drawSankey(el, x) {
         return pie(pietable);
     };
 
+    ///////////////////////////////////////////
+    //           Add bars to nodes           //
+    ///////////////////////////////////////////
+    var heightStacked = 50,
+        widthStacked = 100;
+
+    xBarScale = d3.scale.ordinal().domain(['bar'])
+        .rangeRoundBands([heightStacked, 0], 0);
+    yBarScale = d3.scale.linear().domain([0, 1])
+        .rangeRound([widthStacked, 0], 0);
+
+    /* var xBarAxis = d3.svg.axis().scale(xBarScale)
+         .orient('bottom');
+     var yBarAxis = d3.svg.axis().scale(yBarScale)
+         .orient('left')*/
+    stack = d3.layout.stack()
+
+    // Append bar charts to the nodes based on opts.nodeType
+    function barAppender(d) {
+        var hasChildren = d[opts.childrenName] || d._children ? true : false;
+        switch (opts.nodeType) {
+            case 'all-bar':
+                return makeBarData(d, opts.classLabels, hasChildren);
+            case 'leaf-bar':
+                return hasChildren ?
+                    0 : makeBarData(d, opts.classLabels, hasChildren);
+            case 'no-bar':
+                return 0;
+            default:
+                return 0;
+                /*    return hasChildren ?
+                        0 : makeBarData(d, opts.classLabels, hasChildren);*/
+        };
+
+    };
+
+
+    // TODO: cleanup the code by integrating the bar chart data generator function with the pie data generating function
+    function makeBarData(d, classes, hasChildren) {
+        console.log(hasChildren);
+        let leaftable = new Array(classes.length);
+        // calulate cunulative sum for proper coordinates of the stacked bar chart
+        var cumsum_n_obs = []
+        d.n_obs.reduce(function (a, b, i) {
+            return cumsum_n_obs[i] = a + b;
+        }, 0);
+        /* loop through the classes and make an array of class in the first column and n_obs in the second column, later pass this dataframe to the pie chart generator
+            https://bl.ocks.org/mbostock/3887235*/
+        for (var i = 0; i < classes.length; i++) {
+            // leaftable[i] = new Array(1);
+            tmpObj = {
+                x: 'bar',
+                y: cumsum_n_obs[i] / d3.sum(d.n_obs),
+                class: classes[i],
+                hasChildren: hasChildren
+            };
+
+            leaftable[i] = [tmpObj];
+        };
+        return stack(leaftable)
+
+    };
+
+    //////////////////////////////////
+    //       node label helper      //
+    //////////////////////////////////
+
+    function getLabelOption(node_type, all_show_value, leaf_value, no_show_value) {
+        switch (node_type) {
+            case 'no-pie':
+                return no_show_value;
+            case 'leaf-pie':
+                return leaf_value
+            case 'all-pie':
+                return all_show_value
+            case 'no-bar':
+                return no_show_value;
+            case 'leaf-bar':
+                return leaf_value;
+            case 'all-bar':
+                return all_show_value;
+        }
+    }
 
     //////////////////////////////////
     //          Collapse            //
@@ -575,49 +661,12 @@ function drawSankey(el, x) {
             .on('mouseover', opts.tooltip ? tip.show : null)
             .on('mouseout', opts.tooltip ? tip.hide : null);;
 
-        //////////////////////////////////
-        //    Add pie chart to nodes    //
-        //////////////////////////////////
 
 
-        // Initial settings
-        var pieColor = d3.scale.ordinal().domain(opts.classLabels).range(opts.colors);
-        var path = d3.svg.arc()
-            .outerRadius(function (d) {
-                return pieScaler(d.data.samples) - 10
-            })
-            .innerRadius(0)
+        /////////////////////////////////////
+        //         Rectangle to nodes      //
+        /////////////////////////////////////
 
-
-        // Join data
-        pieChart = nodeEnter.append('g').selectAll('.arc')
-            .data(function (d) {
-                return pieAppender(d);
-            })
-
-        //Exit
-        pieChart.exit().transition().remove();
-
-
-        //Update
-        pieChart.append('g').attr('class', 'arc')
-            .append('path')
-            .attr('d', path)
-            .attr('fill', function (d) {
-                return pieColor(d.data.label);
-            });
-
-        //Enter
-        pieChart.enter().append('g')
-            .attr('class', 'arc')
-            .append('path')
-            .attr('d', path)
-            .attr('fill', function (d) {
-                return pieColor(d.data.label);
-            });
-
-
-        // Add rect to nodes
         if (opts.nodeType !== 'all-pie') {
             nodeEnter.append("rect")
                 .attr("class", "nodeRect")
@@ -640,53 +689,164 @@ function drawSankey(el, x) {
         }
 
 
+
+        //////////////////////////////////
+        //    Add pie chart to nodes    //
+        //////////////////////////////////
+
+
+        // Initial settings
+
+        var path = d3.svg.arc()
+            .outerRadius(function (d) {
+                return pieScaler(d.data.samples) - 10
+            })
+            .innerRadius(0)
+
+
+        // Join data
+        pieChart = nodeEnter.append('g').selectAll('.arc')
+            .data(function (d) {
+                return pieAppender(d);
+            })
+
+        //Exit
+        pieChart.exit().transition().remove();
+
+
+        //Update
+        pieChart.append('g').attr('class', 'arc')
+            .append('path')
+            .attr('d', path)
+            .attr('fill', function (d) {
+                return labelColor(d.data.label);
+            });
+
+        //Enter
+        pieChart.enter().append('g')
+            .attr('class', 'arc')
+            .append('path')
+            .attr('d', path)
+            .attr('fill', function (d) {
+                return labelColor(d.data.label);
+            });
+
+        ////////////////////////////////////
+        //    Add bar chart to the nodes  //
+        ////////////////////////////////////
+
+        // Join data
+        barChart = nodeEnter.append('g').selectAll('.rect')
+            .data(function (d) {
+                //dat = makeBarData(d, opts.classLabels)
+                return barAppender(d);
+            })
+
+        //Exit
+        barChart.exit().transition().remove();
+
+
+        //Update
+        barChart.append('g') //.attr('class', 'arc')
+            .append('rect')
+            .attr('width', function (d) {
+                return yBarScale(d.y0) - yBarScale(d.y);
+            })
+            .attr('fill', function (d) {
+                return labelColor(d.x);
+            });
+
+        //Enter
+        barChart
+
+            //.data(function(d) {
+            //console.log(d);
+            //return d;})
+            .enter()
+            .append('g')
+            .attr('class', 'barchart')
+            .append('rect')
+            .attr("transform", function (d) {
+                let point = d[0];
+                if (point.hasChildren) {
+                    return "translate(" + (-widthStacked / 2) + "," + (-5) + ")";
+                } else {
+                    return "translate(" + 5 + "," + (-5) + ")";
+                };
+            })
+            .attr('x', function (d) {
+                let point = d[0];
+                return yBarScale(point.y);
+            })
+            .attr('height', 10)
+            .attr('width', function (d) {
+                let point = d[0];
+                return yBarScale(point.y0) - yBarScale(point.y);
+            })
+            .attr('fill', function (d) {
+                let point = d[0]
+                return labelColor(point.class);
+            });
+
+
+
         //////////////////////////////////////
-        //   rectange around node  label    //
+        //   rectangle around node  label    //
         //////////////////////////////////////
 
         nodeEnter.append("rect")
             .attr("class", "nodeLabelRect")
             .attr("x", function (d) {
-                if (opts.nodeType !== 'no-pie') {
-                    return d[opts.childrenName] || d._children ?
-                        -d[opts.name].length * pxPerChar :
-                        null;
-                } else {
-                    return d[opts.childrenName] || d._children ?
-                        -d[opts.name].length * pxPerChar :
-                        5
-                }
+                /*var always_value = 
+                return getLabelOption(d, non_leaf_value, leaf_value, always_value)*/
+                var hasChildren = d[opts.childrenName] || d._children ? true : false;
+                var noShowValue = hasChildren ?
+                    -d[opts.name].length * pxPerChar : 5;
+                var leafValue = hasChildren ?
+                    -d[opts.name].length * pxPerChar : null;
+                var allShowValue = hasChildren ?
+                    -d[opts.name].length * pxPerChar :
+                    null;
+                return getLabelOption(opts.nodeType, allShowValue, leafValue, noShowValue);
             })
-            .attr("y", "-0.75em")
+            .attr("y", function (d) {
+                var hasChildren = d[opts.childrenName] || d._children ? true : false;
+                var noShowValue =  '-0.75em';
+                var leafValue = '-0.75em'
+                var allShowValue = nodeLabelYAdjustment;
+                return getLabelOption(opts.nodeType, allShowValue, leafValue, noShowValue);
+                nodeLabelYAdjustment
+            })
             .attr("width", function (d) {
-                            if (opts.nodeType !== 'no-pie') {
-                    return d[opts.childrenName] || d._children ?
-                        d[opts.name].length * pxPerChar :
-                        null;
-                } else {
-                   return d[opts.name].length * pxPerChar;
-                }
-
+                var hasChildren = d[opts.childrenName] || d._children ? true : false;
+                var noShowValue = d[opts.name].length * pxPerChar;
+                var leafValue = hasChildren ?
+                    d[opts.name].length * pxPerChar :
+                    null;
+                var allShowValue = hasChildren ?
+                    d[opts.name].length * pxPerChar :
+                    null;
+                return getLabelOption(opts.nodeType, allShowValue, leafValue, noShowValue);
             })
             .attr("height", "20px")
             .text(function (d) {
                 return d[opts.name];
             })
             .style('stroke-width', function (d) {
-                if (opts.nodeType !== 'no-pie') {
-                    return d[opts.childrenName] || d._children ?
-                        1.5 : null;
-                } else {
-                    return 1.5;
-                };
+                var hasChildren = d[opts.childrenName] || d._children ? true : false;
+                var noShowValue = 1.5;
+                var leafValue = hasChildren ? 1.5 : null
+                var allShowValue = hasChildren ?
+                    1.5 : null
+                return getLabelOption(opts.nodeType, allShowValue, leafValue, noShowValue);
             })
             .style('fill-opacity', function (d) {
-                if (opts.nodeType !== 'no-pie') {
-                    return d[opts.childrenName] || d._children ?
-                        0.5 : 0;
-                } else {
-                    return 0.5;
-                };
+                var hasChildren = d[opts.childrenName] || d._children ? true : false;
+                var noShowValue = 0.5;
+                var leafValue = hasChildren ? 0.5 : 0
+                var allShowValue = hasChildren ?
+                    0.5 : 0
+                return getLabelOption(opts.nodeType, allShowValue, leafValue, noShowValue);
             });
 
 
@@ -698,7 +858,15 @@ function drawSankey(el, x) {
             .attr("x", function (d) {
                 return d[opts.childrenName] || d._children ? -10 : 10;
             })
-            .attr("dy", ".35em")
+            .attr("y", function (d) {
+                var hasChildren = d[opts.childrenName] || d._children ? true : false;
+                var noShowValue = '-0.75em';
+                var leafValue = '-0.75em';
+                var allShowValue = nodeLabelYAdjustment;
+                return getLabelOption(opts.nodeType, allShowValue, leafValue, noShowValue);
+                nodeLabelYAdjustment
+            })
+            .attr("dy", '1.1em')
             .attr('class', 'nodeText')
             .attr("text-anchor", function (d) {
                 return d[opts.childrenName] || d._children ? "end" : "start";
@@ -725,9 +893,9 @@ function drawSankey(el, x) {
             .style("fill-opacity", 1);
 
 
-     
-                // Update the links
-  
+
+        // Update the links
+
         var link = svgGroup.selectAll("path.link")
             .data(links, function (d) {
                 return d.target[opts.id];
@@ -771,7 +939,8 @@ function drawSankey(el, x) {
                     } else {
                         return "#ccc"
                     }
-                });
+                })
+                .style("stroke-opacity", 0.75);
         } else {
             var linkColor = opts.colors[classShow];
             link.transition()
@@ -791,7 +960,8 @@ function drawSankey(el, x) {
                     } else {
                         return "#ccc"
                     }
-                });
+                })
+                .style("stroke-opacity", 0.75);
 
         }
 
