@@ -35,6 +35,7 @@ function drawSankey(el, x) {
     var pxPerChar = 8;
     var newWidth;
     var newHeight;
+    var nodeLabelYAdjustment = '-1.5em'
     // colors for bar and pie charts
     var labelColor = d3.scale.ordinal().domain(opts.classLabels).range(opts.colors);
 
@@ -472,9 +473,9 @@ function drawSankey(el, x) {
             case 'no-bar':
                 return 0;
             default:
-                   return 0;
-            /*    return hasChildren ?
-                    0 : makeBarData(d, opts.classLabels, hasChildren);*/
+                return 0;
+                /*    return hasChildren ?
+                        0 : makeBarData(d, opts.classLabels, hasChildren);*/
         };
 
     };
@@ -660,8 +661,8 @@ function drawSankey(el, x) {
             .on('mouseover', opts.tooltip ? tip.show : null)
             .on('mouseout', opts.tooltip ? tip.hide : null);;
 
-        
-        
+
+
         /////////////////////////////////////
         //         Rectangle to nodes      //
         /////////////////////////////////////
@@ -687,8 +688,8 @@ function drawSankey(el, x) {
                 .on('mouseout', opts.tooltip ? tip.hide : null);
         }
 
-        
-        
+
+
         //////////////////////////////////
         //    Add pie chart to nodes    //
         //////////////////////////////////
@@ -768,7 +769,7 @@ function drawSankey(el, x) {
             .attr("transform", function (d) {
                 let point = d[0];
                 if (point.hasChildren) {
-                    return "translate(" + (-widthStacked/2)+ "," + (-5) + ")";
+                    return "translate(" + (-widthStacked / 2) + "," + (-5) + ")";
                 } else {
                     return "translate(" + 5 + "," + (-5) + ")";
                 };
@@ -808,15 +809,22 @@ function drawSankey(el, x) {
                     null;
                 return getLabelOption(opts.nodeType, allShowValue, leafValue, noShowValue);
             })
-            .attr("y", "-0.75em")
+            .attr("y", function (d) {
+                var hasChildren = d[opts.childrenName] || d._children ? true : false;
+                var noShowValue =  '-0.75em';
+                var leafValue = '-0.75em'
+                var allShowValue = nodeLabelYAdjustment;
+                return getLabelOption(opts.nodeType, allShowValue, leafValue, noShowValue);
+                nodeLabelYAdjustment
+            })
             .attr("width", function (d) {
                 var hasChildren = d[opts.childrenName] || d._children ? true : false;
                 var noShowValue = d[opts.name].length * pxPerChar;
                 var leafValue = hasChildren ?
-                    -d[opts.name].length * pxPerChar :
+                    d[opts.name].length * pxPerChar :
                     null;
                 var allShowValue = hasChildren ?
-                    -d[opts.name].length * pxPerChar :
+                    d[opts.name].length * pxPerChar :
                     null;
                 return getLabelOption(opts.nodeType, allShowValue, leafValue, noShowValue);
             })
@@ -850,7 +858,15 @@ function drawSankey(el, x) {
             .attr("x", function (d) {
                 return d[opts.childrenName] || d._children ? -10 : 10;
             })
-            .attr("dy", ".35em")
+            .attr("y", function (d) {
+                var hasChildren = d[opts.childrenName] || d._children ? true : false;
+                var noShowValue = '-0.75em';
+                var leafValue = '-0.75em';
+                var allShowValue = nodeLabelYAdjustment;
+                return getLabelOption(opts.nodeType, allShowValue, leafValue, noShowValue);
+                nodeLabelYAdjustment
+            })
+            .attr("dy", '1.1em')
             .attr('class', 'nodeText')
             .attr("text-anchor", function (d) {
                 return d[opts.childrenName] || d._children ? "end" : "start";
@@ -924,7 +940,7 @@ function drawSankey(el, x) {
                         return "#ccc"
                     }
                 })
-                .style("stroke-opacity",0.75);
+                .style("stroke-opacity", 0.75);
         } else {
             var linkColor = opts.colors[classShow];
             link.transition()
@@ -945,7 +961,7 @@ function drawSankey(el, x) {
                         return "#ccc"
                     }
                 })
-                  .style("stroke-opacity",0.75);
+                .style("stroke-opacity", 0.75);
 
         }
 
