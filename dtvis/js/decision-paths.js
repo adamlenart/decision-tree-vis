@@ -1,4 +1,4 @@
-// helpher functions
+// helper functions
 
 // find maximum number of columns for the table (longest path)
 function getColumns(data) {
@@ -9,50 +9,58 @@ function getColumns(data) {
     return ncols;
 }
 
+function showClassSizes(cells) {
+    var classes = data.x.opts.classLabels;
+    // for each cell, append a table to the leaf node, dimension number of classes x 1, each cell contains class label and number of observations
+    cells.map(function (cell, i) {
+        var leafNumber = 'leaf' + (i + 1);
+        var n_obs = data.leaf_values[leafNumber];
+        var terminalNodeTable = d3.select('#' + leafNumber).append('table');//.append('tr');
+        // create the data for each cell
+        var terminalCellData = new Array(classes.length);
+        for (var nc = 0; nc < classes.length; nc++) {
+            terminalCellData[nc] = {
+                label: classes[nc],
+                n_obs: n_obs[nc],
+            };
+        };
+        // fill up the cells with data
+        var terminalNodeRow = terminalNodeTable.selectAll('tr')
+            .data(terminalCellData)
+            .enter()
+            .append('tr')
+            .append('td')
+            .text(function(d) {
+                return d.label + ': ' + d.n_obs
+            })
+            .attr('class','align-middle')
+    })
+};
 
 
 
 ////////////////////////////////////////////////////
 //    Draw a table listing the decision paths     //
 ////////////////////////////////////////////////////
-/*
-function decisionPathInit(data) {
 
-
-
-
-    var svg = d3.select("#decision_path_tab").append('svg').attr("width", 800).attr("height", 500),
-        margin = {
-            top: 20,
-            right: 50,
-            bottom: 175,
-            left: 75
-        };
-    var width = svg.attr("width") - margin.left - margin.right,
-        height = svg.attr("height") - margin.top - margin.bottom;
-
-    var g = svg.append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    var decisionPath = {
-        'svg': svg,
-        'g': g,
-        'ncols': ncols
-    };
-
-    return decisionPath;
-}
-*/
 
 function addDecisionPathSortOptions(data) {
-   /* var form = d3.select("#decision_path_container").append('div').attr('class', 'form-group'),
-        form_label = form.append('label').attr('for', 'sel1').append('text').text('Sort Decision Path By');*/
+    /* var form = d3.select("#decision_path_container").append('div').attr('class', 'form-group'),
+         form_label = form.append('label').attr('for', 'sel1').append('text').text('Sort Decision Path By');*/
     var form_control = d3.select('#table-sorter')
-    form_control.append('option').attr('value', 'default').attr('selected', 'selected').append('text').text('Leaf number');
+    form_control
+        .append('option')
+        .attr('value', 'default')
+        .attr('selected', 'selected')
+        .append('text')
+        .text('Leaf number');
     var n_option = 0;
     // for each class, add an option to sort by the decision paths
-    data.x.opts.classLabels.forEach(function(cl) {
-        form_control.append('option').attr('value', n_option).append('text').text(cl);
+    data.x.opts.classLabels.forEach(function (cl) {
+        form_control.append('option')
+            .attr('value', n_option)
+            .append('text').
+        text(cl);
         n_option++;
     });
 }
@@ -64,11 +72,11 @@ function drawDecisionPathTable(data) {
     var ncols = getColumns(data.decision_paths);
 
     // create column names
-    var colnames = ['rank', 'root']
+    var colnames = ['rank', 'decision 1']
     var nodenames = Array.apply(null, Array(ncols - 2)).map(function (d, i) {
-        return 'node_' + (i + 1)
+        return 'decision ' + (i + 2)
     })
-    var colnames = colnames.concat(nodenames).concat(['terminal_node'])
+    var colnames = colnames.concat(nodenames).concat(['class'])
 
     // table element containers
     var table = d3.select('#decision-path-table');
@@ -92,7 +100,6 @@ function drawDecisionPathTable(data) {
         .data(d3.values(data.decision_paths))
         .enter()
         .append('tr')
-
     var rowIndex = 1;
     var cells = rows.selectAll('td')
         .data(function (row) {
@@ -105,18 +112,23 @@ function drawDecisionPathTable(data) {
         })
         .enter()
         .append('td')
+        .attr('class','align-middle')
+        .attr('id', function (d) {
+            return d.value
+        })
         .text(function (d) {
             if (d.column === 'rank') {
                 return rowIndex++;
             }
-            if (d.column === 'terminal_node') {
-                //console.log(data.leaf_values);
-                //console.log(d.value);
-                return d.value + ': [' + data.leaf_values[d.value] + "]";
+            if (d.column === 'class') {
+                /*console.log(this);
+                console.log(d.value);
+                return d.value + ': [' + data.leaf_values[d.value] + "]";*/
+                return ''
             }
             return d.value;
         });
-
+    showClassSizes(cells);
     sortDecisionPaths(rows);
     //   console.log(cells);
 };
@@ -128,9 +140,9 @@ function drawDecisionPathTable(data) {
 function leafValueExtractor(row, n) {
     if (n === "default") {
         // cut leaf from the beginning of the string
-        return parseInt(row[row.length -1].substring(4));
+        return parseInt(row[row.length - 1].substring(4));
     }
-    return data.leaf_values[row[row.length -1]][n];
+    return data.leaf_values[row[row.length - 1]][n];
 };
 
 function sortDecisionPaths(rows) {
@@ -157,7 +169,7 @@ function reRank(cells) {
         if (d.column === 'rank') {
             return rowIndex++;
         }
-        if (d.column === 'terminal_node') {
+        if (d.column === 'class') {
             //console.log(data.leaf_values);
             //console.log(d.value);
             return d.value + ': [' + data.leaf_values[d.value] + "]";
