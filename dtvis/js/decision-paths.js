@@ -8,7 +8,7 @@ function getColumns(data) {
     });
     return ncols;
 }
-
+/*
 function showClassSizes(cells) {
     let classes = data.x.opts.classLabels;
     // for each cell, append a table to the leaf node, dimension number of classes x 1, each cell contains class label and number of observations
@@ -37,8 +37,54 @@ function showClassSizes(cells) {
     })  
 };
 
-
-
+*/
+function showClassSizes(cells) {
+    let classes = data.x.opts.classLabels;
+    // for each cell, append a table to the leaf node, dimension number of classes x 1, each cell contains class label and number of observations
+    cells.map(function (cell, i) {
+        var leafNumber = cell[cell.length - 1].id
+        var n_obs = data.leaf_values[leafNumber];
+        var terminalNodeTable = d3.select('#' + leafNumber).append('table'); //.append('tr');
+        // create the data for each cell
+        var terminalCellData = new Array(classes.length);
+        for (var nc = 0; nc < classes.length; nc++) {
+            terminalCellData[nc] = {
+                label: classes[nc],
+                n_obs: n_obs[nc],
+            };
+        };
+        // fill up the cells with data
+        var terminalNodeRow = terminalNodeTable.selectAll('tr')
+            .data(terminalCellData)
+            .enter()
+            .append('tr')
+            .attr('class','leaf-node-table-row')
+        // for each row, append two cells,
+        // first cell for the label, second 
+        // for the number of observations
+        terminalNodeRow.selectAll('td')
+            .data(function(row) {
+                r = new Array(2);
+                r[0] = row.label;
+                r[1] = row.n_obs;
+                return r;
+        })
+            .enter()
+            .append('td')
+            .text(function (d) {
+                console.log(d);
+                return d;
+            })
+            .style('text-align', function (d,i)  {
+                if(i === 0) {
+                    return 'left'
+                }
+                return 'right'
+        })
+    })  
+};
+    
+    
 ////////////////////////////////////////////////////
 //    Draw a table listing the decision paths     //
 ////////////////////////////////////////////////////
