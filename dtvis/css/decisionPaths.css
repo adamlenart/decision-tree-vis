@@ -8,7 +8,6 @@
 
 
 #decision_path_tab table,
-#description_tab table,
 .tooltip-table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
@@ -17,16 +16,16 @@
 
 #decision_path_tab td,
 #decision_path_tab th,
-#description_tab td,
-#description_tab th,
     {
     border: 1px solid black;
     text-align: left;
     padding: 10px;
 }
 
-
-#description_tab tr:nth-child(even),
-#decision_path_tab tr:nth-child(even) {
+#decision_path_tab .table tr:nth-child(even)  {
     background-color: #dddddd;
+}
+
+#decision_path_tab .table tr:nth-child(odd) .leaf-node-table-row {
+    background-color: white;
 }

@@ -13,7 +13,6 @@ function showClassSizes(cells) {
     let classes = data.x.opts.classLabels;
     // for each cell, append a table to the leaf node, dimension number of classes x 1, each cell contains class label and number of observations
     cells.map(function (cell, i) {
-        console.log(cell)
         var leafNumber = cell[cell.length - 1].id
         var n_obs = data.leaf_values[leafNumber];
         var terminalNodeTable = d3.select('#' + leafNumber).append('table'); //.append('tr');
@@ -30,11 +29,12 @@ function showClassSizes(cells) {
             .data(terminalCellData)
             .enter()
             .append('tr')
+            .attr('class','leaf-node-table-row')
             .append('td')
             .text(function (d) {
                 return d.label + ': ' + d.n_obs
             })
-    })
+    })  
 };
 
 
@@ -45,15 +45,13 @@ function showClassSizes(cells) {
 
 
 function addDecisionPathSortOptions(data) {
-    /* var form = d3.select("#decision_path_container").append('div').attr('class', 'form-group'),
-         form_label = form.append('label').attr('for', 'sel1').append('text').text('Sort Decision Path By');*/
     var form_control = d3.select('#table-sorter')
     form_control
         .append('option')
         .attr('value', 'default')
         .attr('selected', 'selected')
         .append('text')
-        .text('Leaf number');
+        .text('As shown on the decision tree diagram');
     var n_option = 0;
     // for each class, add an option to sort by the decision paths
     data.x.opts.classLabels.forEach(function (cl) {
@@ -123,9 +121,6 @@ function drawDecisionPathTable(data) {
             if (d.column === 'rank') {
                 return rowIndex++;
             }
-            /*if (d.column === 'class') {
-                return ''
-            }*/
             if (d.column !== 'class') {
                 return d.value;
             };
