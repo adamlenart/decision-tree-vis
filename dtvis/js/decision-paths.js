@@ -10,12 +10,13 @@ function getColumns(data) {
 }
 
 function showClassSizes(cells) {
-    var classes = data.x.opts.classLabels;
+    let classes = data.x.opts.classLabels;
     // for each cell, append a table to the leaf node, dimension number of classes x 1, each cell contains class label and number of observations
     cells.map(function (cell, i) {
-        var leafNumber = 'leaf' + (i + 1);
+        console.log(cell)
+        var leafNumber = cell[cell.length - 1].id
         var n_obs = data.leaf_values[leafNumber];
-        var terminalNodeTable = d3.select('#' + leafNumber).append('table');//.append('tr');
+        var terminalNodeTable = d3.select('#' + leafNumber).append('table'); //.append('tr');
         // create the data for each cell
         var terminalCellData = new Array(classes.length);
         for (var nc = 0; nc < classes.length; nc++) {
@@ -30,10 +31,9 @@ function showClassSizes(cells) {
             .enter()
             .append('tr')
             .append('td')
-            .text(function(d) {
+            .text(function (d) {
                 return d.label + ': ' + d.n_obs
             })
-            .attr('class','align-middle')
     })
 };
 
@@ -101,6 +101,10 @@ function drawDecisionPathTable(data) {
         .enter()
         .append('tr')
     var rowIndex = 1;
+
+
+
+    //Join
     var cells = rows.selectAll('td')
         .data(function (row) {
             return colnames.map(function (colname, i) {
@@ -112,7 +116,6 @@ function drawDecisionPathTable(data) {
         })
         .enter()
         .append('td')
-        .attr('class','align-middle')
         .attr('id', function (d) {
             return d.value
         })
@@ -120,17 +123,18 @@ function drawDecisionPathTable(data) {
             if (d.column === 'rank') {
                 return rowIndex++;
             }
-            if (d.column === 'class') {
-                /*console.log(this);
-                console.log(d.value);
-                return d.value + ': [' + data.leaf_values[d.value] + "]";*/
+            /*if (d.column === 'class') {
                 return ''
-            }
-            return d.value;
+            }*/
+            if (d.column !== 'class') {
+                return d.value;
+            };
         });
+    // fill up the leaf nodes
     showClassSizes(cells);
+    // sort the cells
     sortDecisionPaths(rows);
-    //   console.log(cells);
+    console.log(cells);
 };
 
 ////////////////////////////////////
@@ -159,21 +163,22 @@ function sortDecisionPaths(rows) {
                 }
                 return d3.descending(a, b);
             });
-            reRank(rows.selectAll('td'))
+        reRank(rows);
         });
 };
 
 function reRank(cells) {
     var rowIndex = 1;
-    cells.text(function (d) {
+    console.log(cells)
+    cells.selectAll('td')
+        .text(function (d) {
         if (d.column === 'rank') {
             return rowIndex++;
         }
-        if (d.column === 'class') {
-            //console.log(data.leaf_values);
-            //console.log(d.value);
-            return d.value + ': [' + data.leaf_values[d.value] + "]";
-        }
-        return d.value;
+        if (d.column !== 'class') {
+            return d.value;
+        };
     });
+    // fill up the last column
+    showClassSizes(cells.selectAll('td'));
 };
