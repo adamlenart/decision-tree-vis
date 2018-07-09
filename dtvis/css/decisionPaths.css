@@ -29,3 +29,7 @@
 #decision_path_tab .table tr:nth-child(odd) .leaf-node-table-row {
     background-color: white;
 }
+
+.table> tbody> tr>td {
+    vertical-align: middle;
+}
