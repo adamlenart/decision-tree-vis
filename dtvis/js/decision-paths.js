@@ -8,7 +8,7 @@ function getColumns(data) {
     });
     return ncols;
 }
-    
+
 function showClassSizes(cells) {
     let classes = data.x.opts.classLabels;
     // for each cell, append a table to the leaf node, dimension number of classes x 1, each cell contains class label and number of observations
@@ -106,13 +106,16 @@ function drawDecisionPathTable(data) {
         .data(colnames)
         .enter()
         .append('th')
-        .each(function(d) {
-            if(d === 'class') {
-                d3.select(this).attr('class','leaf-node-header');
-            }
-            console.log(d);
-        
-    })
+        .attr('class',function (d) {
+            return d === 'class' ? 'leaf-node-header' : null
+        })
+        /*  .each(function (d) {
+              if (d === 'class') {
+                  d3.select(this).attr('class', 'leaf-node-header');
+              }
+              console.log(d);
+
+          })*/
         .text(function (col) {
             return col;
         });
@@ -138,7 +141,7 @@ function drawDecisionPathTable(data) {
         .enter()
         .append('td')
         .attr('id', function (d) {
-            return d.value
+            return Object.keys(data.leaf_values).includes(d.value) ? d.value : null
         })
         .text(function (d) {
             if (d.column === 'rank') {
