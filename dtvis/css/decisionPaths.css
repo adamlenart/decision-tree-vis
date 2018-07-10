@@ -33,3 +33,7 @@
 .table> tbody> tr>td {
     vertical-align: middle;
 }
+
+.leaf-node-header {
+    text-align: center;
+}

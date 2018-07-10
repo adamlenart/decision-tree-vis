@@ -8,7 +8,7 @@ function getColumns(data) {
     });
     return ncols;
 }
-/*
+    
 function showClassSizes(cells) {
     let classes = data.x.opts.classLabels;
     // for each cell, append a table to the leaf node, dimension number of classes x 1, each cell contains class label and number of observations
@@ -29,62 +29,32 @@ function showClassSizes(cells) {
             .data(terminalCellData)
             .enter()
             .append('tr')
-            .attr('class','leaf-node-table-row')
-            .append('td')
-            .text(function (d) {
-                return d.label + ': ' + d.n_obs
-            })
-    })  
-};
-
-*/
-function showClassSizes(cells) {
-    let classes = data.x.opts.classLabels;
-    // for each cell, append a table to the leaf node, dimension number of classes x 1, each cell contains class label and number of observations
-    cells.map(function (cell, i) {
-        var leafNumber = cell[cell.length - 1].id
-        var n_obs = data.leaf_values[leafNumber];
-        var terminalNodeTable = d3.select('#' + leafNumber).append('table'); //.append('tr');
-        // create the data for each cell
-        var terminalCellData = new Array(classes.length);
-        for (var nc = 0; nc < classes.length; nc++) {
-            terminalCellData[nc] = {
-                label: classes[nc],
-                n_obs: n_obs[nc],
-            };
-        };
-        // fill up the cells with data
-        var terminalNodeRow = terminalNodeTable.selectAll('tr')
-            .data(terminalCellData)
-            .enter()
-            .append('tr')
-            .attr('class','leaf-node-table-row')
+            .attr('class', 'leaf-node-table-row')
         // for each row, append two cells,
         // first cell for the label, second 
         // for the number of observations
         terminalNodeRow.selectAll('td')
-            .data(function(row) {
+            .data(function (row) {
                 r = new Array(2);
                 r[0] = row.label;
                 r[1] = row.n_obs;
                 return r;
-        })
+            })
             .enter()
             .append('td')
             .text(function (d) {
-                console.log(d);
                 return d;
             })
-            .style('text-align', function (d,i)  {
-                if(i === 0) {
+            .style('text-align', function (d, i) {
+                if (i === 0) {
                     return 'left'
                 }
                 return 'right'
-        })
-    })  
+            })
+    })
 };
-    
-    
+
+
 ////////////////////////////////////////////////////
 //    Draw a table listing the decision paths     //
 ////////////////////////////////////////////////////
@@ -136,10 +106,17 @@ function drawDecisionPathTable(data) {
         .data(colnames)
         .enter()
         .append('th')
+        .each(function(d) {
+            if(d === 'class') {
+                d3.select(this).attr('class','leaf-node-header');
+            }
+            console.log(d);
+        
+    })
         .text(function (col) {
             return col;
         });
-
+    // body rows
     var rows = tbody.selectAll('tr')
         .data(d3.values(data.decision_paths))
         .enter()
@@ -148,7 +125,7 @@ function drawDecisionPathTable(data) {
 
 
 
-    //Join
+    // Cells
     var cells = rows.selectAll('td')
         .data(function (row) {
             return colnames.map(function (colname, i) {
@@ -175,13 +152,13 @@ function drawDecisionPathTable(data) {
     showClassSizes(cells);
     // sort the cells
     sortDecisionPaths(rows);
-    console.log(cells);
 };
 
 ////////////////////////////////////
 //              Sort              //
 ////////////////////////////////////
 
+// get the value for each leaf node
 function leafValueExtractor(row, n) {
     if (n === "default") {
         // cut leaf from the beginning of the string
@@ -190,6 +167,7 @@ function leafValueExtractor(row, n) {
     return data.leaf_values[row[row.length - 1]][n];
 };
 
+// sort the decision paths by the selected criterion
 function sortDecisionPaths(rows) {
 
     d3.select('#table-sorter')
@@ -204,22 +182,23 @@ function sortDecisionPaths(rows) {
                 }
                 return d3.descending(a, b);
             });
-        reRank(rows);
+            reRank(rows);
         });
 };
 
+// redraw the cells
 function reRank(cells) {
     var rowIndex = 1;
     console.log(cells)
     cells.selectAll('td')
         .text(function (d) {
-        if (d.column === 'rank') {
-            return rowIndex++;
-        }
-        if (d.column !== 'class') {
-            return d.value;
-        };
-    });
+            if (d.column === 'rank') {
+                return rowIndex++;
+            }
+            if (d.column !== 'class') {
+                return d.value;
+            };
+        });
     // fill up the last column
     showClassSizes(cells.selectAll('td'));
 };
