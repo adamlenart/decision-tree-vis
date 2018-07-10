@@ -109,13 +109,6 @@ function drawDecisionPathTable(data) {
         .attr('class',function (d) {
             return d === 'class' ? 'leaf-node-header' : null
         })
-        /*  .each(function (d) {
-              if (d === 'class') {
-                  d3.select(this).attr('class', 'leaf-node-header');
-              }
-              console.log(d);
-
-          })*/
         .text(function (col) {
             return col;
         });
