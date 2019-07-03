@@ -5,7 +5,7 @@ import re, json
 
 class D3Tree:
     
-    def __init__(self,clf,feature_names, class_labels, node_type = 'leaf-pie', class_show = 'all', colors = 'default'):
+    def __init__(self, clf, feature_names, class_labels, node_type = 'leaf-pie', class_show = 'all', colors = 'default'):
         '''
         node_type: string, three options either: 'all-pie', 'leaf-pie' or 'no-pie' to plot the all 
         of the nodes as pie charts, only the leaf nodes as pie charts or do not plot pie charts at all, respectively.
@@ -29,12 +29,14 @@ class D3Tree:
         the colors are imported from brewer2mpl Dark2 qualitative scheme. 
         '''
         if self.colors == 'default':
-            from brewer2mpl import qualitative
-            num_classes = len(self.clf.classes_)
-            if num_classes < 3:
-                num_classes = 3
-            temp_colors = qualitative.Dark2[num_classes].hex_colors
-            self.colors = temp_colors[:len(self.clf.classes_)]
+            # default colors come from brewer2mpl.qualitative.Dark2
+            default_colors = ['#1B9E77', '#D95F02', '#7570B3', '#E7298A',
+                      '#66A61E', '#E6AB02', '#A6761D', '#666666']
+            if len(self.clf.classes_) > len(default_colors):
+                raise IllDefinedNumberOfColors('There are a maximum of 8 default colors for {0} classes. Define your own colors if you are _really_ sure you need more.'.format(len(self.clf.classes_)))
+            self.colors = default_colors[:len(self.clf.classes_)]
+        if len(self.clf.classes_) != len(self.colors) :
+            raise IllDefinedNumberOfColors('{n_color} color(s) defined for {n_class} classes.'.format(n_color=len(self.colors), n_class=len(self.clf.classes_)))
         self.tree['data'], self.leaves, self.leaf_values = reconstruct_tree(self.clf, self.feature_names, self.colors)
     
     def options(self, class_labels, display_tooltip = 'show'):
@@ -166,3 +168,7 @@ def reconstruct_tree(clf, feature_names, colors):
             temp_node_leaves['children'] = temp_leaves
             leaves.append(temp_node_leaves)
     return [temp_node_leaves, leaves, leaf_values]
+
+class IllDefinedNumberOfColors(Exception):
+    '''Raise error if number of colors do not equal the number of classes'''
+    pass
